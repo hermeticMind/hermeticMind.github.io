@@ -47,8 +47,8 @@ getMarkdown : (Result Error String -> Msg) -> Cmd Msg
 getMarkdown gotResponse =
     Http.get
         { url =
-            "https://raw.githubusercontent.com/Orasund/"
-                ++ "elm-playground/master/src/HermeticMind/Markdown/"
+            "https://raw.githubusercontent.com/HermeticMind/"
+                ++ "HermeticMind.github.io/master/src/Markdown/"
                 ++ file
                 ++ ".md"
         , expect = Http.expectString gotResponse
@@ -150,6 +150,8 @@ interactive name content =
                     { size = 128
                     , zoom = 1
                     , strokeWidth = 2
+                    , withBorder = False
+                    , withText = False
                     , alphabet = Alphabet.english
                     }
                 |> Html.fromUnstyled

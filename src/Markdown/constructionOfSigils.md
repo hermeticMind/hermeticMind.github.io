@@ -2,7 +2,7 @@
   
 # Technical Paper Regarding the Construction of Sigils
   
-While historically the different types of sigils are well known, its construction is sometimes missing. Here we present a collection of different types of sigil and different possible methods for constructing them.
+While historically the different types of sigils are well known, its construction is sometimes missing. Thus, we present a collection of different types of sigils and different possible methods for constructing them.
 
 ## History of Sigils
 
@@ -39,8 +39,15 @@ Over time the methods for constructing sigils got more and more corrupted. An ar
 
 One way for constructing such sigils is by first spacially arranging concepts and then connecting concepts that the sigil should represent. As an example we can construct symbols for the 4 elements by connecting the respective qualities (See [Aristotilean Qualities of Elements](https://en.wikipedia.org/wiki/Classical_element#Greece))
 
+<image title="Sigils for the four elements based on their qualities." src="hermeticMind.github.io/attributeSigil.png" height="120"
+></image>
+
+Note how for the construction of the elements, we use binary attributes (hot|cold and Dry|Wet). Thus the sigil created by Hot and Cold or by Dry and Wet is not a valid construction.
+
+This motivates the mapping of the element onto the numbers 0 to 3 in binary presentation: Water - 00, Earth - 01, Fire - 10, Wind - 11. You might wonder why one starts with water and then goes clockwise. The reason for this is the fact, that one can map the elements on the four seasons: Water - Winter, Earth - Spring, Fire - Summer, Wind - Fall. Winter is the first of the four seasons (according to our calender).
+
 <interactive name="BinarySigil">
-_Designed by Hermetic Mind using the original construction but interpolating the end result. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
+_Designed by Hermetic Mind by extending on the original construction. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
 
 
