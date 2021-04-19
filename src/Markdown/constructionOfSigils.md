@@ -39,12 +39,12 @@ Over time the methods for constructing sigils got more and more corrupted. An ar
 
 One way for constructing such sigils is by first spacially arranging concepts and then connecting concepts that the sigil should represent. As an example we can construct symbols for the 4 elements by connecting the respective qualities (See [Aristotilean Qualities of Elements](https://en.wikipedia.org/wiki/Classical_element#Greece))
 
-<image title="Sigils for the four elements based on their qualities." src="hermeticMind.github.io/attributeSigil.png" height="120"
+<image title="Sigils for the four elements based on their qualities." src="http://hermeticMind.github.io/attributeSigil.png" height="120"
 ></image>
 
-Note how for the construction of the elements, we use binary attributes (hot|cold and Dry|Wet). Thus the sigil created by Hot and Cold or by Dry and Wet is not a valid construction.
+Note that we use binary attributes (hot|cold and Dry|Wet) for the construction of the elements. Thus, the sigil created by Hot and Cold or by Dry and Wet is not a valid construction.
 
-This motivates the mapping of the element onto the numbers 0 to 3 in binary presentation: Water - 00, Earth - 01, Fire - 10, Wind - 11. You might wonder why one starts with water and then goes clockwise. The reason for this is the fact, that one can map the elements on the four seasons: Water - Winter, Earth - Spring, Fire - Summer, Wind - Fall. Winter is the first of the four seasons (according to our calender).
+This motivates the mapping of the element onto the numbers 0 to 3 in binary presentation: Water - 00, Earth - 01, Fire - 10, Wind - 11. You might wonder why one starts with water and then continues clockwise. In fact, one can map the elements on the four seasons: Water - Winter, Earth - Spring, Fire - Summer, Wind - Fall. Winter is the first of the four seasons (according to our calender).
 
 <interactive name="BinarySigil">
 _Designed by Hermetic Mind by extending on the original construction. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
@@ -55,7 +55,20 @@ _Designed by Hermetic Mind by extending on the original construction. The graphi
 
 A common way for medieval sigils was to use a magic square. (See [Magic Squares](https://en.wikipedia.org/wiki/Magic_square)) One first transforming the letters of a word into numbers. (See [Gematria](https://en.wikipedia.org/wiki/Gematria) for transforming jewish words) Next one connects the corresponding fields in the magic square, resulting in a symbol. Typically, a magic square of degree 3 is used and by computing the remainder of the division by 9 one can get a mapping from the alphabet to the fields of the square.
 
-<interactive name="MagicSquareSigil">
+<interactive name="MagicSquareSigil" value="Hermetic Mind">
+_Designed by Hermetic Mind using a magic square of degree 6 in order to avoid the dividing process. Additionally, the alphabet gets ordered by the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
+</interactive>
+
+We will be using a magic sqaure of degree 6 and permutate the alphabet according to the occurences in the english dictionary. This is monstly because it gives the best results.
+
+<interactive name="MagicSquareSigil" value="Banana">
+_Designed by Hermetic Mind using a magic square of degree 6 in order to avoid the dividing process. Additionally, the alphabet gets ordered by the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
+</interactive>
+
+If we want to encode a value with repeating patterns like "banana", this method will loose information
+
+
+<interactive name="MagicSquareSigil" value="Bana">
 _Designed by Hermetic Mind using a magic square of degree 6 in order to avoid the dividing process. Additionally, the alphabet gets ordered by the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
 
@@ -63,7 +76,7 @@ _Designed by Hermetic Mind using a magic square of degree 6 in order to avoid th
 
 One can first arrange the letters of the alphabets around a circle. Next all letters of the respective word are connected by a continues line.
 
-<interactive name="BraidSigil">
+<interactive name="BraidSigil" value="Hermetic Mind">
 _Designed by Hermetic Mind as described above. The alphabet gets arranged around the circle with respect to the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
 

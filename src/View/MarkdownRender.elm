@@ -15,7 +15,7 @@ import Markdown.Html as Html
 import Markdown.Renderer exposing (Renderer)
 
 
-renderer : (String -> List (Html msg) -> Html msg) -> Renderer (Html msg)
+renderer : (String -> Maybe String -> List (Html msg) -> Html msg) -> Renderer (Html msg)
 renderer interactive =
     { heading =
         \{ level, children } ->
@@ -189,6 +189,7 @@ renderer interactive =
                 )
             , Html.tag "interactive" interactive
                 |> Html.withAttribute "name"
+                |> Html.withOptionalAttribute "value"
             , Html.tag "abstract" (Html.div [])
             , Html.tag "image"
                 (\title height src _ ->

@@ -72,8 +72,8 @@ update msg model =
                     ( model, Cmd.none )
 
 
-interactive : String -> List (Html msg) -> Html msg
-interactive name content =
+interactive : String -> Maybe String -> List (Html msg) -> Html msg
+interactive name maybeValue content =
     (case name of
         "greekMagicSymbols" ->
             Alphabet.asList
@@ -145,13 +145,14 @@ interactive name content =
                 |> List.singleton
 
         "MagicSquareSigil" ->
-            "Hermetic Mind"
+            maybeValue
+                |> Maybe.withDefault "Hermetic Mind"
                 |> MagicSquareSigil.view
                     { size = 128
                     , zoom = 1
                     , strokeWidth = 2
                     , withBorder = False
-                    , withText = False
+                    , withText = True
                     , alphabet = Alphabet.english
                     }
                 |> Html.fromUnstyled
@@ -166,7 +167,8 @@ interactive name content =
                 |> List.singleton
 
         "BraidSigil" ->
-            "Hermetic Mind"
+            maybeValue
+                |> Maybe.withDefault "Hermetic Mind"
                 |> BraidSigil.view
                     { width = 256
                     , height = 256
