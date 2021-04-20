@@ -62,15 +62,13 @@ _Designed by Hermetic Mind using a magic square of degree 6 in order to avoid th
 We will be using a magic sqaure of degree 6 and permutate the alphabet according to the occurences in the english dictionary. This is monstly because it gives the best results.
 
 <interactive name="MagicSquareSigil" value="Banana">
-_Designed by Hermetic Mind using a magic square of degree 6 in order to avoid the dividing process. Additionally, the alphabet gets ordered by the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
+
 </interactive>
-
-If we want to encode a value with repeating patterns like "banana", this method will loose information
-
 
 <interactive name="MagicSquareSigil" value="Bana">
-_Designed by Hermetic Mind using a magic square of degree 6 in order to avoid the dividing process. Additionally, the alphabet gets ordered by the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
+
+If we want to encode a value with repeating patterns like "banana", this method will loose information. One might want to add, that this is not necessarily a bad thing, it is just something one needs to keep in mind, when coosing the a method for constructing sigils.
 
 ### Construction using a Circle
 

@@ -5670,7 +5670,7 @@ var $elm$time$Time$every = F2(
 		return $elm$time$Time$subscription(
 			A2($elm$time$Time$Every, interval, tagger));
 	});
-var $author$project$Oracle$subscriptions = function (model) {
+var $author$project$Oracle$subscriptions = function (_v0) {
 	var ms = 100;
 	return A2(
 		$elm$time$Time$every,
@@ -12299,6 +12299,101 @@ var $mdgriffith$elm_ui$Internal$Model$FocusStyleOption = function (a) {
 	return {$: 'FocusStyleOption', a: a};
 };
 var $mdgriffith$elm_ui$Element$focusStyle = $mdgriffith$elm_ui$Internal$Model$FocusStyleOption;
+var $Orasund$elm_static_array$StaticArray$Internal$I = function (a) {
+	return {$: 'I', a: a};
+};
+var $elm$core$Basics$composeR = F3(
+	function (f, g, x) {
+		return g(
+			f(x));
+	});
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $Orasund$elm_static_array$StaticArray$Index$fromModBy = function (_v0) {
+	var _const = _v0.a;
+	return A2(
+		$elm$core$Basics$composeR,
+		$elm$core$Basics$modBy(_const),
+		$Orasund$elm_static_array$StaticArray$Internal$I);
+};
+var $elm$core$Char$toLower = _Char_toLower;
+var $Orasund$elm_static_array$StaticArray$Internal$C = function (a) {
+	return {$: 'C', a: a};
+};
+var $Orasund$elm_static_array$StaticArray$Length$five = $Orasund$elm_static_array$StaticArray$Internal$C(5);
+var $Orasund$elm_static_array$StaticArray$Length$plus1 = function (_v0) {
+	var n = _v0.a;
+	return $Orasund$elm_static_array$StaticArray$Internal$C(n + 1);
+};
+var $Orasund$elm_static_array$StaticArray$Length$plus20 = function (_v0) {
+	var n = _v0.a;
+	return $Orasund$elm_static_array$StaticArray$Internal$C(n + 20);
+};
+var $author$project$Data$Alphabet$twentySix = $Orasund$elm_static_array$StaticArray$Length$plus20(
+	$Orasund$elm_static_array$StaticArray$Length$plus1($Orasund$elm_static_array$StaticArray$Length$five));
+var $author$project$Data$Alphabet$german = function (_char) {
+	return A2(
+		$Orasund$elm_static_array$StaticArray$Index$fromModBy,
+		$author$project$Data$Alphabet$twentySix,
+		13 + (7 * (1 - function () {
+			var _v0 = $elm$core$Char$toLower(_char);
+			switch (_v0.valueOf()) {
+				case 'e':
+					return 1;
+				case 'n':
+					return 2;
+				case 'i':
+					return 3;
+				case 's':
+					return 4;
+				case 'r':
+					return 5;
+				case 'a':
+					return 6;
+				case 't':
+					return 7;
+				case 'd':
+					return 8;
+				case 'h':
+					return 9;
+				case 'u':
+					return 10;
+				case 'l':
+					return 11;
+				case 'c':
+					return 12;
+				case 'g':
+					return 13;
+				case 'm':
+					return 14;
+				case 'o':
+					return 15;
+				case 'b':
+					return 16;
+				case 'w':
+					return 17;
+				case 'f':
+					return 18;
+				case 'k':
+					return 19;
+				case 'z':
+					return 20;
+				case 'p':
+					return 21;
+				case 'v':
+					return 22;
+				case 'j':
+					return 23;
+				case 'y':
+					return 24;
+				case 'x':
+					return 25;
+				case 'q':
+					return 26;
+				default:
+					return 0;
+			}
+		}())));
+};
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $author$project$View$Card$height = 1488;
 var $mdgriffith$elm_ui$Internal$Model$unstyled = A2($elm$core$Basics$composeL, $mdgriffith$elm_ui$Internal$Model$Unstyled, $elm$core$Basics$always);
@@ -13582,6 +13677,14 @@ var $mdgriffith$elm_ui$Element$rgba255 = F4(
 	function (red, green, blue, a) {
 		return A4($mdgriffith$elm_ui$Internal$Model$Rgba, red / 255, green / 255, blue / 255, a);
 	});
+var $elm$core$String$right = F2(
+	function (n, string) {
+		return (n < 1) ? '' : A3(
+			$elm$core$String$slice,
+			-n,
+			$elm$core$String$length(string),
+			string);
+	});
 var $mdgriffith$elm_ui$Element$row = F2(
 	function (attrs, children) {
 		return A4(
@@ -13689,617 +13792,43 @@ var $mdgriffith$elm_ui$Element$spaceEvenly = A2($mdgriffith$elm_ui$Internal$Mode
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$version = _VirtualDom_attribute('version');
-var $author$project$View$Color$blackBackground = 'black';
-var $author$project$View$Color$blue = '#1E88E5';
-var $author$project$View$Color$gray = '#666666';
-var $author$project$View$Color$green = '#12BE52';
-var $author$project$View$Color$red = '#DB4646';
-var $author$project$View$Color$yellow = '#D8D815';
-var $author$project$Data$Card$color = function (card) {
-	_v0$6:
-	while (true) {
-		switch (card.$) {
-			case 'Binary':
-				switch (card.a) {
-					case 1:
-						return 'white';
-					case 0:
-						return 'black';
-					default:
-						break _v0$6;
-				}
-			case 'Trump':
-				var n = card.a;
-				return $author$project$View$Color$gray;
-			case 'Planet':
-				return 'black';
-			case 'Element':
-				return 'black';
-			case 'Virtue':
-				var n = card.a;
-				return (n <= 4) ? $author$project$View$Color$blue : ((n <= 8) ? $author$project$View$Color$red : ((n <= 12) ? $author$project$View$Color$green : $author$project$View$Color$yellow));
-			default:
-				break _v0$6;
-		}
-	}
-	return 'none';
-};
-var $author$project$Data$Card$description = function (card) {
-	switch (card.$) {
-		case 'Joker':
-			return 'Sorglosigkeit';
-		case 'Binary':
-			var n = card.a;
-			switch (n) {
-				case 0:
-					return 'Geborgenheit';
-				case 1:
-					return 'Wandel';
-				default:
-					return 'Binary';
-			}
-		case 'Trump':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Klarheit';
-				case 2:
-					return 'Intuition';
-				case 3:
-					return 'Selbstvertrauen';
-				case 4:
-					return 'Selbstbeherrschung';
-				case 5:
-					return 'Spiritualität';
-				case 6:
-					return 'Verbindung';
-				case 7:
-					return 'Erfolg';
-				case 8:
-					return 'Gerechtigkeit';
-				case 9:
-					return 'Suche';
-				case 10:
-					return 'Schicksal';
-				case 11:
-					return 'Kraft';
-				case 12:
-					return 'Ruhe';
-				case 13:
-					return 'Wandel';
-				case 14:
-					return 'Mäßigkeit';
-				case 15:
-					return 'Abhängigkeit';
-				case 16:
-					return 'Konfrontation';
-				case 17:
-					return 'Hoffnung';
-				case 18:
-					return 'Hingabe';
-				case 19:
-					return 'Zufriedenheit';
-				case 20:
-					return 'Neubeginn';
-				case 21:
-					return 'Selbsterkenntnis';
-				default:
-					return 'Trumpf';
-			}
-		case 'Element':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Traum';
-				case 2:
-					return 'Emotion';
-				case 3:
-					return 'Realität';
-				case 4:
-					return 'Taktik';
-				default:
-					return 'Jahreszeit';
-			}
-		case 'Planet':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Wissen';
-				case 2:
-					return 'Familie';
-				case 3:
-					return 'Gesundheit';
-				case 4:
-					return 'Reichtum';
-				case 5:
-					return 'Verwirklichung';
-				case 6:
-					return 'Anerkennung';
-				case 7:
-					return 'Erfolg';
-				case 8:
-					return 'Freiheit';
-				default:
-					return 'Jahreszeit';
-			}
-		case 'Virtue':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Mitgefühl';
-				case 2:
-					return 'Freundlichkeit';
-				case 3:
-					return 'Offenheit';
-				case 4:
-					return 'Vergebung';
-				case 5:
-					return 'Geduld';
-				case 6:
-					return 'Treue';
-				case 7:
-					return 'Selbstbeherrschung';
-				case 8:
-					return 'Ausdauer';
-				case 9:
-					return 'Selbsterkenntnis';
-				case 10:
-					return 'Autentizität';
-				case 11:
-					return 'Ehrlichkeit';
-				case 12:
-					return 'Mäßigkeit';
-				case 13:
-					return 'Humor';
-				case 14:
-					return 'Hoffnung';
-				case 15:
-					return 'Mut';
-				case 16:
-					return 'Fleiß';
-				default:
-					return 'Tugend';
-			}
-		default:
-			return '';
-	}
-};
-var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
-var $ianmackenzie$elm_geometry$Geometry$Types$Rectangle2d = function (a) {
-	return {$: 'Rectangle2d', a: a};
-};
-var $ianmackenzie$elm_units$Quantity$Quantity = function (a) {
-	return {$: 'Quantity', a: a};
-};
+var $elm$svg$Svg$Attributes$alignmentBaseline = _VirtualDom_attribute('alignment-baseline');
+var $author$project$Data$Turtle$andThen = F2(
+	function (fun, _v0) {
+		var turtle = _v0.a;
+		var out = _v0.b;
+		var _v1 = fun(turtle);
+		var newTurtle = _v1.a;
+		var head = _v1.b;
+		return _Utils_Tuple2(
+			newTurtle,
+			_Utils_ap(head, out));
+	});
 var $elm$core$Basics$abs = function (n) {
 	return (n < 0) ? (-n) : n;
 };
-var $ianmackenzie$elm_units$Quantity$abs = function (_v0) {
-	var value = _v0.a;
-	return $ianmackenzie$elm_units$Quantity$Quantity(
-		$elm$core$Basics$abs(value));
-};
+var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
 var $ianmackenzie$elm_units$Quantity$greaterThanOrEqualTo = F2(
 	function (_v0, _v1) {
 		var y = _v0.a;
 		var x = _v1.a;
 		return _Utils_cmp(x, y) > -1;
 	});
-var $ianmackenzie$elm_units$Quantity$midpoint = F2(
-	function (_v0, _v1) {
-		var x = _v0.a;
-		var y = _v1.a;
-		return $ianmackenzie$elm_units$Quantity$Quantity(x + (0.5 * (y - x)));
-	});
-var $ianmackenzie$elm_units$Quantity$minus = F2(
-	function (_v0, _v1) {
-		var y = _v0.a;
-		var x = _v1.a;
-		return $ianmackenzie$elm_units$Quantity$Quantity(x - y);
-	});
-var $ianmackenzie$elm_geometry$Geometry$Types$Direction2d = function (a) {
-	return {$: 'Direction2d', a: a};
-};
-var $ianmackenzie$elm_geometry$Direction2d$negativeX = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-	{x: -1, y: 0});
-var $ianmackenzie$elm_geometry$Direction2d$negativeY = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-	{x: 0, y: -1});
-var $ianmackenzie$elm_geometry$Direction2d$positiveX = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-	{x: 1, y: 0});
-var $ianmackenzie$elm_geometry$Direction2d$positiveY = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-	{x: 0, y: 1});
-var $ianmackenzie$elm_geometry$Geometry$Types$Frame2d = function (a) {
-	return {$: 'Frame2d', a: a};
-};
-var $ianmackenzie$elm_geometry$Frame2d$unsafe = function (properties) {
-	return $ianmackenzie$elm_geometry$Geometry$Types$Frame2d(properties);
-};
-var $ianmackenzie$elm_geometry$Geometry$Types$Point2d = function (a) {
-	return {$: 'Point2d', a: a};
-};
-var $ianmackenzie$elm_geometry$Point2d$xy = F2(
-	function (_v0, _v1) {
-		var x = _v0.a;
-		var y = _v1.a;
-		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
-			{x: x, y: y});
-	});
-var $ianmackenzie$elm_geometry$Rectangle2d$axisAligned = F4(
-	function (x1, y1, x2, y2) {
-		var computedYDirection = A2($ianmackenzie$elm_units$Quantity$greaterThanOrEqualTo, y1, y2) ? $ianmackenzie$elm_geometry$Direction2d$positiveY : $ianmackenzie$elm_geometry$Direction2d$negativeY;
-		var computedXDirection = A2($ianmackenzie$elm_units$Quantity$greaterThanOrEqualTo, x1, x2) ? $ianmackenzie$elm_geometry$Direction2d$positiveX : $ianmackenzie$elm_geometry$Direction2d$negativeX;
-		var computedDimensions = _Utils_Tuple2(
-			$ianmackenzie$elm_units$Quantity$abs(
-				A2($ianmackenzie$elm_units$Quantity$minus, x1, x2)),
-			$ianmackenzie$elm_units$Quantity$abs(
-				A2($ianmackenzie$elm_units$Quantity$minus, y1, y2)));
-		var computedCenterPoint = A2(
-			$ianmackenzie$elm_geometry$Point2d$xy,
-			A2($ianmackenzie$elm_units$Quantity$midpoint, x1, x2),
-			A2($ianmackenzie$elm_units$Quantity$midpoint, y1, y2));
-		var computedAxes = $ianmackenzie$elm_geometry$Frame2d$unsafe(
-			{originPoint: computedCenterPoint, xDirection: computedXDirection, yDirection: computedYDirection});
-		return $ianmackenzie$elm_geometry$Geometry$Types$Rectangle2d(
-			{axes: computedAxes, dimensions: computedDimensions});
-	});
-var $ianmackenzie$elm_geometry$Point2d$xCoordinate = function (_v0) {
-	var p = _v0.a;
-	return $ianmackenzie$elm_units$Quantity$Quantity(p.x);
-};
-var $ianmackenzie$elm_geometry$Point2d$yCoordinate = function (_v0) {
-	var p = _v0.a;
-	return $ianmackenzie$elm_units$Quantity$Quantity(p.y);
-};
-var $ianmackenzie$elm_geometry$Rectangle2d$from = F2(
-	function (p1, p2) {
-		return A4(
-			$ianmackenzie$elm_geometry$Rectangle2d$axisAligned,
-			$ianmackenzie$elm_geometry$Point2d$xCoordinate(p1),
-			$ianmackenzie$elm_geometry$Point2d$yCoordinate(p1),
-			$ianmackenzie$elm_geometry$Point2d$xCoordinate(p2),
-			$ianmackenzie$elm_geometry$Point2d$yCoordinate(p2));
-	});
-var $ianmackenzie$elm_geometry$Geometry$Types$Polyline2d = function (a) {
-	return {$: 'Polyline2d', a: a};
-};
-var $ianmackenzie$elm_geometry$Polyline2d$fromVertices = function (givenVertices) {
-	return $ianmackenzie$elm_geometry$Geometry$Types$Polyline2d(givenVertices);
-};
-var $ianmackenzie$elm_geometry$Point2d$origin = $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
-	{x: 0, y: 0});
-var $author$project$View$Card$padding = 12 * (3 + (4 * 2));
-var $ianmackenzie$elm_geometry$Point2d$pixels = F2(
-	function (x, y) {
-		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
-			{x: x, y: y});
-	});
-var $ianmackenzie$elm_geometry$Point2d$unwrap = function (_v0) {
-	var pointCoordinates = _v0.a;
-	return pointCoordinates;
-};
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$coordinatesString = function (point) {
-	var _v0 = $ianmackenzie$elm_geometry$Point2d$unwrap(point);
-	var x = _v0.x;
-	var y = _v0.y;
-	return $elm$core$String$fromFloat(x) + (',' + $elm$core$String$fromFloat(y));
-};
-var $elm$svg$Svg$Attributes$points = _VirtualDom_attribute('points');
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$pointsAttribute = function (points) {
-	return $elm$svg$Svg$Attributes$points(
-		A2(
-			$elm$core$String$join,
-			' ',
-			A2($elm$core$List$map, $ianmackenzie$elm_geometry_svg$Geometry$Svg$coordinatesString, points)));
-};
-var $elm$svg$Svg$polyline = $elm$svg$Svg$trustedNode('polyline');
-var $ianmackenzie$elm_geometry$Polyline2d$vertices = function (_v0) {
-	var polylineVertices = _v0.a;
-	return polylineVertices;
-};
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d = F2(
-	function (attributes, polyline) {
-		var vertices = $ianmackenzie$elm_geometry$Polyline2d$vertices(polyline);
-		return A2(
-			$elm$svg$Svg$polyline,
-			A2(
-				$elm$core$List$cons,
-				$ianmackenzie$elm_geometry_svg$Geometry$Svg$pointsAttribute(vertices),
-				attributes),
-			_List_Nil);
-	});
-var $author$project$View$Card$width = 898;
-var $author$project$View$Card$radius = ($author$project$View$Card$width - $author$project$View$Card$padding) / 7;
-var $ianmackenzie$elm_geometry$Frame2d$copy = function (_v0) {
-	var properties = _v0.a;
-	return $ianmackenzie$elm_geometry$Geometry$Types$Frame2d(properties);
-};
-var $ianmackenzie$elm_geometry$Rectangle2d$axes = function (_v0) {
-	var rectangle = _v0.a;
-	return $ianmackenzie$elm_geometry$Frame2d$copy(rectangle.axes);
-};
-var $ianmackenzie$elm_geometry$Rectangle2d$dimensions = function (_v0) {
-	var rectangle = _v0.a;
-	return rectangle.dimensions;
-};
-var $ianmackenzie$elm_units$Quantity$multiplyBy = F2(
-	function (scale, _v0) {
-		var value = _v0.a;
-		return $ianmackenzie$elm_units$Quantity$Quantity(scale * value);
-	});
-var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
-var $ianmackenzie$elm_geometry$Frame2d$originPoint = function (_v0) {
-	var frame = _v0.a;
-	return frame.originPoint;
-};
-var $elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
-var $ianmackenzie$elm_geometry$Direction2d$unwrap = function (_v0) {
-	var directionComponents = _v0.a;
-	return directionComponents;
-};
-var $ianmackenzie$elm_geometry$Frame2d$xDirection = function (_v0) {
-	var frame = _v0.a;
-	return frame.xDirection;
-};
-var $ianmackenzie$elm_geometry$Frame2d$yDirection = function (_v0) {
-	var frame = _v0.a;
-	return frame.yDirection;
-};
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$placeIn = F2(
-	function (frame, element) {
-		var p = $ianmackenzie$elm_geometry$Point2d$unwrap(
-			$ianmackenzie$elm_geometry$Frame2d$originPoint(frame));
-		var d2 = $ianmackenzie$elm_geometry$Direction2d$unwrap(
-			$ianmackenzie$elm_geometry$Frame2d$yDirection(frame));
-		var d1 = $ianmackenzie$elm_geometry$Direction2d$unwrap(
-			$ianmackenzie$elm_geometry$Frame2d$xDirection(frame));
-		var components = _List_fromArray(
-			[
-				$elm$core$String$fromFloat(d1.x),
-				$elm$core$String$fromFloat(d1.y),
-				$elm$core$String$fromFloat(d2.x),
-				$elm$core$String$fromFloat(d2.y),
-				$elm$core$String$fromFloat(p.x),
-				$elm$core$String$fromFloat(p.y)
-			]);
-		var transform = 'matrix(' + (A2($elm$core$String$join, ' ', components) + ')');
-		return A2(
-			$elm$svg$Svg$g,
-			_List_fromArray(
-				[
-					$elm$svg$Svg$Attributes$transform(transform)
-				]),
-			_List_fromArray(
-				[element]));
-	});
-var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$toString = function (_v0) {
-	var quantity = _v0.a;
-	return $elm$core$String$fromFloat(quantity);
-};
-var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
-var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
-var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$rectangle2d = F2(
-	function (attributes, rectangle) {
-		var _v0 = $ianmackenzie$elm_geometry$Rectangle2d$dimensions(rectangle);
-		var width = _v0.a;
-		var height = _v0.b;
-		return A2(
-			$ianmackenzie$elm_geometry_svg$Geometry$Svg$placeIn,
-			$ianmackenzie$elm_geometry$Rectangle2d$axes(rectangle),
-			A2(
-				$elm$svg$Svg$rect,
-				A2(
-					$elm$core$List$cons,
-					$elm$svg$Svg$Attributes$width(
-						$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(width)),
-					A2(
-						$elm$core$List$cons,
-						$elm$svg$Svg$Attributes$height(
-							$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(height)),
-						A2(
-							$elm$core$List$cons,
-							$elm$svg$Svg$Attributes$x(
-								$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(
-									A2($ianmackenzie$elm_units$Quantity$multiplyBy, -0.5, width))),
-							A2(
-								$elm$core$List$cons,
-								$elm$svg$Svg$Attributes$y(
-									$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(
-										A2($ianmackenzie$elm_units$Quantity$multiplyBy, -0.5, height))),
-								attributes)))),
-				_List_Nil));
-	});
-var $author$project$View$Card$relative = function () {
-	var factor = (_Utils_cmp($author$project$View$Card$height, $author$project$View$Card$width) > 0) ? ($author$project$View$Card$height / $author$project$View$Card$width) : ($author$project$View$Card$width / $author$project$View$Card$height);
-	return $elm$core$Basics$mul((factor * $author$project$View$Card$width) / 70);
-}();
-var $elm$core$List$singleton = function (value) {
-	return _List_fromArray(
-		[value]);
-};
-var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
-var $elm$svg$Svg$Attributes$strokeLinecap = _VirtualDom_attribute('stroke-linecap');
-var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
-var $elm$svg$Svg$Attributes$style = _VirtualDom_attribute('style');
-var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$svg$Svg$Attributes$textAnchor = _VirtualDom_attribute('text-anchor');
-var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
-var $author$project$Data$Card$title = function (card) {
-	switch (card.$) {
-		case 'Joker':
-			return 'Narr';
-		case 'Binary':
-			var n = card.a;
-			switch (n) {
-				case 0:
-					return 'Anfang';
-				case 1:
-					return 'Ende';
-				default:
-					return 'Binary';
-			}
-		case 'Trump':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Der Magier';
-				case 2:
-					return 'Die Hohepriesterin';
-				case 3:
-					return 'Die Herrscherin';
-				case 4:
-					return 'Der Herrscher';
-				case 5:
-					return 'Der Hierophant';
-				case 6:
-					return 'Die Liebenden';
-				case 7:
-					return 'Der Wagen';
-				case 8:
-					return 'Die Gerechtigkeit';
-				case 9:
-					return 'Der Eremit';
-				case 10:
-					return 'Das Rad des Schicksals';
-				case 11:
-					return 'Die Kraft';
-				case 12:
-					return 'Der Gehängte';
-				case 13:
-					return 'Der Tod';
-				case 14:
-					return 'Die Mäßigkeit';
-				case 15:
-					return 'Der Teufel';
-				case 16:
-					return 'Der Turm';
-				case 17:
-					return 'Der Stern';
-				case 18:
-					return 'Der Mond';
-				case 19:
-					return 'Die Sonne';
-				case 20:
-					return 'Das Gericht';
-				case 21:
-					return 'Die Welt';
-				default:
-					return 'Trumpf';
-			}
-		case 'Element':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Erde';
-				case 2:
-					return 'Feuer';
-				case 3:
-					return 'Luft';
-				case 4:
-					return 'Wasser';
-				default:
-					return 'Elemente';
-			}
-		case 'Planet':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Merkur';
-				case 2:
-					return 'Venus';
-				case 3:
-					return 'Planet Erde';
-				case 4:
-					return 'Mars';
-				case 5:
-					return 'Jupiter';
-				case 6:
-					return 'Saturn';
-				case 7:
-					return 'Uranus';
-				case 8:
-					return 'Neptun';
-				default:
-					return 'Planet';
-			}
-		case 'Virtue':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Mitgefühl';
-				case 2:
-					return 'Freundlichkeit';
-				case 3:
-					return 'Offenheit';
-				case 4:
-					return 'Vergebung';
-				case 5:
-					return 'Geduld';
-				case 6:
-					return 'Treue';
-				case 7:
-					return 'Selbstbeherrschung';
-				case 8:
-					return 'Ausdauer';
-				case 9:
-					return 'Selbsterkenntnis';
-				case 10:
-					return 'Autentizität';
-				case 11:
-					return 'Ehrlichkeit';
-				case 12:
-					return 'Mäßigkeit';
-				case 13:
-					return 'Humor';
-				case 14:
-					return 'Hoffnung';
-				case 15:
-					return 'Mut';
-				case 16:
-					return 'Fleiß';
-				default:
-					return 'Tugend';
-			}
-		default:
-			return '';
-	}
-};
-var $elm$core$Basics$modBy = _Basics_modBy;
-var $author$project$Data$Card$value = function (card) {
-	switch (card.$) {
-		case 'Joker':
-			return 0;
-		case 'Binary':
-			var n = card.a;
-			return n;
-		case 'Trump':
-			var v = card.a;
-			return function (n) {
-				return (!n) ? 7 : n;
-			}(
-				A2($elm$core$Basics$modBy, 7, v));
-		case 'Element':
-			var v = card.a;
-			return A2($elm$core$Basics$modBy, 4, v);
-		case 'Planet':
-			var v = card.a;
-			return v;
-		case 'Virtue':
-			var n = card.a;
-			return n;
-		default:
-			return -1;
-	}
-};
-var $elm$svg$Svg$Attributes$d = _VirtualDom_attribute('d');
 var $elm$svg$Svg$path = $elm$svg$Svg$trustedNode('path');
+var $ianmackenzie$elm_units$Quantity$Quantity = function (a) {
+	return {$: 'Quantity', a: a};
+};
 var $ianmackenzie$elm_geometry$Quantity$Extra$aXbY = F4(
 	function (a, _v0, b, _v1) {
 		var x = _v0.a;
 		var y = _v1.a;
 		return $ianmackenzie$elm_units$Quantity$Quantity((a * x) + (b * y));
 	});
+var $ianmackenzie$elm_units$Quantity$abs = function (_v0) {
+	var value = _v0.a;
+	return $ianmackenzie$elm_units$Quantity$Quantity(
+		$elm$core$Basics$abs(value));
+};
 var $elm$core$Basics$cos = _Basics_cos;
 var $ianmackenzie$elm_units$Angle$cos = function (_v0) {
 	var angle = _v0.a;
@@ -14316,6 +13845,11 @@ var $ianmackenzie$elm_units$Quantity$lessThan = F2(
 		var y = _v0.a;
 		var x = _v1.a;
 		return _Utils_cmp(x, y) < 0;
+	});
+var $ianmackenzie$elm_units$Quantity$multiplyBy = F2(
+	function (scale, _v0) {
+		var value = _v0.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(scale * value);
 	});
 var $elm$core$Basics$pi = _Basics_pi;
 var $ianmackenzie$elm_units$Quantity$plus = F2(
@@ -14347,9 +13881,27 @@ var $ianmackenzie$elm_geometry$Direction2d$xComponent = function (_v0) {
 	var d = _v0.a;
 	return d.x;
 };
+var $ianmackenzie$elm_geometry$Point2d$xCoordinate = function (_v0) {
+	var p = _v0.a;
+	return $ianmackenzie$elm_units$Quantity$Quantity(p.x);
+};
+var $ianmackenzie$elm_geometry$Geometry$Types$Point2d = function (a) {
+	return {$: 'Point2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Point2d$xy = F2(
+	function (_v0, _v1) {
+		var x = _v0.a;
+		var y = _v1.a;
+		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
+			{x: x, y: y});
+	});
 var $ianmackenzie$elm_geometry$Direction2d$yComponent = function (_v0) {
 	var d = _v0.a;
 	return d.y;
+};
+var $ianmackenzie$elm_geometry$Point2d$yCoordinate = function (_v0) {
+	var p = _v0.a;
+	return $ianmackenzie$elm_units$Quantity$Quantity(p.y);
 };
 var $ianmackenzie$elm_units$Quantity$zero = $ianmackenzie$elm_units$Quantity$Quantity(0);
 var $ianmackenzie$elm_geometry$Arc2d$pointOn = F2(
@@ -14416,6 +13968,10 @@ var $ianmackenzie$elm_geometry$Arc2d$sweptAngle = function (_v0) {
 	var properties = _v0.a;
 	return properties.sweptAngle;
 };
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$toString = function (_v0) {
+	var quantity = _v0.a;
+	return $elm$core$String$fromFloat(quantity);
+};
 var $ianmackenzie$elm_1d_parameter$Parameter1d$range = F5(
 	function (startIndex, index, divisor, _function, accumulated) {
 		range:
@@ -14445,6 +14001,10 @@ var $ianmackenzie$elm_1d_parameter$Parameter1d$trailing = F2(
 	});
 var $ianmackenzie$elm_units$Angle$turns = function (numTurns) {
 	return $ianmackenzie$elm_units$Angle$radians((2 * $elm$core$Basics$pi) * numTurns);
+};
+var $ianmackenzie$elm_geometry$Point2d$unwrap = function (_v0) {
+	var pointCoordinates = _v0.a;
+	return pointCoordinates;
 };
 var $ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d = F2(
 	function (attributes, arc) {
@@ -14491,6 +14051,1673 @@ var $ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d = F2(
 			$elm$svg$Svg$path,
 			A2($elm$core$List$cons, pathAttribute, attributes),
 			_List_Nil);
+	});
+var $elm$core$Basics$atan2 = _Basics_atan2;
+var $ianmackenzie$elm_geometry$Direction2d$angleFrom = F2(
+	function (_v0, _v1) {
+		var d1 = _v0.a;
+		var d2 = _v1.a;
+		var relativeY = (d1.x * d2.y) - (d1.y * d2.x);
+		var relativeX = (d1.x * d2.x) + (d1.y * d2.y);
+		return $ianmackenzie$elm_units$Quantity$Quantity(
+			A2($elm$core$Basics$atan2, relativeY, relativeX));
+	});
+var $ianmackenzie$elm_geometry$Direction2d$equalWithin = F3(
+	function (_v0, _v1, _v2) {
+		var angle = _v0.a;
+		var d1 = _v1.a;
+		var d2 = _v2.a;
+		var relativeY = (d1.x * d2.y) - (d1.y * d2.x);
+		var relativeX = (d1.x * d2.x) + (d1.y * d2.y);
+		return _Utils_cmp(
+			$elm$core$Basics$abs(
+				A2($elm$core$Basics$atan2, relativeY, relativeX)),
+			angle) < 1;
+	});
+var $ianmackenzie$elm_units$Angle$inRadians = function (_v0) {
+	var numRadians = _v0.a;
+	return numRadians;
+};
+var $ianmackenzie$elm_geometry$Point2d$rotateAround = F3(
+	function (_v0, _v1, _v2) {
+		var p0 = _v0.a;
+		var theta = _v1.a;
+		var p = _v2.a;
+		var s = $elm$core$Basics$sin(theta);
+		var deltaY = p.y - p0.y;
+		var deltaX = p.x - p0.x;
+		var c = $elm$core$Basics$cos(theta);
+		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
+			{x: (p0.x + (c * deltaX)) - (s * deltaY), y: (p0.y + (s * deltaX)) + (c * deltaY)});
+	});
+var $ianmackenzie$elm_geometry$Geometry$Types$Direction2d = function (a) {
+	return {$: 'Direction2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Direction2d$rotateClockwise = function (_v0) {
+	var d = _v0.a;
+	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+		{x: d.y, y: -d.x});
+};
+var $ianmackenzie$elm_geometry$Point2d$translateBy = F2(
+	function (_v0, _v1) {
+		var v = _v0.a;
+		var p = _v1.a;
+		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
+			{x: p.x + v.x, y: p.y + v.y});
+	});
+var $ianmackenzie$elm_geometry$Geometry$Types$Vector2d = function (a) {
+	return {$: 'Vector2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Vector2d$withLength = F2(
+	function (_v0, _v1) {
+		var a = _v0.a;
+		var d = _v1.a;
+		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
+			{x: a * d.x, y: a * d.y});
+	});
+var $author$project$Data$Turtle$arcLeftTo = F2(
+	function (_v0, turtle) {
+		var direction = _v0.direction;
+		var radius = _v0.radius;
+		var around = A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2(
+				$ianmackenzie$elm_geometry$Vector2d$withLength,
+				$ianmackenzie$elm_units$Quantity$Quantity(radius),
+				$ianmackenzie$elm_geometry$Direction2d$rotateClockwise(turtle.direction)),
+			turtle.position);
+		var angle = $ianmackenzie$elm_units$Angle$radians(
+			function (r) {
+				return A3(
+					$ianmackenzie$elm_geometry$Direction2d$equalWithin,
+					$ianmackenzie$elm_units$Angle$radians(0.001),
+					turtle.direction,
+					direction) ? (2 * $elm$core$Basics$pi) : ((r < 0) ? r : (r - (2 * $elm$core$Basics$pi)));
+			}(
+				$ianmackenzie$elm_units$Angle$inRadians(
+					A2($ianmackenzie$elm_geometry$Direction2d$angleFrom, turtle.direction, direction))));
+		var newPosition = A3($ianmackenzie$elm_geometry$Point2d$rotateAround, around, angle, turtle.position);
+		return _Utils_Tuple2(
+			_Utils_update(
+				turtle,
+				{direction: direction, position: newPosition}),
+			turtle.arcFun(
+				{around: around, by: angle, from: turtle.position}));
+	});
+var $ianmackenzie$elm_geometry$Direction2d$rotateBy = F2(
+	function (_v0, _v1) {
+		var angle = _v0.a;
+		var d = _v1.a;
+		var s = $elm$core$Basics$sin(angle);
+		var c = $elm$core$Basics$cos(angle);
+		return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+			{x: (c * d.x) - (s * d.y), y: (s * d.x) + (c * d.y)});
+	});
+var $author$project$Data$Turtle$arcLeftBy = F2(
+	function (_v0, turtle) {
+		var angle = _v0.angle;
+		var radius = _v0.radius;
+		return A2(
+			$author$project$Data$Turtle$arcLeftTo,
+			{
+				direction: A2(
+					$ianmackenzie$elm_geometry$Direction2d$rotateBy,
+					$ianmackenzie$elm_units$Angle$radians(
+						(2 * $elm$core$Basics$pi) - $ianmackenzie$elm_units$Angle$inRadians(angle)),
+					turtle.direction),
+				radius: radius
+			},
+			turtle);
+	});
+var $ianmackenzie$elm_geometry$Direction2d$rotateCounterclockwise = function (_v0) {
+	var d = _v0.a;
+	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+		{x: -d.y, y: d.x});
+};
+var $author$project$Data$Turtle$arcRightTo = F2(
+	function (_v0, turtle) {
+		var direction = _v0.direction;
+		var radius = _v0.radius;
+		var around = A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2(
+				$ianmackenzie$elm_geometry$Vector2d$withLength,
+				$ianmackenzie$elm_units$Quantity$Quantity(radius),
+				$ianmackenzie$elm_geometry$Direction2d$rotateCounterclockwise(turtle.direction)),
+			turtle.position);
+		var angle = $ianmackenzie$elm_units$Angle$radians(
+			function (r) {
+				return A3(
+					$ianmackenzie$elm_geometry$Direction2d$equalWithin,
+					$ianmackenzie$elm_units$Angle$radians(0.001),
+					turtle.direction,
+					direction) ? (2 * $elm$core$Basics$pi) : ((r < 0) ? (r + (2 * $elm$core$Basics$pi)) : r);
+			}(
+				$ianmackenzie$elm_units$Angle$inRadians(
+					A2($ianmackenzie$elm_geometry$Direction2d$angleFrom, turtle.direction, direction))));
+		var newPosition = A3($ianmackenzie$elm_geometry$Point2d$rotateAround, around, angle, turtle.position);
+		return _Utils_Tuple2(
+			_Utils_update(
+				turtle,
+				{direction: direction, position: newPosition}),
+			turtle.arcFun(
+				{around: around, by: angle, from: turtle.position}));
+	});
+var $author$project$Data$Turtle$arcRightBy = F2(
+	function (_v0, turtle) {
+		var angle = _v0.angle;
+		var radius = _v0.radius;
+		return A2(
+			$author$project$Data$Turtle$arcRightTo,
+			{
+				direction: A2($ianmackenzie$elm_geometry$Direction2d$rotateBy, angle, turtle.direction),
+				radius: radius
+			},
+			turtle);
+	});
+var $ianmackenzie$elm_geometry$Geometry$Types$Circle2d = function (a) {
+	return {$: 'Circle2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Circle2d$withRadius = F2(
+	function (givenRadius, givenCenterPoint) {
+		return $ianmackenzie$elm_geometry$Geometry$Types$Circle2d(
+			{
+				centerPoint: givenCenterPoint,
+				radius: $ianmackenzie$elm_units$Quantity$abs(givenRadius)
+			});
+	});
+var $ianmackenzie$elm_geometry$Circle2d$atPoint = F2(
+	function (givenCenterPoint, givenRadius) {
+		return A2($ianmackenzie$elm_geometry$Circle2d$withRadius, givenRadius, givenCenterPoint);
+	});
+var $ianmackenzie$elm_geometry$Circle2d$centerPoint = function (_v0) {
+	var properties = _v0.a;
+	return properties.centerPoint;
+};
+var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
+var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
+var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
+var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var $ianmackenzie$elm_geometry$Circle2d$radius = function (_v0) {
+	var properties = _v0.a;
+	return properties.radius;
+};
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$circle2d = F2(
+	function (attributes, circle) {
+		var r = $elm$svg$Svg$Attributes$r(
+			$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(
+				$ianmackenzie$elm_geometry$Circle2d$radius(circle)));
+		var _v0 = $ianmackenzie$elm_geometry$Point2d$unwrap(
+			$ianmackenzie$elm_geometry$Circle2d$centerPoint(circle));
+		var x = _v0.x;
+		var y = _v0.y;
+		var cx = $elm$svg$Svg$Attributes$cx(
+			$elm$core$String$fromFloat(x));
+		var cy = $elm$svg$Svg$Attributes$cy(
+			$elm$core$String$fromFloat(y));
+		return A2(
+			$elm$svg$Svg$circle,
+			A2(
+				$elm$core$List$cons,
+				cx,
+				A2(
+					$elm$core$List$cons,
+					cy,
+					A2($elm$core$List$cons, r, attributes))),
+			_List_Nil);
+	});
+var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var $Orasund$elm_static_array$StaticArray$Internal$A = function (a) {
+	return {$: 'A', a: a};
+};
+var $elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _v0 = A2($elm$core$Elm$JsArray$initializeFromList, $elm$core$Array$branchFactor, list);
+			var jsArray = _v0.a;
+			var remainingItems = _v0.b;
+			if (_Utils_cmp(
+				$elm$core$Elm$JsArray$length(jsArray),
+				$elm$core$Array$branchFactor) < 0) {
+				return A2(
+					$elm$core$Array$builderToArray,
+					true,
+					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+			} else {
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					$elm$core$List$cons,
+					$elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
+			}
+		}
+	});
+var $elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return $elm$core$Array$empty;
+	} else {
+		return A3($elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
+};
+var $elm$core$List$repeatHelp = F3(
+	function (result, n, value) {
+		repeatHelp:
+		while (true) {
+			if (n <= 0) {
+				return result;
+			} else {
+				var $temp$result = A2($elm$core$List$cons, value, result),
+					$temp$n = n - 1,
+					$temp$value = value;
+				result = $temp$result;
+				n = $temp$n;
+				value = $temp$value;
+				continue repeatHelp;
+			}
+		}
+	});
+var $elm$core$List$repeat = F2(
+	function (n, value) {
+		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
+	});
+var $elm$core$Elm$JsArray$appendN = _JsArray_appendN;
+var $elm$core$Elm$JsArray$slice = _JsArray_slice;
+var $elm$core$Array$appendHelpBuilder = F2(
+	function (tail, builder) {
+		var tailLen = $elm$core$Elm$JsArray$length(tail);
+		var notAppended = ($elm$core$Array$branchFactor - $elm$core$Elm$JsArray$length(builder.tail)) - tailLen;
+		var appended = A3($elm$core$Elm$JsArray$appendN, $elm$core$Array$branchFactor, builder.tail, tail);
+		return (notAppended < 0) ? {
+			nodeList: A2(
+				$elm$core$List$cons,
+				$elm$core$Array$Leaf(appended),
+				builder.nodeList),
+			nodeListSize: builder.nodeListSize + 1,
+			tail: A3($elm$core$Elm$JsArray$slice, notAppended, tailLen, tail)
+		} : ((!notAppended) ? {
+			nodeList: A2(
+				$elm$core$List$cons,
+				$elm$core$Array$Leaf(appended),
+				builder.nodeList),
+			nodeListSize: builder.nodeListSize + 1,
+			tail: $elm$core$Elm$JsArray$empty
+		} : {nodeList: builder.nodeList, nodeListSize: builder.nodeListSize, tail: appended});
+	});
+var $elm$core$Array$tailIndex = function (len) {
+	return (len >>> 5) << 5;
+};
+var $elm$core$Array$sliceLeft = F2(
+	function (from, array) {
+		var len = array.a;
+		var tree = array.c;
+		var tail = array.d;
+		if (!from) {
+			return array;
+		} else {
+			if (_Utils_cmp(
+				from,
+				$elm$core$Array$tailIndex(len)) > -1) {
+				return A4(
+					$elm$core$Array$Array_elm_builtin,
+					len - from,
+					$elm$core$Array$shiftStep,
+					$elm$core$Elm$JsArray$empty,
+					A3(
+						$elm$core$Elm$JsArray$slice,
+						from - $elm$core$Array$tailIndex(len),
+						$elm$core$Elm$JsArray$length(tail),
+						tail));
+			} else {
+				var skipNodes = (from / $elm$core$Array$branchFactor) | 0;
+				var helper = F2(
+					function (node, acc) {
+						if (node.$ === 'SubTree') {
+							var subTree = node.a;
+							return A3($elm$core$Elm$JsArray$foldr, helper, acc, subTree);
+						} else {
+							var leaf = node.a;
+							return A2($elm$core$List$cons, leaf, acc);
+						}
+					});
+				var leafNodes = A3(
+					$elm$core$Elm$JsArray$foldr,
+					helper,
+					_List_fromArray(
+						[tail]),
+					tree);
+				var nodesToInsert = A2($elm$core$List$drop, skipNodes, leafNodes);
+				if (!nodesToInsert.b) {
+					return $elm$core$Array$empty;
+				} else {
+					var head = nodesToInsert.a;
+					var rest = nodesToInsert.b;
+					var firstSlice = from - (skipNodes * $elm$core$Array$branchFactor);
+					var initialBuilder = {
+						nodeList: _List_Nil,
+						nodeListSize: 0,
+						tail: A3(
+							$elm$core$Elm$JsArray$slice,
+							firstSlice,
+							$elm$core$Elm$JsArray$length(head),
+							head)
+					};
+					return A2(
+						$elm$core$Array$builderToArray,
+						true,
+						A3($elm$core$List$foldl, $elm$core$Array$appendHelpBuilder, initialBuilder, rest));
+				}
+			}
+		}
+	});
+var $elm$core$Array$bitMask = 4294967295 >>> (32 - $elm$core$Array$shiftStep);
+var $elm$core$Elm$JsArray$unsafeGet = _JsArray_unsafeGet;
+var $elm$core$Array$fetchNewTail = F4(
+	function (shift, end, treeEnd, tree) {
+		fetchNewTail:
+		while (true) {
+			var pos = $elm$core$Array$bitMask & (treeEnd >>> shift);
+			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (_v0.$ === 'SubTree') {
+				var sub = _v0.a;
+				var $temp$shift = shift - $elm$core$Array$shiftStep,
+					$temp$end = end,
+					$temp$treeEnd = treeEnd,
+					$temp$tree = sub;
+				shift = $temp$shift;
+				end = $temp$end;
+				treeEnd = $temp$treeEnd;
+				tree = $temp$tree;
+				continue fetchNewTail;
+			} else {
+				var values = _v0.a;
+				return A3($elm$core$Elm$JsArray$slice, 0, $elm$core$Array$bitMask & end, values);
+			}
+		}
+	});
+var $elm$core$Array$hoistTree = F3(
+	function (oldShift, newShift, tree) {
+		hoistTree:
+		while (true) {
+			if ((_Utils_cmp(oldShift, newShift) < 1) || (!$elm$core$Elm$JsArray$length(tree))) {
+				return tree;
+			} else {
+				var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, 0, tree);
+				if (_v0.$ === 'SubTree') {
+					var sub = _v0.a;
+					var $temp$oldShift = oldShift - $elm$core$Array$shiftStep,
+						$temp$newShift = newShift,
+						$temp$tree = sub;
+					oldShift = $temp$oldShift;
+					newShift = $temp$newShift;
+					tree = $temp$tree;
+					continue hoistTree;
+				} else {
+					return tree;
+				}
+			}
+		}
+	});
+var $elm$core$Elm$JsArray$unsafeSet = _JsArray_unsafeSet;
+var $elm$core$Array$sliceTree = F3(
+	function (shift, endIdx, tree) {
+		var lastPos = $elm$core$Array$bitMask & (endIdx >>> shift);
+		var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, lastPos, tree);
+		if (_v0.$ === 'SubTree') {
+			var sub = _v0.a;
+			var newSub = A3($elm$core$Array$sliceTree, shift - $elm$core$Array$shiftStep, endIdx, sub);
+			return (!$elm$core$Elm$JsArray$length(newSub)) ? A3($elm$core$Elm$JsArray$slice, 0, lastPos, tree) : A3(
+				$elm$core$Elm$JsArray$unsafeSet,
+				lastPos,
+				$elm$core$Array$SubTree(newSub),
+				A3($elm$core$Elm$JsArray$slice, 0, lastPos + 1, tree));
+		} else {
+			return A3($elm$core$Elm$JsArray$slice, 0, lastPos, tree);
+		}
+	});
+var $elm$core$Array$sliceRight = F2(
+	function (end, array) {
+		var len = array.a;
+		var startShift = array.b;
+		var tree = array.c;
+		var tail = array.d;
+		if (_Utils_eq(end, len)) {
+			return array;
+		} else {
+			if (_Utils_cmp(
+				end,
+				$elm$core$Array$tailIndex(len)) > -1) {
+				return A4(
+					$elm$core$Array$Array_elm_builtin,
+					end,
+					startShift,
+					tree,
+					A3($elm$core$Elm$JsArray$slice, 0, $elm$core$Array$bitMask & end, tail));
+			} else {
+				var endIdx = $elm$core$Array$tailIndex(end);
+				var depth = $elm$core$Basics$floor(
+					A2(
+						$elm$core$Basics$logBase,
+						$elm$core$Array$branchFactor,
+						A2($elm$core$Basics$max, 1, endIdx - 1)));
+				var newShift = A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep);
+				return A4(
+					$elm$core$Array$Array_elm_builtin,
+					end,
+					newShift,
+					A3(
+						$elm$core$Array$hoistTree,
+						startShift,
+						newShift,
+						A3($elm$core$Array$sliceTree, startShift, endIdx, tree)),
+					A4($elm$core$Array$fetchNewTail, startShift, end, endIdx, tree));
+			}
+		}
+	});
+var $elm$core$Array$translateIndex = F2(
+	function (index, _v0) {
+		var len = _v0.a;
+		var posIndex = (index < 0) ? (len + index) : index;
+		return (posIndex < 0) ? 0 : ((_Utils_cmp(posIndex, len) > 0) ? len : posIndex);
+	});
+var $elm$core$Array$slice = F3(
+	function (from, to, array) {
+		var correctTo = A2($elm$core$Array$translateIndex, to, array);
+		var correctFrom = A2($elm$core$Array$translateIndex, from, array);
+		return (_Utils_cmp(correctFrom, correctTo) > 0) ? $elm$core$Array$empty : A2(
+			$elm$core$Array$sliceLeft,
+			correctFrom,
+			A2($elm$core$Array$sliceRight, correctTo, array));
+	});
+var $Orasund$elm_static_array$StaticArray$fromList = F3(
+	function (_v0, head, tail) {
+		var l = _v0.a;
+		var diff = (1 + $elm$core$List$length(tail)) - l;
+		return (diff < 0) ? $Orasund$elm_static_array$StaticArray$Internal$A(
+			_Utils_Tuple2(
+				head,
+				$elm$core$Array$fromList(
+					A2(
+						$elm$core$List$append,
+						tail,
+						A2(
+							$elm$core$List$repeat,
+							$elm$core$Basics$abs(diff),
+							head))))) : $Orasund$elm_static_array$StaticArray$Internal$A(
+			_Utils_Tuple2(
+				head,
+				A3(
+					$elm$core$Array$slice,
+					0,
+					l,
+					$elm$core$Array$fromList(tail))));
+	});
+var $author$project$View$BraidSigil$n = $author$project$Data$Alphabet$twentySix;
+var $Orasund$elm_static_array$StaticArray$Length$toInt = function (_v0) {
+	var n = _v0.a;
+	return n;
+};
+var $ianmackenzie$elm_geometry$Point2d$unsafe = function (givenCoordinates) {
+	return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(givenCoordinates);
+};
+var $author$project$View$BraidSigil$points = function (_v0) {
+	var width = _v0.width;
+	var height = _v0.height;
+	var radius = _v0.radius;
+	var rotate = function (r) {
+		return A3(
+			$ianmackenzie$elm_geometry$Point2d$rotateAround,
+			$ianmackenzie$elm_geometry$Point2d$unsafe(
+				{x: width / 2, y: height / 2}),
+			$ianmackenzie$elm_units$Angle$radians(
+				((2 * $elm$core$Basics$pi) * r) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)),
+			$ianmackenzie$elm_geometry$Point2d$unsafe(
+				{x: width / 2, y: (height / 2) - radius}));
+	};
+	return A3(
+		$Orasund$elm_static_array$StaticArray$fromList,
+		$author$project$View$BraidSigil$n,
+		rotate(0),
+		A2(
+			$elm$core$List$map,
+			rotate,
+			A2(
+				$elm$core$List$range,
+				1,
+				$Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n) - 1)));
+};
+var $elm$core$Elm$JsArray$push = _JsArray_push;
+var $elm$core$Elm$JsArray$singleton = _JsArray_singleton;
+var $elm$core$Array$insertTailInTree = F4(
+	function (shift, index, tail, tree) {
+		var pos = $elm$core$Array$bitMask & (index >>> shift);
+		if (_Utils_cmp(
+			pos,
+			$elm$core$Elm$JsArray$length(tree)) > -1) {
+			if (shift === 5) {
+				return A2(
+					$elm$core$Elm$JsArray$push,
+					$elm$core$Array$Leaf(tail),
+					tree);
+			} else {
+				var newSub = $elm$core$Array$SubTree(
+					A4($elm$core$Array$insertTailInTree, shift - $elm$core$Array$shiftStep, index, tail, $elm$core$Elm$JsArray$empty));
+				return A2($elm$core$Elm$JsArray$push, newSub, tree);
+			}
+		} else {
+			var value = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (value.$ === 'SubTree') {
+				var subTree = value.a;
+				var newSub = $elm$core$Array$SubTree(
+					A4($elm$core$Array$insertTailInTree, shift - $elm$core$Array$shiftStep, index, tail, subTree));
+				return A3($elm$core$Elm$JsArray$unsafeSet, pos, newSub, tree);
+			} else {
+				var newSub = $elm$core$Array$SubTree(
+					A4(
+						$elm$core$Array$insertTailInTree,
+						shift - $elm$core$Array$shiftStep,
+						index,
+						tail,
+						$elm$core$Elm$JsArray$singleton(value)));
+				return A3($elm$core$Elm$JsArray$unsafeSet, pos, newSub, tree);
+			}
+		}
+	});
+var $elm$core$Array$unsafeReplaceTail = F2(
+	function (newTail, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		var originalTailLen = $elm$core$Elm$JsArray$length(tail);
+		var newTailLen = $elm$core$Elm$JsArray$length(newTail);
+		var newArrayLen = len + (newTailLen - originalTailLen);
+		if (_Utils_eq(newTailLen, $elm$core$Array$branchFactor)) {
+			var overflow = _Utils_cmp(newArrayLen >>> $elm$core$Array$shiftStep, 1 << startShift) > 0;
+			if (overflow) {
+				var newShift = startShift + $elm$core$Array$shiftStep;
+				var newTree = A4(
+					$elm$core$Array$insertTailInTree,
+					newShift,
+					len,
+					newTail,
+					$elm$core$Elm$JsArray$singleton(
+						$elm$core$Array$SubTree(tree)));
+				return A4($elm$core$Array$Array_elm_builtin, newArrayLen, newShift, newTree, $elm$core$Elm$JsArray$empty);
+			} else {
+				return A4(
+					$elm$core$Array$Array_elm_builtin,
+					newArrayLen,
+					startShift,
+					A4($elm$core$Array$insertTailInTree, startShift, len, newTail, tree),
+					$elm$core$Elm$JsArray$empty);
+			}
+		} else {
+			return A4($elm$core$Array$Array_elm_builtin, newArrayLen, startShift, tree, newTail);
+		}
+	});
+var $elm$core$Array$appendHelpTree = F2(
+	function (toAppend, array) {
+		var len = array.a;
+		var tree = array.c;
+		var tail = array.d;
+		var itemsToAppend = $elm$core$Elm$JsArray$length(toAppend);
+		var notAppended = ($elm$core$Array$branchFactor - $elm$core$Elm$JsArray$length(tail)) - itemsToAppend;
+		var appended = A3($elm$core$Elm$JsArray$appendN, $elm$core$Array$branchFactor, tail, toAppend);
+		var newArray = A2($elm$core$Array$unsafeReplaceTail, appended, array);
+		if (notAppended < 0) {
+			var nextTail = A3($elm$core$Elm$JsArray$slice, notAppended, itemsToAppend, toAppend);
+			return A2($elm$core$Array$unsafeReplaceTail, nextTail, newArray);
+		} else {
+			return newArray;
+		}
+	});
+var $elm$core$Elm$JsArray$foldl = _JsArray_foldl;
+var $elm$core$Array$builderFromArray = function (_v0) {
+	var len = _v0.a;
+	var tree = _v0.c;
+	var tail = _v0.d;
+	var helper = F2(
+		function (node, acc) {
+			if (node.$ === 'SubTree') {
+				var subTree = node.a;
+				return A3($elm$core$Elm$JsArray$foldl, helper, acc, subTree);
+			} else {
+				return A2($elm$core$List$cons, node, acc);
+			}
+		});
+	return {
+		nodeList: A3($elm$core$Elm$JsArray$foldl, helper, _List_Nil, tree),
+		nodeListSize: (len / $elm$core$Array$branchFactor) | 0,
+		tail: tail
+	};
+};
+var $elm$core$Array$append = F2(
+	function (a, _v0) {
+		var aTail = a.d;
+		var bLen = _v0.a;
+		var bTree = _v0.c;
+		var bTail = _v0.d;
+		if (_Utils_cmp(bLen, $elm$core$Array$branchFactor * 4) < 1) {
+			var foldHelper = F2(
+				function (node, array) {
+					if (node.$ === 'SubTree') {
+						var tree = node.a;
+						return A3($elm$core$Elm$JsArray$foldl, foldHelper, array, tree);
+					} else {
+						var leaf = node.a;
+						return A2($elm$core$Array$appendHelpTree, leaf, array);
+					}
+				});
+			return A2(
+				$elm$core$Array$appendHelpTree,
+				bTail,
+				A3($elm$core$Elm$JsArray$foldl, foldHelper, a, bTree));
+		} else {
+			var foldHelper = F2(
+				function (node, builder) {
+					if (node.$ === 'SubTree') {
+						var tree = node.a;
+						return A3($elm$core$Elm$JsArray$foldl, foldHelper, builder, tree);
+					} else {
+						var leaf = node.a;
+						return A2($elm$core$Array$appendHelpBuilder, leaf, builder);
+					}
+				});
+			return A2(
+				$elm$core$Array$builderToArray,
+				true,
+				A2(
+					$elm$core$Array$appendHelpBuilder,
+					bTail,
+					A3(
+						$elm$core$Elm$JsArray$foldl,
+						foldHelper,
+						$elm$core$Array$builderFromArray(a),
+						bTree)));
+		}
+	});
+var $Orasund$elm_static_array$StaticArray$toArray = function (_v0) {
+	var _v1 = _v0.a;
+	var head = _v1.a;
+	var tail = _v1.b;
+	return A2(
+		$elm$core$Array$append,
+		$elm$core$Array$fromList(
+			_List_fromArray(
+				[head])),
+		tail);
+};
+var $Orasund$elm_static_array$StaticArray$toList = A2($elm$core$Basics$composeR, $Orasund$elm_static_array$StaticArray$toArray, $elm$core$Array$toList);
+var $author$project$View$BraidSigil$drawPoints = A2(
+	$elm$core$Basics$composeR,
+	$author$project$View$BraidSigil$points,
+	A2(
+		$elm$core$Basics$composeR,
+		$Orasund$elm_static_array$StaticArray$toList,
+		$elm$core$List$map(
+			A2(
+				$elm$core$Basics$composeR,
+				$ianmackenzie$elm_geometry$Circle2d$withRadius(
+					$ianmackenzie$elm_units$Quantity$Quantity(1)),
+				$ianmackenzie$elm_geometry_svg$Geometry$Svg$circle2d(
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$fill('black')
+						]))))));
+var $elm$svg$Svg$Attributes$fontFamily = _VirtualDom_attribute('font-family');
+var $author$project$Data$Turtle$forwardBy = F2(
+	function (amount, turtle) {
+		var newPosition = A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2(
+				$ianmackenzie$elm_geometry$Vector2d$withLength,
+				$ianmackenzie$elm_units$Quantity$Quantity(amount),
+				turtle.direction),
+			turtle.position);
+		return _Utils_Tuple2(
+			_Utils_update(
+				turtle,
+				{position: newPosition}),
+			turtle.lineFun(
+				{from: turtle.position, to: newPosition}));
+	});
+var $ianmackenzie$elm_geometry$Geometry$Types$LineSegment2d = function (a) {
+	return {$: 'LineSegment2d', a: a};
+};
+var $ianmackenzie$elm_geometry$LineSegment2d$fromEndpoints = $ianmackenzie$elm_geometry$Geometry$Types$LineSegment2d;
+var $ianmackenzie$elm_geometry$LineSegment2d$from = F2(
+	function (startPoint_, endPoint_) {
+		return $ianmackenzie$elm_geometry$LineSegment2d$fromEndpoints(
+			_Utils_Tuple2(startPoint_, endPoint_));
+	});
+var $ianmackenzie$elm_geometry$Direction2d$fromAngle = function (_v0) {
+	var angle = _v0.a;
+	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+		{
+			x: $elm$core$Basics$cos(angle),
+			y: $elm$core$Basics$sin(angle)
+		});
+};
+var $elm$core$Basics$sqrt = _Basics_sqrt;
+var $ianmackenzie$elm_geometry$Point2d$distanceFrom = F2(
+	function (_v0, _v1) {
+		var p1 = _v0.a;
+		var p2 = _v1.a;
+		var deltaY = p2.y - p1.y;
+		var deltaX = p2.x - p1.x;
+		var largestComponent = A2(
+			$elm$core$Basics$max,
+			$elm$core$Basics$abs(deltaX),
+			$elm$core$Basics$abs(deltaY));
+		if (!largestComponent) {
+			return $ianmackenzie$elm_units$Quantity$zero;
+		} else {
+			var scaledY = deltaY / largestComponent;
+			var scaledX = deltaX / largestComponent;
+			var scaledLength = $elm$core$Basics$sqrt((scaledX * scaledX) + (scaledY * scaledY));
+			return $ianmackenzie$elm_units$Quantity$Quantity(scaledLength * largestComponent);
+		}
+	});
+var $ianmackenzie$elm_geometry$Vector2d$direction = function (_v0) {
+	var v = _v0.a;
+	var largestComponent = A2(
+		$elm$core$Basics$max,
+		$elm$core$Basics$abs(v.x),
+		$elm$core$Basics$abs(v.y));
+	if (!largestComponent) {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		var scaledY = v.y / largestComponent;
+		var scaledX = v.x / largestComponent;
+		var scaledLength = $elm$core$Basics$sqrt((scaledX * scaledX) + (scaledY * scaledY));
+		return $elm$core$Maybe$Just(
+			$ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+				{x: scaledX / scaledLength, y: scaledY / scaledLength}));
+	}
+};
+var $ianmackenzie$elm_geometry$Vector2d$from = F2(
+	function (_v0, _v1) {
+		var p1 = _v0.a;
+		var p2 = _v1.a;
+		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
+			{x: p2.x - p1.x, y: p2.y - p1.y});
+	});
+var $ianmackenzie$elm_geometry$Direction2d$from = F2(
+	function (firstPoint, secondPoint) {
+		return $ianmackenzie$elm_geometry$Vector2d$direction(
+			A2($ianmackenzie$elm_geometry$Vector2d$from, firstPoint, secondPoint));
+	});
+var $elm$core$Array$getHelp = F3(
+	function (shift, index, tree) {
+		getHelp:
+		while (true) {
+			var pos = $elm$core$Array$bitMask & (index >>> shift);
+			var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+			if (_v0.$ === 'SubTree') {
+				var subTree = _v0.a;
+				var $temp$shift = shift - $elm$core$Array$shiftStep,
+					$temp$index = index,
+					$temp$tree = subTree;
+				shift = $temp$shift;
+				index = $temp$index;
+				tree = $temp$tree;
+				continue getHelp;
+			} else {
+				var values = _v0.a;
+				return A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, values);
+			}
+		}
+	});
+var $elm$core$Array$get = F2(
+	function (index, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? $elm$core$Maybe$Nothing : ((_Utils_cmp(
+			index,
+			$elm$core$Array$tailIndex(len)) > -1) ? $elm$core$Maybe$Just(
+			A2($elm$core$Elm$JsArray$unsafeGet, $elm$core$Array$bitMask & index, tail)) : $elm$core$Maybe$Just(
+			A3($elm$core$Array$getHelp, startShift, index, tree)));
+	});
+var $Orasund$elm_static_array$StaticArray$get = F2(
+	function (_v0, _v1) {
+		var n = _v0.a;
+		var _v2 = _v1.a;
+		var head = _v2.a;
+		var tail = _v2.b;
+		return (!n) ? head : A2(
+			$elm$core$Maybe$withDefault,
+			head,
+			A2($elm$core$Array$get, n - 1, tail));
+	});
+var $ianmackenzie$elm_geometry$LineSegment2d$endpoints = function (_v0) {
+	var endpoints_ = _v0.a;
+	return endpoints_;
+};
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$coordinatesString = function (point) {
+	var _v0 = $ianmackenzie$elm_geometry$Point2d$unwrap(point);
+	var x = _v0.x;
+	var y = _v0.y;
+	return $elm$core$String$fromFloat(x) + (',' + $elm$core$String$fromFloat(y));
+};
+var $elm$svg$Svg$Attributes$points = _VirtualDom_attribute('points');
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$pointsAttribute = function (points) {
+	return $elm$svg$Svg$Attributes$points(
+		A2(
+			$elm$core$String$join,
+			' ',
+			A2($elm$core$List$map, $ianmackenzie$elm_geometry_svg$Geometry$Svg$coordinatesString, points)));
+};
+var $elm$svg$Svg$polyline = $elm$svg$Svg$trustedNode('polyline');
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$lineSegment2d = F2(
+	function (attributes, lineSegment) {
+		var _v0 = $ianmackenzie$elm_geometry$LineSegment2d$endpoints(lineSegment);
+		var p1 = _v0.a;
+		var p2 = _v0.b;
+		return A2(
+			$elm$svg$Svg$polyline,
+			A2(
+				$elm$core$List$cons,
+				$ianmackenzie$elm_geometry_svg$Geometry$Svg$pointsAttribute(
+					_List_fromArray(
+						[p1, p2])),
+				attributes),
+			_List_Nil);
+	});
+var $author$project$View$BraidSigil$lineWidth = 4;
+var $ianmackenzie$elm_geometry$Direction2d$negativeY = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+	{x: 0, y: -1});
+var $Orasund$elm_static_array$StaticArray$Index$toInt = function (_v0) {
+	var n = _v0.a;
+	return n;
+};
+var $author$project$View$BraidSigil$nextClockwise = function (_v0) {
+	var i1 = _v0.i1;
+	var i2 = _v0.i2;
+	var i3 = _v0.i3;
+	var n3 = $Orasund$elm_static_array$StaticArray$Index$toInt(i3);
+	var n2 = $Orasund$elm_static_array$StaticArray$Index$toInt(i2);
+	var n1 = $Orasund$elm_static_array$StaticArray$Index$toInt(i1);
+	var l = $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n);
+	return _Utils_cmp(
+		A2($elm$core$Basics$modBy, l, n1 - n2),
+		A2($elm$core$Basics$modBy, l, n3 - n2)) < 0;
+};
+var $author$project$View$BraidSigil$overshoot = 0.05;
+var $ianmackenzie$elm_geometry$Direction2d$positiveX = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+	{x: 1, y: 0});
+var $ianmackenzie$elm_geometry$Direction2d$positiveY = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+	{x: 0, y: 1});
+var $elm$core$Array$setHelp = F4(
+	function (shift, index, value, tree) {
+		var pos = $elm$core$Array$bitMask & (index >>> shift);
+		var _v0 = A2($elm$core$Elm$JsArray$unsafeGet, pos, tree);
+		if (_v0.$ === 'SubTree') {
+			var subTree = _v0.a;
+			var newSub = A4($elm$core$Array$setHelp, shift - $elm$core$Array$shiftStep, index, value, subTree);
+			return A3(
+				$elm$core$Elm$JsArray$unsafeSet,
+				pos,
+				$elm$core$Array$SubTree(newSub),
+				tree);
+		} else {
+			var values = _v0.a;
+			var newLeaf = A3($elm$core$Elm$JsArray$unsafeSet, $elm$core$Array$bitMask & index, value, values);
+			return A3(
+				$elm$core$Elm$JsArray$unsafeSet,
+				pos,
+				$elm$core$Array$Leaf(newLeaf),
+				tree);
+		}
+	});
+var $elm$core$Array$set = F3(
+	function (index, value, array) {
+		var len = array.a;
+		var startShift = array.b;
+		var tree = array.c;
+		var tail = array.d;
+		return ((index < 0) || (_Utils_cmp(index, len) > -1)) ? array : ((_Utils_cmp(
+			index,
+			$elm$core$Array$tailIndex(len)) > -1) ? A4(
+			$elm$core$Array$Array_elm_builtin,
+			len,
+			startShift,
+			tree,
+			A3($elm$core$Elm$JsArray$unsafeSet, $elm$core$Array$bitMask & index, value, tail)) : A4(
+			$elm$core$Array$Array_elm_builtin,
+			len,
+			startShift,
+			A4($elm$core$Array$setHelp, startShift, index, value, tree),
+			tail));
+	});
+var $Orasund$elm_static_array$StaticArray$set = F3(
+	function (_v0, a, _v1) {
+		var n = _v0.a;
+		var _v2 = _v1.a;
+		var head = _v2.a;
+		var tail = _v2.b;
+		return $Orasund$elm_static_array$StaticArray$Internal$A(
+			(!n) ? _Utils_Tuple2(a, tail) : _Utils_Tuple2(
+				head,
+				A3($elm$core$Array$set, n - 1, a, tail)));
+	});
+var $elm$svg$Svg$Attributes$stroke = _VirtualDom_attribute('stroke');
+var $elm$svg$Svg$Attributes$strokeLinecap = _VirtualDom_attribute('stroke-linecap');
+var $elm$svg$Svg$Attributes$strokeWidth = _VirtualDom_attribute('stroke-width');
+var $author$project$View$BraidSigil$strokeWidth = 1;
+var $ianmackenzie$elm_geometry$Geometry$Types$Arc2d = function (a) {
+	return {$: 'Arc2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Vector2d$length = function (_v0) {
+	var v = _v0.a;
+	var largestComponent = A2(
+		$elm$core$Basics$max,
+		$elm$core$Basics$abs(v.x),
+		$elm$core$Basics$abs(v.y));
+	if (!largestComponent) {
+		return $ianmackenzie$elm_units$Quantity$zero;
+	} else {
+		var scaledY = v.y / largestComponent;
+		var scaledX = v.x / largestComponent;
+		var scaledLength = $elm$core$Basics$sqrt((scaledX * scaledX) + (scaledY * scaledY));
+		return $ianmackenzie$elm_units$Quantity$Quantity(scaledLength * largestComponent);
+	}
+};
+var $ianmackenzie$elm_geometry$Quantity$Extra$rTheta = F2(
+	function (_v0, _v1) {
+		var r = _v0.a;
+		var theta = _v1.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(r * theta);
+	});
+var $ianmackenzie$elm_geometry$Direction2d$x = $ianmackenzie$elm_geometry$Direction2d$positiveX;
+var $ianmackenzie$elm_geometry$Arc2d$sweptAround = F3(
+	function (givenCenterPoint, givenSweptAngle, givenStartPoint) {
+		var displacement = A2($ianmackenzie$elm_geometry$Vector2d$from, givenStartPoint, givenCenterPoint);
+		var _v0 = $ianmackenzie$elm_geometry$Vector2d$direction(displacement);
+		if (_v0.$ === 'Just') {
+			var yDirection = _v0.a;
+			var computedRadius = $ianmackenzie$elm_geometry$Vector2d$length(displacement);
+			return $ianmackenzie$elm_geometry$Geometry$Types$Arc2d(
+				{
+					signedLength: A2($ianmackenzie$elm_geometry$Quantity$Extra$rTheta, computedRadius, givenSweptAngle),
+					startPoint: givenStartPoint,
+					sweptAngle: givenSweptAngle,
+					xDirection: $ianmackenzie$elm_geometry$Direction2d$rotateClockwise(yDirection)
+				});
+		} else {
+			return $ianmackenzie$elm_geometry$Geometry$Types$Arc2d(
+				{signedLength: $ianmackenzie$elm_units$Quantity$zero, startPoint: givenStartPoint, sweptAngle: givenSweptAngle, xDirection: $ianmackenzie$elm_geometry$Direction2d$x});
+		}
+	});
+var $ianmackenzie$elm_units$Quantity$unsafe = function (value) {
+	return $ianmackenzie$elm_units$Quantity$Quantity(value);
+};
+var $author$project$View$BraidSigil$init = function (_v0) {
+	var width = _v0.width;
+	var height = _v0.height;
+	var radius = _v0.radius;
+	var startIndex = _v0.startIndex;
+	var nextIndex = _v0.nextIndex;
+	var distinctSecond = _v0.distinctSecond;
+	var distinctThird = _v0.distinctThird;
+	var strokeColor = _v0.strokeColor;
+	var fillColor = _v0.fillColor;
+	var visited = A3(
+		$Orasund$elm_static_array$StaticArray$set,
+		startIndex,
+		1,
+		A3($Orasund$elm_static_array$StaticArray$fromList, $author$project$View$BraidSigil$n, 0, _List_Nil));
+	var options = {height: height, radius: radius, width: width};
+	var p1 = A2(
+		$Orasund$elm_static_array$StaticArray$get,
+		startIndex,
+		$author$project$View$BraidSigil$points(options));
+	var isNextClockwise = $author$project$View$BraidSigil$nextClockwise(
+		{i1: startIndex, i2: distinctSecond, i3: distinctThird});
+	var _v1 = (isNextClockwise ? $author$project$Data$Turtle$arcRightTo(
+		{direction: $ianmackenzie$elm_geometry$Direction2d$positiveY, radius: $author$project$View$BraidSigil$lineWidth / 2}) : $author$project$Data$Turtle$arcLeftTo(
+		{direction: $ianmackenzie$elm_geometry$Direction2d$positiveY, radius: $author$project$View$BraidSigil$lineWidth / 2}))(
+		{
+			arcFun: function (_v2) {
+				var around = _v2.around;
+				var by = _v2.by;
+				var from = _v2.from;
+				var arc = A3(
+					$ianmackenzie$elm_geometry$Arc2d$sweptAround,
+					around,
+					$ianmackenzie$elm_units$Angle$radians(
+						function (r) {
+							return ((_Utils_cmp(r, (-$elm$core$Basics$pi) + $author$project$View$BraidSigil$overshoot) > 0) && (_Utils_cmp(r, $elm$core$Basics$pi - $author$project$View$BraidSigil$overshoot) < 0)) ? (2 * $elm$core$Basics$pi) : ((r < 0) ? (r - $author$project$View$BraidSigil$overshoot) : (r + $author$project$View$BraidSigil$overshoot));
+						}(
+							$ianmackenzie$elm_units$Angle$inRadians(by))),
+					from);
+				return _List_fromArray(
+					[
+						A2(
+						$ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d,
+						_List_fromArray(
+							[
+								$elm$svg$Svg$Attributes$fill('none'),
+								$elm$svg$Svg$Attributes$stroke(strokeColor),
+								$elm$svg$Svg$Attributes$strokeWidth(
+								$elm$core$String$fromFloat($author$project$View$BraidSigil$lineWidth))
+							]),
+						arc),
+						A2(
+						$ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d,
+						_List_fromArray(
+							[
+								$elm$svg$Svg$Attributes$fill('none'),
+								$elm$svg$Svg$Attributes$stroke(fillColor),
+								$elm$svg$Svg$Attributes$strokeLinecap('round'),
+								$elm$svg$Svg$Attributes$strokeWidth(
+								$elm$core$String$fromFloat($author$project$View$BraidSigil$lineWidth - (2 * $author$project$View$BraidSigil$strokeWidth)))
+							]),
+						arc)
+					]);
+			},
+			direction: $ianmackenzie$elm_geometry$Direction2d$negativeY,
+			lineFun: function (_v3) {
+				var from = _v3.from;
+				var to = _v3.to;
+				var len = A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, from, to);
+				var dir = A2(
+					$elm$core$Maybe$withDefault,
+					$ianmackenzie$elm_geometry$Direction2d$positiveX,
+					A2($ianmackenzie$elm_geometry$Direction2d$from, from, to));
+				var vec = A2(
+					$ianmackenzie$elm_geometry$Vector2d$withLength,
+					A2(
+						$ianmackenzie$elm_units$Quantity$plus,
+						$ianmackenzie$elm_units$Quantity$unsafe($author$project$View$BraidSigil$overshoot),
+						len),
+					dir);
+				var segment = A2(
+					$ianmackenzie$elm_geometry$LineSegment2d$from,
+					from,
+					A2($ianmackenzie$elm_geometry$Point2d$translateBy, vec, from));
+				return _List_fromArray(
+					[
+						A2(
+						$ianmackenzie$elm_geometry_svg$Geometry$Svg$lineSegment2d,
+						_List_fromArray(
+							[
+								$elm$svg$Svg$Attributes$stroke(strokeColor),
+								$elm$svg$Svg$Attributes$strokeWidth(
+								$elm$core$String$fromFloat($author$project$View$BraidSigil$lineWidth))
+							]),
+						segment),
+						A2(
+						$ianmackenzie$elm_geometry_svg$Geometry$Svg$lineSegment2d,
+						_List_fromArray(
+							[
+								$elm$svg$Svg$Attributes$stroke(fillColor),
+								$elm$svg$Svg$Attributes$strokeWidth(
+								$elm$core$String$fromFloat($author$project$View$BraidSigil$lineWidth - (2 * $author$project$View$BraidSigil$strokeWidth))),
+								$elm$svg$Svg$Attributes$strokeLinecap('round')
+							]),
+						segment)
+					]);
+			},
+			position: p1
+		});
+	var turtle = _v1.a;
+	var drawing = _v1.b;
+	return _Utils_Tuple2(
+		{isOvercross: isNextClockwise, lastDistinctIndex: $elm$core$Maybe$Nothing, nextIndex: nextIndex, startIndex: startIndex, turtle: turtle, visited: visited},
+		drawing);
+};
+var $ianmackenzie$elm_geometry$Vector2d$unsafe = function (givenComponents) {
+	return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(givenComponents);
+};
+var $ianmackenzie$elm_units$Angle$degrees = function (numDegrees) {
+	return $ianmackenzie$elm_units$Angle$radians($elm$core$Basics$pi * (numDegrees / 180));
+};
+var $ianmackenzie$elm_geometry$Quantity$Extra$rCosTheta = F2(
+	function (r, theta) {
+		return A2(
+			$ianmackenzie$elm_units$Quantity$multiplyBy,
+			$ianmackenzie$elm_units$Angle$cos(theta),
+			r);
+	});
+var $ianmackenzie$elm_geometry$Arc2d$with = function (properties) {
+	var y0 = $ianmackenzie$elm_geometry$Point2d$yCoordinate(properties.centerPoint);
+	var x0 = $ianmackenzie$elm_geometry$Point2d$xCoordinate(properties.centerPoint);
+	var givenSweptAngle = properties.sweptAngle;
+	var givenStartAngle = properties.startAngle;
+	var givenRadius = properties.radius;
+	var startX = A2(
+		$ianmackenzie$elm_units$Quantity$plus,
+		A2($ianmackenzie$elm_geometry$Quantity$Extra$rCosTheta, givenRadius, givenStartAngle),
+		x0);
+	var startY = A2(
+		$ianmackenzie$elm_units$Quantity$plus,
+		A2($ianmackenzie$elm_geometry$Quantity$Extra$rSinTheta, givenRadius, givenStartAngle),
+		y0);
+	return $ianmackenzie$elm_geometry$Geometry$Types$Arc2d(
+		{
+			signedLength: A2(
+				$ianmackenzie$elm_geometry$Quantity$Extra$rTheta,
+				$ianmackenzie$elm_units$Quantity$abs(givenRadius),
+				givenSweptAngle),
+			startPoint: A2($ianmackenzie$elm_geometry$Point2d$xy, startX, startY),
+			sweptAngle: givenSweptAngle,
+			xDirection: $ianmackenzie$elm_geometry$Direction2d$fromAngle(
+				A2(
+					$ianmackenzie$elm_units$Quantity$plus,
+					$ianmackenzie$elm_units$Angle$degrees(90),
+					givenStartAngle))
+		});
+};
+var $author$project$View$BraidSigil$initCircle = F2(
+	function (options, startIndex) {
+		var p1 = A2(
+			$Orasund$elm_static_array$StaticArray$get,
+			startIndex,
+			$author$project$View$BraidSigil$points(
+				{height: options.height, radius: options.radius, width: options.width}));
+		return _List_fromArray(
+			[
+				A2(
+				$ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill(options.strokeColor)
+					]),
+				$ianmackenzie$elm_geometry$Arc2d$with(
+					{
+						centerPoint: p1,
+						radius: $ianmackenzie$elm_units$Quantity$unsafe($author$project$View$BraidSigil$lineWidth / 2),
+						startAngle: $ianmackenzie$elm_units$Angle$radians(-$author$project$View$BraidSigil$overshoot),
+						sweptAngle: $ianmackenzie$elm_units$Angle$radians($elm$core$Basics$pi + ($author$project$View$BraidSigil$overshoot * 2))
+					})),
+				A2(
+				$ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$fill(options.fillColor)
+					]),
+				A3(
+					$ianmackenzie$elm_geometry$Arc2d$sweptAround,
+					p1,
+					$ianmackenzie$elm_units$Angle$radians(2 * $elm$core$Basics$pi),
+					A2(
+						$ianmackenzie$elm_geometry$Point2d$translateBy,
+						$ianmackenzie$elm_geometry$Vector2d$unsafe(
+							{x: ($author$project$View$BraidSigil$lineWidth - (2 * $author$project$View$BraidSigil$strokeWidth)) / 2, y: 0}),
+						p1)))
+			]);
+	});
+var $ianmackenzie$elm_geometry$Point2d$midpoint = F2(
+	function (_v0, _v1) {
+		var p1 = _v0.a;
+		var p2 = _v1.a;
+		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
+			{x: p1.x + (0.5 * (p2.x - p1.x)), y: p1.y + (0.5 * (p2.y - p1.y))});
+	});
+var $author$project$View$BraidSigil$pointSize = $author$project$View$BraidSigil$lineWidth / 2;
+var $ianmackenzie$elm_geometry$Direction2d$reverse = function (_v0) {
+	var d = _v0.a;
+	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+		{x: -d.x, y: -d.y});
+};
+var $ianmackenzie$elm_units$Quantity$unwrap = function (_v0) {
+	var value = _v0.a;
+	return value;
+};
+var $author$project$View$BraidSigil$circleAround = F2(
+	function (options, _v0) {
+		var startIndex = _v0.startIndex;
+		var turtle = _v0.turtle;
+		var visited = _v0.visited;
+		var isClockwise = _v0.isClockwise;
+		var v1 = A2($Orasund$elm_static_array$StaticArray$get, startIndex, visited);
+		var rotate = isClockwise ? $author$project$Data$Turtle$arcRightTo : $author$project$Data$Turtle$arcLeftTo;
+		var p1 = A2(
+			$Orasund$elm_static_array$StaticArray$get,
+			startIndex,
+			$author$project$View$BraidSigil$points(options));
+		var intersectionPoint = A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2(
+				$ianmackenzie$elm_geometry$Vector2d$withLength,
+				$ianmackenzie$elm_units$Quantity$Quantity(($author$project$View$BraidSigil$pointSize + ($author$project$View$BraidSigil$lineWidth * (2 * v1))) - ($author$project$View$BraidSigil$lineWidth / 2)),
+				A2(
+					$elm$core$Maybe$withDefault,
+					$ianmackenzie$elm_geometry$Direction2d$positiveX,
+					A2($ianmackenzie$elm_geometry$Direction2d$from, turtle.position, p1))),
+			turtle.position);
+		var endPoint = A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2(
+				$ianmackenzie$elm_geometry$Vector2d$withLength,
+				$ianmackenzie$elm_units$Quantity$Quantity($author$project$View$BraidSigil$lineWidth * 1),
+				A2(
+					$elm$core$Maybe$withDefault,
+					$ianmackenzie$elm_geometry$Direction2d$positiveX,
+					A2($ianmackenzie$elm_geometry$Direction2d$from, p1, turtle.position))),
+			turtle.position);
+		var centerPoint = A2($ianmackenzie$elm_geometry$Point2d$midpoint, intersectionPoint, endPoint);
+		return _Utils_eq(v1, -1) ? A2(
+			rotate,
+			{
+				direction: turtle.direction,
+				radius: $ianmackenzie$elm_units$Quantity$unwrap(
+					A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, p1, turtle.position))
+			},
+			turtle) : A2(
+			$elm$core$Tuple$mapFirst,
+			function (t) {
+				return _Utils_update(
+					t,
+					{position: endPoint});
+			},
+			A2(
+				$author$project$Data$Turtle$andThen,
+				function (t) {
+					return A2(
+						rotate,
+						{
+							direction: turtle.direction,
+							radius: $ianmackenzie$elm_units$Quantity$unwrap(
+								A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, centerPoint, t.position))
+						},
+						t);
+				},
+				A2(
+					$elm$core$Tuple$mapFirst,
+					function (t) {
+						return _Utils_update(
+							t,
+							{position: intersectionPoint});
+					},
+					A2(
+						rotate,
+						{
+							direction: $ianmackenzie$elm_geometry$Direction2d$reverse(turtle.direction),
+							radius: $ianmackenzie$elm_units$Quantity$unwrap(
+								A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, p1, turtle.position))
+						},
+						turtle))));
+	});
+var $ianmackenzie$elm_units$Quantity$divideBy = F2(
+	function (divisor, _v0) {
+		var value = _v0.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(value / divisor);
+	});
+var $author$project$Data$Geometry$intersection = function (_v0) {
+	var c1 = _v0.a;
+	var c2 = _v0.b;
+	var r2 = $ianmackenzie$elm_geometry$Circle2d$radius(c2);
+	var r1 = $ianmackenzie$elm_geometry$Circle2d$radius(c1);
+	var p2 = $ianmackenzie$elm_geometry$Circle2d$centerPoint(c2);
+	var p1 = $ianmackenzie$elm_geometry$Circle2d$centerPoint(c1);
+	var dir12 = A2(
+		$elm$core$Maybe$withDefault,
+		$ianmackenzie$elm_geometry$Direction2d$positiveX,
+		A2($ianmackenzie$elm_geometry$Direction2d$from, p1, p2));
+	var d12 = A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, p1, p2);
+	var d1 = $ianmackenzie$elm_units$Quantity$unsafe(
+		((($ianmackenzie$elm_units$Quantity$unwrap(d12) * $ianmackenzie$elm_units$Quantity$unwrap(d12)) - ($ianmackenzie$elm_units$Quantity$unwrap(r2) * $ianmackenzie$elm_units$Quantity$unwrap(r2))) + ($ianmackenzie$elm_units$Quantity$unwrap(r1) * $ianmackenzie$elm_units$Quantity$unwrap(r1))) / ($ianmackenzie$elm_units$Quantity$unwrap(d12) * 2));
+	var h = $ianmackenzie$elm_units$Quantity$unsafe(
+		$elm$core$Basics$sqrt(
+			($ianmackenzie$elm_units$Quantity$unwrap(r1) * $ianmackenzie$elm_units$Quantity$unwrap(r1)) - ($ianmackenzie$elm_units$Quantity$unwrap(d1) * $ianmackenzie$elm_units$Quantity$unwrap(d1))));
+	var x1 = A2(
+		$ianmackenzie$elm_geometry$Point2d$translateBy,
+		A2(
+			$ianmackenzie$elm_geometry$Vector2d$withLength,
+			h,
+			$ianmackenzie$elm_geometry$Direction2d$rotateClockwise(dir12)),
+		A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2($ianmackenzie$elm_geometry$Vector2d$withLength, d1, dir12),
+			p1));
+	var x2 = A2(
+		$ianmackenzie$elm_geometry$Point2d$translateBy,
+		A2(
+			$ianmackenzie$elm_geometry$Vector2d$withLength,
+			h,
+			$ianmackenzie$elm_geometry$Direction2d$rotateCounterclockwise(dir12)),
+		A2(
+			$ianmackenzie$elm_geometry$Point2d$translateBy,
+			A2($ianmackenzie$elm_geometry$Vector2d$withLength, d1, dir12),
+			p1));
+	return _Utils_Tuple2(x1, x2);
+};
+var $author$project$Data$Geometry$innerTangent = F2(
+	function (_v0, isNextClockwise) {
+		var c1 = _v0.a;
+		var c2 = _v0.b;
+		if (A2(
+			$ianmackenzie$elm_units$Quantity$lessThan,
+			$ianmackenzie$elm_geometry$Circle2d$radius(c2),
+			$ianmackenzie$elm_geometry$Circle2d$radius(c1))) {
+			return function (_v1) {
+				var p2 = _v1.a;
+				var p1 = _v1.b;
+				return _Utils_Tuple2(p1, p2);
+			}(
+				A2(
+					$author$project$Data$Geometry$innerTangent,
+					_Utils_Tuple2(c2, c1),
+					isNextClockwise));
+		} else {
+			var r2 = $ianmackenzie$elm_geometry$Circle2d$radius(c2);
+			var r1 = $ianmackenzie$elm_geometry$Circle2d$radius(c1);
+			var p2 = $ianmackenzie$elm_geometry$Circle2d$centerPoint(c2);
+			var p1 = $ianmackenzie$elm_geometry$Circle2d$centerPoint(c1);
+			var d12 = A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, p1, p2);
+			var c4 = A2(
+				$ianmackenzie$elm_geometry$Circle2d$withRadius,
+				A2($ianmackenzie$elm_units$Quantity$divideBy, 2, d12),
+				A2($ianmackenzie$elm_geometry$Point2d$midpoint, p1, p2));
+			var c3 = A2(
+				$ianmackenzie$elm_geometry$Circle2d$withRadius,
+				A2($ianmackenzie$elm_units$Quantity$plus, r2, r1),
+				p1);
+			var _v2 = $author$project$Data$Geometry$intersection(
+				_Utils_Tuple2(c3, c4));
+			var x1 = _v2.a;
+			var x2 = _v2.b;
+			var d = isNextClockwise ? A2(
+				$elm$core$Maybe$withDefault,
+				$ianmackenzie$elm_geometry$Direction2d$positiveX,
+				A2($ianmackenzie$elm_geometry$Direction2d$from, p1, x2)) : A2(
+				$elm$core$Maybe$withDefault,
+				$ianmackenzie$elm_geometry$Direction2d$positiveX,
+				A2($ianmackenzie$elm_geometry$Direction2d$from, p1, x1));
+			return _Utils_Tuple2(
+				A2(
+					$ianmackenzie$elm_geometry$Point2d$translateBy,
+					A2($ianmackenzie$elm_geometry$Vector2d$withLength, r1, d),
+					p1),
+				A2(
+					$ianmackenzie$elm_geometry$Point2d$translateBy,
+					A2(
+						$ianmackenzie$elm_geometry$Vector2d$withLength,
+						r2,
+						$ianmackenzie$elm_geometry$Direction2d$reverse(d)),
+					p2));
+		}
+	});
+var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
+var $elm$svg$Svg$map = $elm$virtual_dom$VirtualDom$map;
+var $author$project$Data$Geometry$outerTangent = F2(
+	function (_v0, isNextClockwise) {
+		var c1 = _v0.a;
+		var c2 = _v0.b;
+		if (A2(
+			$ianmackenzie$elm_units$Quantity$lessThan,
+			$ianmackenzie$elm_geometry$Circle2d$radius(c2),
+			$ianmackenzie$elm_geometry$Circle2d$radius(c1))) {
+			return function (_v1) {
+				var p2 = _v1.a;
+				var p1 = _v1.b;
+				return _Utils_Tuple2(p1, p2);
+			}(
+				A2(
+					$author$project$Data$Geometry$outerTangent,
+					_Utils_Tuple2(c2, c1),
+					!isNextClockwise));
+		} else {
+			var r2 = $ianmackenzie$elm_geometry$Circle2d$radius(c2);
+			var r1 = $ianmackenzie$elm_geometry$Circle2d$radius(c1);
+			var p2 = $ianmackenzie$elm_geometry$Circle2d$centerPoint(c2);
+			var p1 = $ianmackenzie$elm_geometry$Circle2d$centerPoint(c1);
+			var d12 = A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, p1, p2);
+			var c4 = A2(
+				$ianmackenzie$elm_geometry$Circle2d$withRadius,
+				A2($ianmackenzie$elm_units$Quantity$divideBy, 2, d12),
+				A2($ianmackenzie$elm_geometry$Point2d$midpoint, p1, p2));
+			var c3 = A2(
+				$ianmackenzie$elm_geometry$Circle2d$withRadius,
+				$ianmackenzie$elm_units$Quantity$unsafe(
+					$ianmackenzie$elm_units$Quantity$unwrap(r1) - $ianmackenzie$elm_units$Quantity$unwrap(r2)),
+				p1);
+			var _v2 = $author$project$Data$Geometry$intersection(
+				_Utils_Tuple2(c3, c4));
+			var x1 = _v2.a;
+			var x2 = _v2.b;
+			var d = isNextClockwise ? A2(
+				$elm$core$Maybe$withDefault,
+				$ianmackenzie$elm_geometry$Direction2d$positiveX,
+				A2($ianmackenzie$elm_geometry$Direction2d$from, p1, x1)) : A2(
+				$elm$core$Maybe$withDefault,
+				$ianmackenzie$elm_geometry$Direction2d$positiveX,
+				A2($ianmackenzie$elm_geometry$Direction2d$from, p1, x2));
+			return _Utils_Tuple2(
+				A2(
+					$ianmackenzie$elm_geometry$Point2d$translateBy,
+					A2($ianmackenzie$elm_geometry$Vector2d$withLength, r1, d),
+					p1),
+				A2(
+					$ianmackenzie$elm_geometry$Point2d$translateBy,
+					A2($ianmackenzie$elm_geometry$Vector2d$withLength, r2, d),
+					p2));
+		}
+	});
+var $author$project$View$BraidSigil$line = F3(
+	function (options, state, newNextIndex) {
+		if (_Utils_eq(state.startIndex, state.nextIndex)) {
+			var isNextClockwise = A2(
+				$elm$core$Maybe$withDefault,
+				state.isOvercross,
+				A2(
+					$elm$core$Maybe$map,
+					function (i1) {
+						return _Utils_eq(i1, state.nextIndex) ? state.isOvercross : $author$project$View$BraidSigil$nextClockwise(
+							{i1: i1, i2: state.nextIndex, i3: newNextIndex});
+					},
+					state.lastDistinctIndex));
+			var _v0 = A2(
+				$author$project$View$BraidSigil$circleAround,
+				options,
+				{isClockwise: state.isOvercross, startIndex: state.startIndex, turtle: state.turtle, visited: state.visited});
+			var turtle = _v0.a;
+			var drawing = _v0.b;
+			return _Utils_Tuple2(
+				_Utils_update(
+					state,
+					{
+						isOvercross: isNextClockwise,
+						lastDistinctIndex: _Utils_eq(
+							A2($elm$core$Maybe$withDefault, state.startIndex, state.lastDistinctIndex),
+							state.nextIndex) ? state.lastDistinctIndex : $elm$core$Maybe$Just(state.nextIndex),
+						nextIndex: newNextIndex,
+						turtle: turtle,
+						visited: A3(
+							$Orasund$elm_static_array$StaticArray$set,
+							state.nextIndex,
+							1 + A2($Orasund$elm_static_array$StaticArray$get, state.nextIndex, state.visited),
+							state.visited)
+					}),
+				A2(
+					$elm$core$List$map,
+					$elm$svg$Svg$map($elm$core$Basics$never),
+					drawing));
+		} else {
+			var v2 = A2($Orasund$elm_static_array$StaticArray$get, state.nextIndex, state.visited);
+			var v1 = A2($Orasund$elm_static_array$StaticArray$get, state.startIndex, state.visited);
+			var rotate = state.isOvercross ? $author$project$Data$Turtle$arcRightTo : $author$project$Data$Turtle$arcLeftTo;
+			var r2 = $ianmackenzie$elm_units$Quantity$Quantity($author$project$View$BraidSigil$lineWidth * (v2 + 1));
+			var r1 = $ianmackenzie$elm_units$Quantity$unsafe($author$project$View$BraidSigil$lineWidth * v1);
+			var p2 = A2(
+				$Orasund$elm_static_array$StaticArray$get,
+				state.nextIndex,
+				$author$project$View$BraidSigil$points(options));
+			var p1 = A2(
+				$Orasund$elm_static_array$StaticArray$get,
+				state.startIndex,
+				$author$project$View$BraidSigil$points(options));
+			var isNextClockwise = A2(
+				$elm$core$Maybe$withDefault,
+				_Utils_eq(state.startIndex, newNextIndex) ? (!state.isOvercross) : state.isOvercross,
+				A2(
+					$elm$core$Maybe$map,
+					function (i1) {
+						return _Utils_eq(i1, newNextIndex) ? (!state.isOvercross) : $author$project$View$BraidSigil$nextClockwise(
+							{i1: i1, i2: state.nextIndex, i3: newNextIndex});
+					},
+					state.lastDistinctIndex));
+			var _v1 = function () {
+				if (_Utils_eq(state.isOvercross, isNextClockwise)) {
+					if (_Utils_eq(v2 + 1, v1)) {
+						var vec = A2(
+							$ianmackenzie$elm_geometry$Vector2d$withLength,
+							r1,
+							(state.isOvercross ? $ianmackenzie$elm_geometry$Direction2d$rotateClockwise : $ianmackenzie$elm_geometry$Direction2d$rotateCounterclockwise)(
+								A2(
+									$elm$core$Maybe$withDefault,
+									$ianmackenzie$elm_geometry$Direction2d$positiveX,
+									A2($ianmackenzie$elm_geometry$Direction2d$from, p1, p2))));
+						return _Utils_Tuple2(
+							A2($ianmackenzie$elm_geometry$Point2d$translateBy, vec, p1),
+							A2($ianmackenzie$elm_geometry$Point2d$translateBy, vec, p2));
+					} else {
+						return A2(
+							$author$project$Data$Geometry$outerTangent,
+							_Utils_Tuple2(
+								A2($ianmackenzie$elm_geometry$Circle2d$withRadius, r1, p1),
+								A2($ianmackenzie$elm_geometry$Circle2d$withRadius, r2, p2)),
+							isNextClockwise);
+					}
+				} else {
+					return A2(
+						$author$project$Data$Geometry$innerTangent,
+						_Utils_Tuple2(
+							A2($ianmackenzie$elm_geometry$Circle2d$withRadius, r1, p1),
+							A2($ianmackenzie$elm_geometry$Circle2d$withRadius, r2, p2)),
+						isNextClockwise);
+				}
+			}();
+			var intermediatePosition = _v1.a;
+			var endPosition = _v1.b;
+			var endDirection = A2(
+				$elm$core$Maybe$withDefault,
+				$ianmackenzie$elm_geometry$Direction2d$positiveX,
+				A2($ianmackenzie$elm_geometry$Direction2d$from, intermediatePosition, endPosition));
+			var _v2 = A2(
+				$author$project$Data$Turtle$andThen,
+				function (t) {
+					return A2(
+						$author$project$Data$Turtle$forwardBy,
+						$ianmackenzie$elm_units$Quantity$unwrap(
+							A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, endPosition, t.position)),
+						t);
+				},
+				A2(
+					$elm$core$Tuple$mapFirst,
+					function (t) {
+						return _Utils_update(
+							t,
+							{position: intermediatePosition});
+					},
+					A2(
+						rotate,
+						{
+							direction: endDirection,
+							radius: $ianmackenzie$elm_units$Quantity$unwrap(
+								A2($ianmackenzie$elm_geometry$Point2d$distanceFrom, p1, state.turtle.position))
+						},
+						state.turtle)));
+			var turtle = _v2.a;
+			var drawing = _v2.b;
+			return _Utils_Tuple2(
+				_Utils_update(
+					state,
+					{
+						isOvercross: isNextClockwise,
+						lastDistinctIndex: _Utils_eq(
+							A2($elm$core$Maybe$withDefault, state.startIndex, state.lastDistinctIndex),
+							state.nextIndex) ? state.lastDistinctIndex : $elm$core$Maybe$Just(state.nextIndex),
+						nextIndex: newNextIndex,
+						startIndex: state.nextIndex,
+						turtle: _Utils_update(
+							turtle,
+							{direction: endDirection, position: endPosition}),
+						visited: A3($Orasund$elm_static_array$StaticArray$set, state.nextIndex, 1 + v2, state.visited)
+					}),
+				A2(
+					$elm$core$List$map,
+					$elm$svg$Svg$map($elm$core$Basics$never),
+					drawing));
+		}
+	});
+var $ianmackenzie$elm_units$Pixels$pixels = function (numPixels) {
+	return $ianmackenzie$elm_units$Quantity$Quantity(numPixels);
+};
+var $ianmackenzie$elm_geometry$Point2d$pixels = F2(
+	function (x, y) {
+		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
+			{x: x, y: y});
+	});
+var $ianmackenzie$elm_geometry$Vector2d$pixels = F2(
+	function (x, y) {
+		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
+			{x: x, y: y});
+	});
+var $Orasund$elm_static_array$StaticArray$Index$range = function (_v0) {
+	var _const = _v0.a;
+	return A2(
+		$elm$core$List$map,
+		$Orasund$elm_static_array$StaticArray$Internal$I,
+		A2($elm$core$List$range, 0, _const - 1));
+};
+var $elm$core$List$singleton = function (value) {
+	return _List_fromArray(
+		[value]);
+};
+var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$svg$Svg$Attributes$textAnchor = _VirtualDom_attribute('text-anchor');
+var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
+var $elm$core$String$foldr = _String_foldr;
+var $elm$core$String$toList = function (string) {
+	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
+};
+var $elm_community$list_extra$List$Extra$uniqueHelp = F4(
+	function (f, existing, remaining, accumulator) {
+		uniqueHelp:
+		while (true) {
+			if (!remaining.b) {
+				return $elm$core$List$reverse(accumulator);
+			} else {
+				var first = remaining.a;
+				var rest = remaining.b;
+				var computedFirst = f(first);
+				if (A2($elm$core$Set$member, computedFirst, existing)) {
+					var $temp$f = f,
+						$temp$existing = existing,
+						$temp$remaining = rest,
+						$temp$accumulator = accumulator;
+					f = $temp$f;
+					existing = $temp$existing;
+					remaining = $temp$remaining;
+					accumulator = $temp$accumulator;
+					continue uniqueHelp;
+				} else {
+					var $temp$f = f,
+						$temp$existing = A2($elm$core$Set$insert, computedFirst, existing),
+						$temp$remaining = rest,
+						$temp$accumulator = A2($elm$core$List$cons, first, accumulator);
+					f = $temp$f;
+					existing = $temp$existing;
+					remaining = $temp$remaining;
+					accumulator = $temp$accumulator;
+					continue uniqueHelp;
+				}
+			}
+		}
+	});
+var $elm_community$list_extra$List$Extra$uniqueBy = F2(
+	function (f, list) {
+		return A4($elm_community$list_extra$List$Extra$uniqueHelp, f, $elm$core$Set$empty, list, _List_Nil);
 	});
 var $author$project$View$BinarySigil$Down = {$: 'Down'};
 var $author$project$View$BinarySigil$End = {$: 'End'};
@@ -14691,27 +15918,6 @@ var $author$project$View$BinarySigil$boolListToShapeList = function (l) {
 var $icidasset$elm_binary$Binary$Bits = function (a) {
 	return {$: 'Bits', a: a};
 };
-var $elm$core$List$repeatHelp = F3(
-	function (result, n, value) {
-		repeatHelp:
-		while (true) {
-			if (n <= 0) {
-				return result;
-			} else {
-				var $temp$result = A2($elm$core$List$cons, value, result),
-					$temp$n = n - 1,
-					$temp$value = value;
-				result = $temp$result;
-				n = $temp$n;
-				value = $temp$value;
-				continue repeatHelp;
-			}
-		}
-	});
-var $elm$core$List$repeat = F2(
-	function (n, value) {
-		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
-	});
 var $icidasset$elm_binary$Binary$ensureSize = F2(
 	function (size, _v0) {
 		var bits = _v0.a;
@@ -14721,28 +15927,6 @@ var $icidasset$elm_binary$Binary$ensureSize = F2(
 			_Utils_ap(
 				A2($elm$core$List$repeat, size - currentLength, false),
 				bits)));
-	});
-var $ianmackenzie$elm_geometry$Geometry$Types$LineSegment2d = function (a) {
-	return {$: 'LineSegment2d', a: a};
-};
-var $ianmackenzie$elm_geometry$LineSegment2d$fromEndpoints = $ianmackenzie$elm_geometry$Geometry$Types$LineSegment2d;
-var $ianmackenzie$elm_geometry$LineSegment2d$from = F2(
-	function (startPoint_, endPoint_) {
-		return $ianmackenzie$elm_geometry$LineSegment2d$fromEndpoints(
-			_Utils_Tuple2(startPoint_, endPoint_));
-	});
-var $ianmackenzie$elm_geometry$Direction2d$fromAngle = function (_v0) {
-	var angle = _v0.a;
-	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-		{
-			x: $elm$core$Basics$cos(angle),
-			y: $elm$core$Basics$sin(angle)
-		});
-};
-var $elm$core$Basics$composeR = F3(
-	function (f, g, x) {
-		return g(
-			f(x));
 	});
 var $icidasset$elm_binary$Binary$fromDecimal_ = F2(
 	function (acc, n) {
@@ -14781,27 +15965,6 @@ var $icidasset$elm_binary$Binary$fromDecimal = A2(
 	$elm$core$Basics$composeR,
 	$icidasset$elm_binary$Binary$fromDecimal_(_List_Nil),
 	$icidasset$elm_binary$Binary$fromIntegers);
-var $ianmackenzie$elm_units$Angle$inRadians = function (_v0) {
-	var numRadians = _v0.a;
-	return numRadians;
-};
-var $ianmackenzie$elm_geometry$Point2d$translateBy = F2(
-	function (_v0, _v1) {
-		var v = _v0.a;
-		var p = _v1.a;
-		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
-			{x: p.x + v.x, y: p.y + v.y});
-	});
-var $ianmackenzie$elm_geometry$Geometry$Types$Vector2d = function (a) {
-	return {$: 'Vector2d', a: a};
-};
-var $ianmackenzie$elm_geometry$Vector2d$withLength = F2(
-	function (_v0, _v1) {
-		var a = _v0.a;
-		var d = _v1.a;
-		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
-			{x: a * d.x, y: a * d.y});
-	});
 var $author$project$Data$Turtle$jumpForward = F2(
 	function (amount, turtle) {
 		return _Utils_update(
@@ -14816,35 +15979,7 @@ var $author$project$Data$Turtle$jumpForward = F2(
 					turtle.position)
 			});
 	});
-var $ianmackenzie$elm_geometry$LineSegment2d$endpoints = function (_v0) {
-	var endpoints_ = _v0.a;
-	return endpoints_;
-};
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$lineSegment2d = F2(
-	function (attributes, lineSegment) {
-		var _v0 = $ianmackenzie$elm_geometry$LineSegment2d$endpoints(lineSegment);
-		var p1 = _v0.a;
-		var p2 = _v0.b;
-		return A2(
-			$elm$svg$Svg$polyline,
-			A2(
-				$elm$core$List$cons,
-				$ianmackenzie$elm_geometry_svg$Geometry$Svg$pointsAttribute(
-					_List_fromArray(
-						[p1, p2])),
-				attributes),
-			_List_Nil);
-	});
 var $elm$core$Basics$pow = _Basics_pow;
-var $ianmackenzie$elm_geometry$Direction2d$rotateBy = F2(
-	function (_v0, _v1) {
-		var angle = _v0.a;
-		var d = _v1.a;
-		var s = $elm$core$Basics$sin(angle);
-		var c = $elm$core$Basics$cos(angle);
-		return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-			{x: (c * d.x) - (s * d.y), y: (s * d.x) + (c * d.y)});
-	});
 var $author$project$Data$Turtle$rotateLeftBy = F2(
 	function (angle, turtle) {
 		return _Utils_update(
@@ -14865,166 +16000,9 @@ var $author$project$Data$Turtle$rotateRightBy = F2(
 				direction: A2($ianmackenzie$elm_geometry$Direction2d$rotateBy, angle, turtle.direction)
 			});
 	});
-var $author$project$Data$Turtle$andThen = F2(
-	function (fun, _v0) {
-		var turtle = _v0.a;
-		var out = _v0.b;
-		var _v1 = fun(turtle);
-		var newTurtle = _v1.a;
-		var head = _v1.b;
-		return _Utils_Tuple2(
-			newTurtle,
-			_Utils_ap(head, out));
-	});
 var $author$project$Data$Turtle$init = F2(
 	function (out, turtle) {
 		return _Utils_Tuple2(turtle, out);
-	});
-var $elm$core$Basics$atan2 = _Basics_atan2;
-var $ianmackenzie$elm_geometry$Direction2d$angleFrom = F2(
-	function (_v0, _v1) {
-		var d1 = _v0.a;
-		var d2 = _v1.a;
-		var relativeY = (d1.x * d2.y) - (d1.y * d2.x);
-		var relativeX = (d1.x * d2.x) + (d1.y * d2.y);
-		return $ianmackenzie$elm_units$Quantity$Quantity(
-			A2($elm$core$Basics$atan2, relativeY, relativeX));
-	});
-var $ianmackenzie$elm_geometry$Direction2d$equalWithin = F3(
-	function (_v0, _v1, _v2) {
-		var angle = _v0.a;
-		var d1 = _v1.a;
-		var d2 = _v2.a;
-		var relativeY = (d1.x * d2.y) - (d1.y * d2.x);
-		var relativeX = (d1.x * d2.x) + (d1.y * d2.y);
-		return _Utils_cmp(
-			$elm$core$Basics$abs(
-				A2($elm$core$Basics$atan2, relativeY, relativeX)),
-			angle) < 1;
-	});
-var $ianmackenzie$elm_geometry$Point2d$rotateAround = F3(
-	function (_v0, _v1, _v2) {
-		var p0 = _v0.a;
-		var theta = _v1.a;
-		var p = _v2.a;
-		var s = $elm$core$Basics$sin(theta);
-		var deltaY = p.y - p0.y;
-		var deltaX = p.x - p0.x;
-		var c = $elm$core$Basics$cos(theta);
-		return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
-			{x: (p0.x + (c * deltaX)) - (s * deltaY), y: (p0.y + (s * deltaX)) + (c * deltaY)});
-	});
-var $ianmackenzie$elm_geometry$Direction2d$rotateClockwise = function (_v0) {
-	var d = _v0.a;
-	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-		{x: d.y, y: -d.x});
-};
-var $author$project$Data$Turtle$arcLeftTo = F2(
-	function (_v0, turtle) {
-		var direction = _v0.direction;
-		var radius = _v0.radius;
-		var around = A2(
-			$ianmackenzie$elm_geometry$Point2d$translateBy,
-			A2(
-				$ianmackenzie$elm_geometry$Vector2d$withLength,
-				$ianmackenzie$elm_units$Quantity$Quantity(radius),
-				$ianmackenzie$elm_geometry$Direction2d$rotateClockwise(turtle.direction)),
-			turtle.position);
-		var angle = $ianmackenzie$elm_units$Angle$radians(
-			function (r) {
-				return A3(
-					$ianmackenzie$elm_geometry$Direction2d$equalWithin,
-					$ianmackenzie$elm_units$Angle$radians(0.001),
-					turtle.direction,
-					direction) ? (2 * $elm$core$Basics$pi) : ((r < 0) ? r : (r - (2 * $elm$core$Basics$pi)));
-			}(
-				$ianmackenzie$elm_units$Angle$inRadians(
-					A2($ianmackenzie$elm_geometry$Direction2d$angleFrom, turtle.direction, direction))));
-		var newPosition = A3($ianmackenzie$elm_geometry$Point2d$rotateAround, around, angle, turtle.position);
-		return _Utils_Tuple2(
-			_Utils_update(
-				turtle,
-				{direction: direction, position: newPosition}),
-			turtle.arcFun(
-				{around: around, by: angle, from: turtle.position}));
-	});
-var $author$project$Data$Turtle$arcLeftBy = F2(
-	function (_v0, turtle) {
-		var angle = _v0.angle;
-		var radius = _v0.radius;
-		return A2(
-			$author$project$Data$Turtle$arcLeftTo,
-			{
-				direction: A2(
-					$ianmackenzie$elm_geometry$Direction2d$rotateBy,
-					$ianmackenzie$elm_units$Angle$radians(
-						(2 * $elm$core$Basics$pi) - $ianmackenzie$elm_units$Angle$inRadians(angle)),
-					turtle.direction),
-				radius: radius
-			},
-			turtle);
-	});
-var $ianmackenzie$elm_geometry$Direction2d$rotateCounterclockwise = function (_v0) {
-	var d = _v0.a;
-	return $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-		{x: -d.y, y: d.x});
-};
-var $author$project$Data$Turtle$arcRightTo = F2(
-	function (_v0, turtle) {
-		var direction = _v0.direction;
-		var radius = _v0.radius;
-		var around = A2(
-			$ianmackenzie$elm_geometry$Point2d$translateBy,
-			A2(
-				$ianmackenzie$elm_geometry$Vector2d$withLength,
-				$ianmackenzie$elm_units$Quantity$Quantity(radius),
-				$ianmackenzie$elm_geometry$Direction2d$rotateCounterclockwise(turtle.direction)),
-			turtle.position);
-		var angle = $ianmackenzie$elm_units$Angle$radians(
-			function (r) {
-				return A3(
-					$ianmackenzie$elm_geometry$Direction2d$equalWithin,
-					$ianmackenzie$elm_units$Angle$radians(0.001),
-					turtle.direction,
-					direction) ? (2 * $elm$core$Basics$pi) : ((r < 0) ? (r + (2 * $elm$core$Basics$pi)) : r);
-			}(
-				$ianmackenzie$elm_units$Angle$inRadians(
-					A2($ianmackenzie$elm_geometry$Direction2d$angleFrom, turtle.direction, direction))));
-		var newPosition = A3($ianmackenzie$elm_geometry$Point2d$rotateAround, around, angle, turtle.position);
-		return _Utils_Tuple2(
-			_Utils_update(
-				turtle,
-				{direction: direction, position: newPosition}),
-			turtle.arcFun(
-				{around: around, by: angle, from: turtle.position}));
-	});
-var $author$project$Data$Turtle$arcRightBy = F2(
-	function (_v0, turtle) {
-		var angle = _v0.angle;
-		var radius = _v0.radius;
-		return A2(
-			$author$project$Data$Turtle$arcRightTo,
-			{
-				direction: A2($ianmackenzie$elm_geometry$Direction2d$rotateBy, angle, turtle.direction),
-				radius: radius
-			},
-			turtle);
-	});
-var $author$project$Data$Turtle$forwardBy = F2(
-	function (amount, turtle) {
-		var newPosition = A2(
-			$ianmackenzie$elm_geometry$Point2d$translateBy,
-			A2(
-				$ianmackenzie$elm_geometry$Vector2d$withLength,
-				$ianmackenzie$elm_units$Quantity$Quantity(amount),
-				turtle.direction),
-			turtle.position);
-		return _Utils_Tuple2(
-			_Utils_update(
-				turtle,
-				{position: newPosition}),
-			turtle.lineFun(
-				{from: turtle.position, to: newPosition}));
 	});
 var $author$project$Data$Turtle$map = $elm$core$Tuple$mapFirst;
 var $author$project$View$BinarySigil$end = function (_v0) {
@@ -15086,9 +16064,6 @@ var $ianmackenzie$elm_geometry$Vector2d$plus = F2(
 		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
 			{x: v1.x + v2.x, y: v1.y + v2.y});
 	});
-var $ianmackenzie$elm_geometry$Vector2d$unsafe = function (givenComponents) {
-	return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(givenComponents);
-};
 var $author$project$View$BinarySigil$line = function (_v0) {
 	var radius = _v0.radius;
 	var size = _v0.size;
@@ -15573,10 +16548,6 @@ var $ianmackenzie$elm_geometry$Vector2d$toRecord = F2(
 				$ianmackenzie$elm_geometry$Vector2d$yComponent(vector))
 		};
 	});
-var $ianmackenzie$elm_units$Quantity$unwrap = function (_v0) {
-	var value = _v0.a;
-	return value;
-};
 var $author$project$View$BinarySigil$shapeToSvg = F2(
 	function (_v0, shape) {
 		var p = _v0.p;
@@ -15663,75 +16634,6 @@ var $author$project$View$BinarySigil$shapeListToSvg = function (_v0) {
 				A2($ianmackenzie$elm_geometry$Vector2d$toRecord, $ianmackenzie$elm_units$Quantity$unwrap, p))
 		});
 };
-var $ianmackenzie$elm_geometry$Geometry$Types$Arc2d = function (a) {
-	return {$: 'Arc2d', a: a};
-};
-var $elm$core$Basics$sqrt = _Basics_sqrt;
-var $ianmackenzie$elm_geometry$Vector2d$direction = function (_v0) {
-	var v = _v0.a;
-	var largestComponent = A2(
-		$elm$core$Basics$max,
-		$elm$core$Basics$abs(v.x),
-		$elm$core$Basics$abs(v.y));
-	if (!largestComponent) {
-		return $elm$core$Maybe$Nothing;
-	} else {
-		var scaledY = v.y / largestComponent;
-		var scaledX = v.x / largestComponent;
-		var scaledLength = $elm$core$Basics$sqrt((scaledX * scaledX) + (scaledY * scaledY));
-		return $elm$core$Maybe$Just(
-			$ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
-				{x: scaledX / scaledLength, y: scaledY / scaledLength}));
-	}
-};
-var $ianmackenzie$elm_geometry$Vector2d$from = F2(
-	function (_v0, _v1) {
-		var p1 = _v0.a;
-		var p2 = _v1.a;
-		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
-			{x: p2.x - p1.x, y: p2.y - p1.y});
-	});
-var $ianmackenzie$elm_geometry$Vector2d$length = function (_v0) {
-	var v = _v0.a;
-	var largestComponent = A2(
-		$elm$core$Basics$max,
-		$elm$core$Basics$abs(v.x),
-		$elm$core$Basics$abs(v.y));
-	if (!largestComponent) {
-		return $ianmackenzie$elm_units$Quantity$zero;
-	} else {
-		var scaledY = v.y / largestComponent;
-		var scaledX = v.x / largestComponent;
-		var scaledLength = $elm$core$Basics$sqrt((scaledX * scaledX) + (scaledY * scaledY));
-		return $ianmackenzie$elm_units$Quantity$Quantity(scaledLength * largestComponent);
-	}
-};
-var $ianmackenzie$elm_geometry$Quantity$Extra$rTheta = F2(
-	function (_v0, _v1) {
-		var r = _v0.a;
-		var theta = _v1.a;
-		return $ianmackenzie$elm_units$Quantity$Quantity(r * theta);
-	});
-var $ianmackenzie$elm_geometry$Direction2d$x = $ianmackenzie$elm_geometry$Direction2d$positiveX;
-var $ianmackenzie$elm_geometry$Arc2d$sweptAround = F3(
-	function (givenCenterPoint, givenSweptAngle, givenStartPoint) {
-		var displacement = A2($ianmackenzie$elm_geometry$Vector2d$from, givenStartPoint, givenCenterPoint);
-		var _v0 = $ianmackenzie$elm_geometry$Vector2d$direction(displacement);
-		if (_v0.$ === 'Just') {
-			var yDirection = _v0.a;
-			var computedRadius = $ianmackenzie$elm_geometry$Vector2d$length(displacement);
-			return $ianmackenzie$elm_geometry$Geometry$Types$Arc2d(
-				{
-					signedLength: A2($ianmackenzie$elm_geometry$Quantity$Extra$rTheta, computedRadius, givenSweptAngle),
-					startPoint: givenStartPoint,
-					sweptAngle: givenSweptAngle,
-					xDirection: $ianmackenzie$elm_geometry$Direction2d$rotateClockwise(yDirection)
-				});
-		} else {
-			return $ianmackenzie$elm_geometry$Geometry$Types$Arc2d(
-				{signedLength: $ianmackenzie$elm_units$Quantity$zero, startPoint: givenStartPoint, sweptAngle: givenSweptAngle, xDirection: $ianmackenzie$elm_geometry$Direction2d$x});
-		}
-	});
 var $ianmackenzie$elm_geometry$Direction2d$toAngle = function (_v0) {
 	var d = _v0.a;
 	return $ianmackenzie$elm_units$Quantity$Quantity(
@@ -15750,9 +16652,6 @@ var $ianmackenzie$elm_geometry$Point2d$toRecord = F2(
 				$ianmackenzie$elm_geometry$Point2d$yCoordinate(point))
 		};
 	});
-var $ianmackenzie$elm_geometry$Point2d$unsafe = function (givenCoordinates) {
-	return $ianmackenzie$elm_geometry$Geometry$Types$Point2d(givenCoordinates);
-};
 var $ianmackenzie$elm_geometry$Vector2d$zero = $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
 	{x: 0, y: 0});
 var $author$project$View$BinarySigil$view = function (_v0) {
@@ -15845,61 +16744,814 @@ var $author$project$View$BinarySigil$view = function (_v0) {
 						$ianmackenzie$elm_units$Angle$radians($elm$core$Basics$pi / 2),
 						turtle))))).b;
 };
-var $ianmackenzie$elm_geometry$Geometry$Types$Circle2d = function (a) {
-	return {$: 'Circle2d', a: a};
-};
-var $ianmackenzie$elm_geometry$Circle2d$withRadius = F2(
-	function (givenRadius, givenCenterPoint) {
-		return $ianmackenzie$elm_geometry$Geometry$Types$Circle2d(
-			{
-				centerPoint: givenCenterPoint,
-				radius: $ianmackenzie$elm_units$Quantity$abs(givenRadius)
-			});
-	});
-var $ianmackenzie$elm_geometry$Circle2d$atPoint = F2(
-	function (givenCenterPoint, givenRadius) {
-		return A2($ianmackenzie$elm_geometry$Circle2d$withRadius, givenRadius, givenCenterPoint);
-	});
-var $author$project$View$Card$bigRadius = (2 * $author$project$View$Card$radius) / $elm$core$Basics$sqrt(2);
-var $ianmackenzie$elm_geometry$Circle2d$centerPoint = function (_v0) {
-	var properties = _v0.a;
-	return properties.centerPoint;
-};
-var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
-var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
-var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
-var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var $ianmackenzie$elm_geometry$Circle2d$radius = function (_v0) {
-	var properties = _v0.a;
-	return properties.radius;
-};
-var $ianmackenzie$elm_geometry_svg$Geometry$Svg$circle2d = F2(
-	function (attributes, circle) {
-		var r = $elm$svg$Svg$Attributes$r(
-			$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(
-				$ianmackenzie$elm_geometry$Circle2d$radius(circle)));
-		var _v0 = $ianmackenzie$elm_geometry$Point2d$unwrap(
-			$ianmackenzie$elm_geometry$Circle2d$centerPoint(circle));
-		var x = _v0.x;
-		var y = _v0.y;
-		var cx = $elm$svg$Svg$Attributes$cx(
-			$elm$core$String$fromFloat(x));
-		var cy = $elm$svg$Svg$Attributes$cy(
-			$elm$core$String$fromFloat(y));
+var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
+var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
+var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
+var $author$project$View$BraidSigil$view = F2(
+	function (_v0, string) {
+		var width = _v0.width;
+		var height = _v0.height;
+		var radius = _v0.radius;
+		var fillColor = _v0.fillColor;
+		var strokeColor = _v0.strokeColor;
+		var withText = _v0.withText;
+		var asAlphabet = _v0.asAlphabet;
+		var withCircle = _v0.withCircle;
+		var debugMode = _v0.debugMode;
+		var withBorder = _v0.withBorder;
+		var zoom = _v0.zoom;
+		var withRunes = _v0.withRunes;
+		var options = {height: height, radius: radius, width: width};
+		var list = A2(
+			$elm$core$List$map,
+			asAlphabet,
+			$elm$core$String$toList(string));
+		var uniqueList = A2($elm_community$list_extra$List$Extra$uniqueBy, $Orasund$elm_static_array$StaticArray$Index$toInt, list);
+		var fnBorder = A2(
+			$elm$core$Basics$composeR,
+			$author$project$Data$Turtle$andThen(
+				$author$project$Data$Turtle$forwardBy($author$project$View$BraidSigil$pointSize)),
+			A2(
+				$elm$core$Basics$composeR,
+				$author$project$Data$Turtle$andThen(
+					$author$project$Data$Turtle$arcRightBy(
+						{
+							angle: $ianmackenzie$elm_units$Angle$radians($elm$core$Basics$pi),
+							radius: $author$project$View$BraidSigil$pointSize
+						})),
+				A2(
+					$elm$core$Basics$composeR,
+					$author$project$Data$Turtle$andThen(
+						$author$project$Data$Turtle$forwardBy($author$project$View$BraidSigil$pointSize * 4)),
+					A2(
+						$elm$core$Basics$composeR,
+						$author$project$Data$Turtle$andThen(
+							$author$project$Data$Turtle$arcLeftBy(
+								{
+									angle: $ianmackenzie$elm_units$Angle$radians(($elm$core$Basics$pi * 3) / 2),
+									radius: $author$project$View$BraidSigil$pointSize
+								})),
+						A2(
+							$elm$core$Basics$composeR,
+							$author$project$Data$Turtle$andThen(
+								$author$project$Data$Turtle$forwardBy($author$project$View$BraidSigil$pointSize * 4)),
+							$author$project$Data$Turtle$andThen(
+								$author$project$Data$Turtle$arcRightBy(
+									{
+										angle: $ianmackenzie$elm_units$Angle$radians($elm$core$Basics$pi),
+										radius: $author$project$View$BraidSigil$pointSize
+									})))))));
+		var border = A2(
+			$author$project$Data$Turtle$andThen,
+			$author$project$Data$Turtle$forwardBy(((width / 2) - ($author$project$View$BraidSigil$lineWidth * 2)) + ($author$project$View$BraidSigil$pointSize / 2)),
+			fnBorder(
+				A2(
+					$author$project$Data$Turtle$andThen,
+					$author$project$Data$Turtle$forwardBy((height - ($author$project$View$BraidSigil$lineWidth * 4)) + $author$project$View$BraidSigil$pointSize),
+					fnBorder(
+						A2(
+							$author$project$Data$Turtle$andThen,
+							$author$project$Data$Turtle$forwardBy((width - ($author$project$View$BraidSigil$lineWidth * 4)) + $author$project$View$BraidSigil$pointSize),
+							fnBorder(
+								A2(
+									$author$project$Data$Turtle$andThen,
+									$author$project$Data$Turtle$forwardBy((height - ($author$project$View$BraidSigil$lineWidth * 4)) + $author$project$View$BraidSigil$pointSize),
+									fnBorder(
+										A2(
+											$author$project$Data$Turtle$forwardBy,
+											((width / 2) - ($author$project$View$BraidSigil$lineWidth * 2)) + ($author$project$View$BraidSigil$pointSize / 2),
+											{
+												arcFun: function (_v15) {
+													var around = _v15.around;
+													var by = _v15.by;
+													var from = _v15.from;
+													var arc = A3($ianmackenzie$elm_geometry$Arc2d$sweptAround, around, by, from);
+													return _List_fromArray(
+														[
+															A2(
+															$ianmackenzie$elm_geometry_svg$Geometry$Svg$arc2d,
+															_List_fromArray(
+																[
+																	$elm$svg$Svg$Attributes$fill('none'),
+																	$elm$svg$Svg$Attributes$stroke('black'),
+																	$elm$svg$Svg$Attributes$strokeWidth(
+																	$elm$core$String$fromFloat($author$project$View$BraidSigil$strokeWidth))
+																]),
+															arc)
+														]);
+												},
+												direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+												lineFun: function (_v16) {
+													var from = _v16.from;
+													var to = _v16.to;
+													var segment = A2($ianmackenzie$elm_geometry$LineSegment2d$from, from, to);
+													return _List_fromArray(
+														[
+															A2(
+															$ianmackenzie$elm_geometry_svg$Geometry$Svg$lineSegment2d,
+															_List_fromArray(
+																[
+																	$elm$svg$Svg$Attributes$stroke('black'),
+																	$elm$svg$Svg$Attributes$strokeWidth(
+																	$elm$core$String$fromFloat($author$project$View$BraidSigil$strokeWidth))
+																]),
+															segment)
+														]);
+												},
+												position: $ianmackenzie$elm_geometry$Point2d$unsafe(
+													{x: width / 2, y: $author$project$View$BraidSigil$lineWidth * 2})
+											}))))))))).b;
 		return A2(
-			$elm$svg$Svg$circle,
+			$elm$svg$Svg$svg,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$width(
+					$elm$core$String$fromFloat(zoom * width) + 'px'),
+					$elm$svg$Svg$Attributes$height(
+					$elm$core$String$fromFloat(zoom * height) + 'px'),
+					$elm$svg$Svg$Attributes$version('1.1'),
+					$elm$svg$Svg$Attributes$viewBox(
+					'0 0 ' + ($elm$core$String$fromFloat(width) + (' ' + $elm$core$String$fromFloat(height))))
+				]),
+			A2(
+				$elm$core$List$append,
+				withBorder ? border : _List_Nil,
+				A2(
+					$elm$core$List$append,
+					withText ? _List_fromArray(
+						[
+							A2(
+							$elm$svg$Svg$text_,
+							_List_fromArray(
+								[
+									$elm$svg$Svg$Attributes$fontFamily('Dancing Script, serif'),
+									$elm$svg$Svg$Attributes$x(
+									$elm$core$String$fromFloat(width / 2)),
+									$elm$svg$Svg$Attributes$y(
+									$elm$core$String$fromFloat(
+										withRunes ? (height - ($author$project$View$BraidSigil$lineWidth * 3)) : (height - ($author$project$View$BraidSigil$lineWidth * 8)))),
+									$elm$svg$Svg$Attributes$textAnchor('middle'),
+									$elm$svg$Svg$Attributes$alignmentBaseline('central')
+								]),
+							_List_fromArray(
+								[
+									$elm$svg$Svg$text(string)
+								]))
+						]) : _List_Nil,
+					A2(
+						$elm$core$List$append,
+						withRunes ? $elm$core$List$concat(
+							A2(
+								$elm$core$List$map,
+								function (r) {
+									var symbolLength = 4;
+									return $author$project$View$BinarySigil$view(
+										{
+											color: 'black',
+											direction: $ianmackenzie$elm_geometry$Direction2d$rotateClockwise(
+												$ianmackenzie$elm_geometry$Direction2d$fromAngle(
+													$ianmackenzie$elm_units$Angle$radians(
+														((2 * $elm$core$Basics$pi) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)) * (0.5 + $Orasund$elm_static_array$StaticArray$Index$toInt(r))))),
+											point: A3(
+												$ianmackenzie$elm_geometry$Point2d$rotateAround,
+												A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2),
+												$ianmackenzie$elm_units$Angle$radians(
+													((2 * $elm$core$Basics$pi) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)) * (0.5 + $Orasund$elm_static_array$StaticArray$Index$toInt(r))),
+												A2(
+													$ianmackenzie$elm_geometry$Point2d$translateBy,
+													A2($ianmackenzie$elm_geometry$Vector2d$pixels, radius * 1.25, 0),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2))),
+											radius: 2,
+											size: symbolLength,
+											strokeWidth: 1 / 2,
+											value: $Orasund$elm_static_array$StaticArray$Index$toInt(r)
+										});
+								},
+								$Orasund$elm_static_array$StaticArray$Index$range($author$project$View$BraidSigil$n))) : _List_Nil,
+						A2(
+							$elm$core$List$append,
+							debugMode ? $author$project$View$BraidSigil$drawPoints(options) : _List_Nil,
+							$elm$core$List$concat(
+								_List_fromArray(
+									[
+										function () {
+										var _v1 = _Utils_Tuple2(list, uniqueList);
+										if (((((_v1.a.b && _v1.a.b.b) && _v1.a.b.b.b) && _v1.b.b) && _v1.b.b.b) && _v1.b.b.b.b) {
+											var _v2 = _v1.a;
+											var head = _v2.a;
+											var _v3 = _v2.b;
+											var second = _v3.a;
+											var _v4 = _v3.b;
+											var thrid = _v4.a;
+											var tail = _v4.b;
+											var _v5 = _v1.b;
+											var _v6 = _v5.b;
+											var distinctSecond = _v6.a;
+											var _v7 = _v6.b;
+											var distinctThird = _v7.a;
+											return (withCircle ? $elm$core$List$append(
+												$elm$core$List$singleton(
+													A2(
+														$ianmackenzie$elm_geometry_svg$Geometry$Svg$circle2d,
+														_List_fromArray(
+															[
+																$elm$svg$Svg$Attributes$fill('none'),
+																$elm$svg$Svg$Attributes$stroke('black'),
+																$elm$svg$Svg$Attributes$strokeWidth(
+																$elm$core$String$fromFloat($author$project$View$BraidSigil$strokeWidth))
+															]),
+														A2(
+															$ianmackenzie$elm_geometry$Circle2d$atPoint,
+															A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2),
+															$ianmackenzie$elm_units$Pixels$pixels(radius))))) : $elm$core$Basics$identity)(
+												function (_v14) {
+													var state = _v14.a;
+													var out = _v14.b;
+													return _Utils_ap(
+														_Utils_eq(state.startIndex, head) ? A3(
+															$author$project$View$BraidSigil$line,
+															options,
+															_Utils_update(
+																state,
+																{
+																	visited: A3($Orasund$elm_static_array$StaticArray$set, head, -1, state.visited)
+																}),
+															head).b : A3(
+															$author$project$View$BraidSigil$line,
+															options,
+															_Utils_update(
+																state,
+																{
+																	visited: A3($Orasund$elm_static_array$StaticArray$set, head, -1, state.visited)
+																}),
+															head).b,
+														_Utils_ap(
+															out,
+															A2(
+																$author$project$View$BraidSigil$initCircle,
+																{fillColor: fillColor, height: options.height, radius: options.radius, strokeColor: strokeColor, width: options.width},
+																head)));
+												}(
+													function (_v12) {
+														var state = _v12.a;
+														var out = _v12.b;
+														var _v13 = A3($author$project$View$BraidSigil$line, options, state, head);
+														var newState = _v13.a;
+														var newOut = _v13.b;
+														return _Utils_Tuple2(
+															newState,
+															_Utils_ap(newOut, out));
+													}(
+														A3(
+															$elm$core$List$foldl,
+															F2(
+																function (i2, _v8) {
+																	var state = _v8.a;
+																	var out = _v8.b;
+																	var _v9 = A3($author$project$View$BraidSigil$line, options, state, i2);
+																	var newState = _v9.a;
+																	var newOut = _v9.b;
+																	return _Utils_Tuple2(
+																		newState,
+																		_Utils_ap(newOut, out));
+																}),
+															function () {
+																var _v10 = $author$project$View$BraidSigil$init(
+																	{distinctSecond: distinctSecond, distinctThird: distinctThird, fillColor: fillColor, height: options.height, nextIndex: second, radius: options.radius, startIndex: head, strokeColor: strokeColor, width: options.width});
+																var initState = _v10.a;
+																var startingDrawing = _v10.b;
+																var _v11 = A3($author$project$View$BraidSigil$line, options, initState, thrid);
+																var newState = _v11.a;
+																var newOut = _v11.b;
+																return _Utils_Tuple2(
+																	newState,
+																	_Utils_ap(
+																		newOut,
+																		A2(
+																			$elm$core$List$map,
+																			$elm$svg$Svg$map($elm$core$Basics$never),
+																			startingDrawing)));
+															}(),
+															tail))));
+										} else {
+											return _List_Nil;
+										}
+									}()
+									])))))));
+	});
+var $author$project$View$Color$blackBackground = 'black';
+var $author$project$View$Color$blue = '#1E88E5';
+var $author$project$View$Color$gray = '#666666';
+var $author$project$View$Color$green = '#12BE52';
+var $author$project$View$Color$red = '#DB4646';
+var $author$project$View$Color$yellow = '#D8D815';
+var $author$project$Data$Card$color = function (card) {
+	_v0$6:
+	while (true) {
+		switch (card.$) {
+			case 'Binary':
+				switch (card.a) {
+					case 1:
+						return 'white';
+					case 0:
+						return 'black';
+					default:
+						break _v0$6;
+				}
+			case 'Trump':
+				var n = card.a;
+				return $author$project$View$Color$gray;
+			case 'Planet':
+				return 'black';
+			case 'Element':
+				return 'black';
+			case 'Virtue':
+				var n = card.a;
+				return (n <= 4) ? $author$project$View$Color$blue : ((n <= 8) ? $author$project$View$Color$red : ((n <= 12) ? $author$project$View$Color$green : $author$project$View$Color$yellow));
+			default:
+				break _v0$6;
+		}
+	}
+	return 'none';
+};
+var $author$project$Data$Card$description = function (card) {
+	switch (card.$) {
+		case 'Joker':
+			return 'Sorglosigkeit';
+		case 'Binary':
+			var n = card.a;
+			switch (n) {
+				case 0:
+					return 'Geborgenheit';
+				case 1:
+					return 'Wandel';
+				default:
+					return 'Binary';
+			}
+		case 'Trump':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Klarheit';
+				case 2:
+					return 'Intuition';
+				case 3:
+					return 'Selbstvertrauen';
+				case 4:
+					return 'Selbstbeherrschung';
+				case 5:
+					return 'Spiritualität';
+				case 6:
+					return 'Verbindung';
+				case 7:
+					return 'Erfolg';
+				case 8:
+					return 'Gerechtigkeit';
+				case 9:
+					return 'Suche';
+				case 10:
+					return 'Schicksal';
+				case 11:
+					return 'Kraft';
+				case 12:
+					return 'Ruhe';
+				case 13:
+					return 'Wandel';
+				case 14:
+					return 'Mäßigkeit';
+				case 15:
+					return 'Abhängigkeit';
+				case 16:
+					return 'Konfrontation';
+				case 17:
+					return 'Hoffnung';
+				case 18:
+					return 'Hingabe';
+				case 19:
+					return 'Zufriedenheit';
+				case 20:
+					return 'Neubeginn';
+				case 21:
+					return 'Selbsterkenntnis';
+				default:
+					return 'Trumpf';
+			}
+		case 'Element':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Traum';
+				case 2:
+					return 'Emotion';
+				case 3:
+					return 'Realität';
+				case 4:
+					return 'Taktik';
+				default:
+					return 'Jahreszeit';
+			}
+		case 'Planet':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Wissen';
+				case 2:
+					return 'Familie';
+				case 3:
+					return 'Gesundheit';
+				case 4:
+					return 'Reichtum';
+				case 5:
+					return 'Verwirklichung';
+				case 6:
+					return 'Anerkennung';
+				case 7:
+					return 'Erfolg';
+				case 8:
+					return 'Freiheit';
+				default:
+					return 'Jahreszeit';
+			}
+		case 'Virtue':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Mitgefühl';
+				case 2:
+					return 'Freundlichkeit';
+				case 3:
+					return 'Offenheit';
+				case 4:
+					return 'Vergebung';
+				case 5:
+					return 'Geduld';
+				case 6:
+					return 'Treue';
+				case 7:
+					return 'Selbstbeherrschung';
+				case 8:
+					return 'Ausdauer';
+				case 9:
+					return 'Selbsterkenntnis';
+				case 10:
+					return 'Autentizität';
+				case 11:
+					return 'Ehrlichkeit';
+				case 12:
+					return 'Mäßigkeit';
+				case 13:
+					return 'Humor';
+				case 14:
+					return 'Hoffnung';
+				case 15:
+					return 'Mut';
+				case 16:
+					return 'Fleiß';
+				default:
+					return 'Tugend';
+			}
+		default:
+			return '';
+	}
+};
+var $ianmackenzie$elm_geometry$Geometry$Types$Rectangle2d = function (a) {
+	return {$: 'Rectangle2d', a: a};
+};
+var $ianmackenzie$elm_units$Quantity$midpoint = F2(
+	function (_v0, _v1) {
+		var x = _v0.a;
+		var y = _v1.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(x + (0.5 * (y - x)));
+	});
+var $ianmackenzie$elm_units$Quantity$minus = F2(
+	function (_v0, _v1) {
+		var y = _v0.a;
+		var x = _v1.a;
+		return $ianmackenzie$elm_units$Quantity$Quantity(x - y);
+	});
+var $ianmackenzie$elm_geometry$Direction2d$negativeX = $ianmackenzie$elm_geometry$Geometry$Types$Direction2d(
+	{x: -1, y: 0});
+var $ianmackenzie$elm_geometry$Geometry$Types$Frame2d = function (a) {
+	return {$: 'Frame2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Frame2d$unsafe = function (properties) {
+	return $ianmackenzie$elm_geometry$Geometry$Types$Frame2d(properties);
+};
+var $ianmackenzie$elm_geometry$Rectangle2d$axisAligned = F4(
+	function (x1, y1, x2, y2) {
+		var computedYDirection = A2($ianmackenzie$elm_units$Quantity$greaterThanOrEqualTo, y1, y2) ? $ianmackenzie$elm_geometry$Direction2d$positiveY : $ianmackenzie$elm_geometry$Direction2d$negativeY;
+		var computedXDirection = A2($ianmackenzie$elm_units$Quantity$greaterThanOrEqualTo, x1, x2) ? $ianmackenzie$elm_geometry$Direction2d$positiveX : $ianmackenzie$elm_geometry$Direction2d$negativeX;
+		var computedDimensions = _Utils_Tuple2(
+			$ianmackenzie$elm_units$Quantity$abs(
+				A2($ianmackenzie$elm_units$Quantity$minus, x1, x2)),
+			$ianmackenzie$elm_units$Quantity$abs(
+				A2($ianmackenzie$elm_units$Quantity$minus, y1, y2)));
+		var computedCenterPoint = A2(
+			$ianmackenzie$elm_geometry$Point2d$xy,
+			A2($ianmackenzie$elm_units$Quantity$midpoint, x1, x2),
+			A2($ianmackenzie$elm_units$Quantity$midpoint, y1, y2));
+		var computedAxes = $ianmackenzie$elm_geometry$Frame2d$unsafe(
+			{originPoint: computedCenterPoint, xDirection: computedXDirection, yDirection: computedYDirection});
+		return $ianmackenzie$elm_geometry$Geometry$Types$Rectangle2d(
+			{axes: computedAxes, dimensions: computedDimensions});
+	});
+var $ianmackenzie$elm_geometry$Rectangle2d$from = F2(
+	function (p1, p2) {
+		return A4(
+			$ianmackenzie$elm_geometry$Rectangle2d$axisAligned,
+			$ianmackenzie$elm_geometry$Point2d$xCoordinate(p1),
+			$ianmackenzie$elm_geometry$Point2d$yCoordinate(p1),
+			$ianmackenzie$elm_geometry$Point2d$xCoordinate(p2),
+			$ianmackenzie$elm_geometry$Point2d$yCoordinate(p2));
+	});
+var $ianmackenzie$elm_geometry$Geometry$Types$Polyline2d = function (a) {
+	return {$: 'Polyline2d', a: a};
+};
+var $ianmackenzie$elm_geometry$Polyline2d$fromVertices = function (givenVertices) {
+	return $ianmackenzie$elm_geometry$Geometry$Types$Polyline2d(givenVertices);
+};
+var $ianmackenzie$elm_geometry$Point2d$origin = $ianmackenzie$elm_geometry$Geometry$Types$Point2d(
+	{x: 0, y: 0});
+var $author$project$View$Card$padding = 12 * (3 + (4 * 2));
+var $ianmackenzie$elm_geometry$Polyline2d$vertices = function (_v0) {
+	var polylineVertices = _v0.a;
+	return polylineVertices;
+};
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d = F2(
+	function (attributes, polyline) {
+		var vertices = $ianmackenzie$elm_geometry$Polyline2d$vertices(polyline);
+		return A2(
+			$elm$svg$Svg$polyline,
 			A2(
 				$elm$core$List$cons,
-				cx,
-				A2(
-					$elm$core$List$cons,
-					cy,
-					A2($elm$core$List$cons, r, attributes))),
+				$ianmackenzie$elm_geometry_svg$Geometry$Svg$pointsAttribute(vertices),
+				attributes),
 			_List_Nil);
 	});
-var $ianmackenzie$elm_units$Pixels$pixels = function (numPixels) {
-	return $ianmackenzie$elm_units$Quantity$Quantity(numPixels);
+var $author$project$View$Card$width = 898;
+var $author$project$View$Card$radius = ($author$project$View$Card$width - $author$project$View$Card$padding) / 7;
+var $ianmackenzie$elm_geometry$Frame2d$copy = function (_v0) {
+	var properties = _v0.a;
+	return $ianmackenzie$elm_geometry$Geometry$Types$Frame2d(properties);
 };
+var $ianmackenzie$elm_geometry$Rectangle2d$axes = function (_v0) {
+	var rectangle = _v0.a;
+	return $ianmackenzie$elm_geometry$Frame2d$copy(rectangle.axes);
+};
+var $ianmackenzie$elm_geometry$Rectangle2d$dimensions = function (_v0) {
+	var rectangle = _v0.a;
+	return rectangle.dimensions;
+};
+var $elm$svg$Svg$g = $elm$svg$Svg$trustedNode('g');
+var $ianmackenzie$elm_geometry$Frame2d$originPoint = function (_v0) {
+	var frame = _v0.a;
+	return frame.originPoint;
+};
+var $elm$svg$Svg$Attributes$transform = _VirtualDom_attribute('transform');
+var $ianmackenzie$elm_geometry$Direction2d$unwrap = function (_v0) {
+	var directionComponents = _v0.a;
+	return directionComponents;
+};
+var $ianmackenzie$elm_geometry$Frame2d$xDirection = function (_v0) {
+	var frame = _v0.a;
+	return frame.xDirection;
+};
+var $ianmackenzie$elm_geometry$Frame2d$yDirection = function (_v0) {
+	var frame = _v0.a;
+	return frame.yDirection;
+};
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$placeIn = F2(
+	function (frame, element) {
+		var p = $ianmackenzie$elm_geometry$Point2d$unwrap(
+			$ianmackenzie$elm_geometry$Frame2d$originPoint(frame));
+		var d2 = $ianmackenzie$elm_geometry$Direction2d$unwrap(
+			$ianmackenzie$elm_geometry$Frame2d$yDirection(frame));
+		var d1 = $ianmackenzie$elm_geometry$Direction2d$unwrap(
+			$ianmackenzie$elm_geometry$Frame2d$xDirection(frame));
+		var components = _List_fromArray(
+			[
+				$elm$core$String$fromFloat(d1.x),
+				$elm$core$String$fromFloat(d1.y),
+				$elm$core$String$fromFloat(d2.x),
+				$elm$core$String$fromFloat(d2.y),
+				$elm$core$String$fromFloat(p.x),
+				$elm$core$String$fromFloat(p.y)
+			]);
+		var transform = 'matrix(' + (A2($elm$core$String$join, ' ', components) + ')');
+		return A2(
+			$elm$svg$Svg$g,
+			_List_fromArray(
+				[
+					$elm$svg$Svg$Attributes$transform(transform)
+				]),
+			_List_fromArray(
+				[element]));
+	});
+var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
+var $ianmackenzie$elm_geometry_svg$Geometry$Svg$rectangle2d = F2(
+	function (attributes, rectangle) {
+		var _v0 = $ianmackenzie$elm_geometry$Rectangle2d$dimensions(rectangle);
+		var width = _v0.a;
+		var height = _v0.b;
+		return A2(
+			$ianmackenzie$elm_geometry_svg$Geometry$Svg$placeIn,
+			$ianmackenzie$elm_geometry$Rectangle2d$axes(rectangle),
+			A2(
+				$elm$svg$Svg$rect,
+				A2(
+					$elm$core$List$cons,
+					$elm$svg$Svg$Attributes$width(
+						$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(width)),
+					A2(
+						$elm$core$List$cons,
+						$elm$svg$Svg$Attributes$height(
+							$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(height)),
+						A2(
+							$elm$core$List$cons,
+							$elm$svg$Svg$Attributes$x(
+								$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(
+									A2($ianmackenzie$elm_units$Quantity$multiplyBy, -0.5, width))),
+							A2(
+								$elm$core$List$cons,
+								$elm$svg$Svg$Attributes$y(
+									$ianmackenzie$elm_geometry_svg$Geometry$Svg$toString(
+										A2($ianmackenzie$elm_units$Quantity$multiplyBy, -0.5, height))),
+								attributes)))),
+				_List_Nil));
+	});
+var $author$project$View$Card$relative = function () {
+	var factor = (_Utils_cmp($author$project$View$Card$height, $author$project$View$Card$width) > 0) ? ($author$project$View$Card$height / $author$project$View$Card$width) : ($author$project$View$Card$width / $author$project$View$Card$height);
+	return $elm$core$Basics$mul((factor * $author$project$View$Card$width) / 70);
+}();
+var $elm$svg$Svg$Attributes$style = _VirtualDom_attribute('style');
+var $author$project$Data$Card$title = function (card) {
+	switch (card.$) {
+		case 'Joker':
+			return 'Narr';
+		case 'Binary':
+			var n = card.a;
+			switch (n) {
+				case 0:
+					return 'Anfang';
+				case 1:
+					return 'Ende';
+				default:
+					return 'Binary';
+			}
+		case 'Trump':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Der Magier';
+				case 2:
+					return 'Die Hohepriesterin';
+				case 3:
+					return 'Die Herrscherin';
+				case 4:
+					return 'Der Herrscher';
+				case 5:
+					return 'Der Hierophant';
+				case 6:
+					return 'Die Liebenden';
+				case 7:
+					return 'Der Wagen';
+				case 8:
+					return 'Die Gerechtigkeit';
+				case 9:
+					return 'Der Eremit';
+				case 10:
+					return 'Das Rad des Schicksals';
+				case 11:
+					return 'Die Kraft';
+				case 12:
+					return 'Der Gehängte';
+				case 13:
+					return 'Der Tod';
+				case 14:
+					return 'Die Mäßigkeit';
+				case 15:
+					return 'Der Teufel';
+				case 16:
+					return 'Der Turm';
+				case 17:
+					return 'Der Stern';
+				case 18:
+					return 'Der Mond';
+				case 19:
+					return 'Die Sonne';
+				case 20:
+					return 'Das Gericht';
+				case 21:
+					return 'Die Welt';
+				default:
+					return 'Trumpf';
+			}
+		case 'Element':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Erde';
+				case 2:
+					return 'Feuer';
+				case 3:
+					return 'Luft';
+				case 4:
+					return 'Wasser';
+				default:
+					return 'Elemente';
+			}
+		case 'Planet':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Merkur';
+				case 2:
+					return 'Venus';
+				case 3:
+					return 'Planet Erde';
+				case 4:
+					return 'Mars';
+				case 5:
+					return 'Jupiter';
+				case 6:
+					return 'Saturn';
+				case 7:
+					return 'Uranus';
+				case 8:
+					return 'Neptun';
+				default:
+					return 'Planet';
+			}
+		case 'Virtue':
+			var n = card.a;
+			switch (n) {
+				case 1:
+					return 'Mitgefühl';
+				case 2:
+					return 'Freundlichkeit';
+				case 3:
+					return 'Offenheit';
+				case 4:
+					return 'Vergebung';
+				case 5:
+					return 'Geduld';
+				case 6:
+					return 'Treue';
+				case 7:
+					return 'Selbstbeherrschung';
+				case 8:
+					return 'Ausdauer';
+				case 9:
+					return 'Selbsterkenntnis';
+				case 10:
+					return 'Autentizität';
+				case 11:
+					return 'Ehrlichkeit';
+				case 12:
+					return 'Mäßigkeit';
+				case 13:
+					return 'Humor';
+				case 14:
+					return 'Hoffnung';
+				case 15:
+					return 'Mut';
+				case 16:
+					return 'Fleiß';
+				default:
+					return 'Tugend';
+			}
+		default:
+			return '';
+	}
+};
+var $author$project$Data$Card$value = function (card) {
+	switch (card.$) {
+		case 'Joker':
+			return 0;
+		case 'Binary':
+			var n = card.a;
+			return n;
+		case 'Trump':
+			var v = card.a;
+			return function (n) {
+				return (!n) ? 7 : n;
+			}(
+				A2($elm$core$Basics$modBy, 7, v));
+		case 'Element':
+			var v = card.a;
+			return A2($elm$core$Basics$modBy, 4, v);
+		case 'Planet':
+			var v = card.a;
+			return v;
+		case 'Virtue':
+			var n = card.a;
+			return n;
+		default:
+			return -1;
+	}
+};
+var $author$project$View$Card$bigRadius = (2 * $author$project$View$Card$radius) / $elm$core$Basics$sqrt(2);
 var $ianmackenzie$elm_geometry$Polygon2d$innerLoops = function (_v0) {
 	var polygon = _v0.a;
 	return polygon.innerLoops;
@@ -16062,11 +17714,6 @@ var $ianmackenzie$elm_geometry$Polygon2d$withHoles = F2(
 var $ianmackenzie$elm_geometry$Polygon2d$singleLoop = function (givenOuterLoop) {
 	return A2($ianmackenzie$elm_geometry$Polygon2d$withHoles, _List_Nil, givenOuterLoop);
 };
-var $ianmackenzie$elm_geometry$Vector2d$pixels = F2(
-	function (x, y) {
-		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
-			{x: x, y: y});
-	});
 var $ianmackenzie$elm_geometry$Polygon2d$translateBy = function (vector) {
 	return A2(
 		$ianmackenzie$elm_geometry$Polygon2d$mapVertices,
@@ -18463,7 +20110,6 @@ var $author$project$View$Card$view = function (card) {
 									$elm$svg$Svg$text(
 										$author$project$Data$Card$title(card))))))))));
 };
-var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $author$project$Oracle$viewCircle = function (_v0) {
 	var offset = _v0.offset;
 	var n = _v0.n;
@@ -18545,27 +20191,40 @@ var $author$project$Oracle$view = function (model) {
 											_List_fromArray(
 												[
 													$mdgriffith$elm_ui$Element$inFront(
-													$mdgriffith$elm_ui$Element$html(
-														$author$project$Oracle$viewCircle(
-															{n: 1, offset: (-model.offsetAngle) * (1 + (diversion * 3)), radius: radius, size: size, strokeWidth: 2}))),
+													A2(
+														$mdgriffith$elm_ui$Element$el,
+														_List_fromArray(
+															[
+																$mdgriffith$elm_ui$Element$inFront(
+																$mdgriffith$elm_ui$Element$html(
+																	$author$project$Oracle$viewCircle(
+																		{n: 1, offset: (-model.offsetAngle) * (1 + (diversion * 3)), radius: radius, size: size, strokeWidth: 2}))),
+																$mdgriffith$elm_ui$Element$centerX,
+																$mdgriffith$elm_ui$Element$centerY
+															]),
+														$mdgriffith$elm_ui$Element$html(
+															$author$project$Oracle$viewCircle(
+																{n: 2, offset: (-model.offsetAngle) * (1 + (diversion * 2)), radius: radius, size: size, strokeWidth: 2})))),
 													$mdgriffith$elm_ui$Element$centerX,
 													$mdgriffith$elm_ui$Element$centerY
 												]),
 											$mdgriffith$elm_ui$Element$html(
 												$author$project$Oracle$viewCircle(
-													{n: 2, offset: (-model.offsetAngle) * (1 + (diversion * 2)), radius: radius, size: size, strokeWidth: 2})))),
+													{n: 3, offset: model.offsetAngle * (1 + diversion), radius: radius, size: size, strokeWidth: 2})))),
 										$mdgriffith$elm_ui$Element$centerX,
 										$mdgriffith$elm_ui$Element$centerY
 									]),
 								$mdgriffith$elm_ui$Element$html(
 									$author$project$Oracle$viewCircle(
-										{n: 3, offset: model.offsetAngle * (1 + diversion), radius: radius, size: size, strokeWidth: 2})))),
+										{n: 4, offset: model.offsetAngle, radius: radius, size: size, strokeWidth: 2})))),
 							$mdgriffith$elm_ui$Element$centerX,
 							$mdgriffith$elm_ui$Element$centerY
 						]),
 					$mdgriffith$elm_ui$Element$html(
-						$author$project$Oracle$viewCircle(
-							{n: 4, offset: model.offsetAngle, radius: radius, size: size, strokeWidth: 2})))),
+						A2(
+							$author$project$View$BraidSigil$view,
+							{asAlphabet: $author$project$Data$Alphabet$german, debugMode: false, fillColor: 'black', height: size, radius: radius * 0.8, strokeColor: 'none', width: size, withBorder: false, withCircle: true, withRunes: false, withText: false, zoom: 1},
+							A2($elm$core$String$right, 50, model.question))))),
 				$mdgriffith$elm_ui$Element$Background$color(
 				A3(
 					$mdgriffith$elm_ui$Element$rgb255,

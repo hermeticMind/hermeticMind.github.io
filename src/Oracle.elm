@@ -2,11 +2,11 @@ module Oracle exposing (..)
 
 import Angle
 import Browser
-import Css
+import Data.Alphabet as Alphabet
 import Data.Card as Card exposing (Card)
 import Dict exposing (Dict)
 import Direction2d
-import Element exposing (Element)
+import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -21,6 +21,7 @@ import Svg.Attributes as SvgAttributes
 import Time
 import Vector2d
 import View.BinarySigil as BinarySigil
+import View.BraidSigil as BraidSigil
 import View.Card as Card
 
 
@@ -53,7 +54,7 @@ init () =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
+subscriptions _ =
     let
         ms =
             100
@@ -304,18 +305,27 @@ view model =
             }
             [ Element.width <| Element.fill
             , Element.height <| Element.fill
-            , viewCircle
-                { offset = model.offsetAngle
-                , n = 4
-                , size = size
-                , radius = radius
-                , strokeWidth = 2
-                }
+            , model.question
+                |> String.right 50
+                |> BraidSigil.view
+                    { width = size
+                    , height = size
+                    , radius = radius * 0.8
+                    , zoom = 1
+                    , asAlphabet = Alphabet.german
+                    , withCircle = True
+                    , debugMode = False
+                    , withRunes = False
+                    , withText = False
+                    , withBorder = False
+                    , fillColor = "black"
+                    , strokeColor = "none"
+                    }
                 |> Element.html
                 |> Element.el
                     [ viewCircle
-                        { offset = model.offsetAngle * (1 + diversion)
-                        , n = 3
+                        { offset = model.offsetAngle
+                        , n = 4
                         , size = size
                         , radius = radius
                         , strokeWidth = 2
@@ -323,8 +333,8 @@ view model =
                         |> Element.html
                         |> Element.el
                             [ viewCircle
-                                { offset = -model.offsetAngle * (1 + diversion * 2)
-                                , n = 2
+                                { offset = model.offsetAngle * (1 + diversion)
+                                , n = 3
                                 , size = size
                                 , radius = radius
                                 , strokeWidth = 2
@@ -332,13 +342,26 @@ view model =
                                 |> Element.html
                                 |> Element.el
                                     [ viewCircle
-                                        { offset = -model.offsetAngle * (1 + diversion * 3)
-                                        , n = 1
+                                        { offset = -model.offsetAngle * (1 + diversion * 2)
+                                        , n = 2
                                         , size = size
                                         , radius = radius
                                         , strokeWidth = 2
                                         }
                                         |> Element.html
+                                        |> Element.el
+                                            [ viewCircle
+                                                { offset = -model.offsetAngle * (1 + diversion * 3)
+                                                , n = 1
+                                                , size = size
+                                                , radius = radius
+                                                , strokeWidth = 2
+                                                }
+                                                |> Element.html
+                                                |> Element.inFront
+                                            , Element.centerX
+                                            , Element.centerY
+                                            ]
                                         |> Element.inFront
                                     , Element.centerX
                                     , Element.centerY

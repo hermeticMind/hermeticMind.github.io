@@ -109,6 +109,8 @@ sigil =
                 , withRunes = False
                 , withText = False
                 , withBorder = False
+                , fillColor = "white"
+                , strokeColor = "black"
                 }
 
         MagicSquare ->

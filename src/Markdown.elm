@@ -180,6 +180,8 @@ interactive name maybeValue content =
                     , withRunes = False
                     , withText = False
                     , withBorder = False
+                    , fillColor = "white"
+                    , strokeColor = "black"
                     }
                 |> Html.fromUnstyled
                 |> List.singleton

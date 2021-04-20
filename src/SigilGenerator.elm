@@ -28,7 +28,7 @@ type SigilSort
 
 sigilSort : SigilSort
 sigilSort =
-    BraidSigil
+    MagicSquareSigil
 
 
 zoom : number
@@ -189,6 +189,8 @@ view model =
                         , withRunes = withRunes
                         , withText = withText
                         , withBorder = withBorder
+                        , fillColor = "white"
+                        , strokeColor = "black"
                         }
 
                 MagicSquareSigil ->

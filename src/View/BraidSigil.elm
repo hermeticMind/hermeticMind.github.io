@@ -76,11 +76,11 @@ type alias State =
     }
 
 
-initCircle : { width : Float, height : Float, radius : Float } -> Index N -> List (Svg msg)
+initCircle : { width : Float, height : Float, radius : Float, fillColor : String, strokeColor : String } -> Index N -> List (Svg msg)
 initCircle options startIndex =
     let
         p1 =
-            points options |> StaticArray.get startIndex
+            points { width = options.width, height = options.height, radius = options.radius } |> StaticArray.get startIndex
     in
     [ Arc2d.with
         { centerPoint = p1
@@ -89,7 +89,7 @@ initCircle options startIndex =
         , sweptAngle = Angle.radians <| pi + overshoot * 2
         }
         |> Svg.arc2d
-            [ Attributes.fill <| "black"
+            [ Attributes.fill <| options.strokeColor
             ]
     , Arc2d.sweptAround p1
         (Angle.radians <| 2 * pi)
@@ -104,7 +104,7 @@ initCircle options startIndex =
                 )
         )
         |> Svg.arc2d
-            [ Attributes.fill <| "white"
+            [ Attributes.fill <| options.fillColor
             ]
     ]
 
@@ -117,9 +117,11 @@ init :
     , nextIndex : Index N
     , distinctSecond : Index N
     , distinctThird : Index N
+    , fillColor : String
+    , strokeColor : String
     }
     -> ( State, List (Svg Never) )
-init { width, height, radius, startIndex, nextIndex, distinctSecond, distinctThird } =
+init { width, height, radius, startIndex, nextIndex, distinctSecond, distinctThird, strokeColor, fillColor } =
     let
         options =
             { width = width
@@ -158,12 +160,12 @@ init { width, height, radius, startIndex, nextIndex, distinctSecond, distinctThi
                     in
                     [ segment
                         |> Svg.lineSegment2d
-                            [ Attributes.stroke "black"
+                            [ Attributes.stroke strokeColor
                             , Attributes.strokeWidth <| String.fromFloat <| lineWidth
                             ]
                     , segment
                         |> Svg.lineSegment2d
-                            [ Attributes.stroke "white"
+                            [ Attributes.stroke fillColor
                             , Attributes.strokeWidth <| String.fromFloat <| lineWidth - 2 * strokeWidth
                             , Attributes.strokeLinecap "round"
                             ]
@@ -192,13 +194,13 @@ init { width, height, radius, startIndex, nextIndex, distinctSecond, distinctThi
                     [ arc
                         |> Svg.arc2d
                             [ Attributes.fill <| "none"
-                            , Attributes.stroke <| "black"
+                            , Attributes.stroke <| strokeColor
                             , Attributes.strokeWidth <| String.fromFloat <| lineWidth
                             ]
                     , arc
                         |> Svg.arc2d
                             [ Attributes.fill <| "none"
-                            , Attributes.stroke <| "white"
+                            , Attributes.stroke <| fillColor
                             , Attributes.strokeLinecap "round"
                             , Attributes.strokeWidth <| String.fromFloat <| lineWidth - 2 * strokeWidth
                             ]
@@ -569,6 +571,8 @@ view :
     , radius : Float
     , zoom : Float
     , asAlphabet : Char -> Index TwentySix
+    , fillColor : String
+    , strokeColor : String
     , withCircle : Bool
     , debugMode : Bool
     , withRunes : Bool
@@ -577,7 +581,7 @@ view :
     }
     -> String
     -> Html msg
-view { width, height, radius, withText, asAlphabet, withCircle, debugMode, withBorder, zoom, withRunes } string =
+view { width, height, radius, fillColor, strokeColor, withText, asAlphabet, withCircle, debugMode, withBorder, zoom, withRunes } string =
     let
         options =
             { width = width
@@ -668,6 +672,8 @@ view { width, height, radius, withText, asAlphabet, withCircle, debugMode, withB
                                 , nextIndex = second
                                 , distinctSecond = distinctSecond
                                 , distinctThird = distinctThird
+                                , strokeColor = strokeColor
+                                , fillColor = fillColor
                                 }
 
                         ( newState, newOut ) =
@@ -709,7 +715,14 @@ view { width, height, radius, withText, asAlphabet, withCircle, debugMode, withB
                                 |> Tuple.second
                         )
                             ++ out
-                            ++ initCircle options head
+                            ++ initCircle
+                                { width = options.width
+                                , height = options.height
+                                , radius = options.radius
+                                , strokeColor = strokeColor
+                                , fillColor = fillColor
+                                }
+                                head
                    )
                 |> (if withCircle then
                         List.append
