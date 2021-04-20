@@ -1,5 +1,3 @@
-<page>
-  
 # Technical Paper Regarding the Construction of Sigils
   
 While historically the different types of sigils are well known, its construction is sometimes missing. Thus, we present a collection of different types of sigils and different possible methods for constructing them.
@@ -38,9 +36,6 @@ Over time the methods for constructing sigils got more and more corrupted. An ar
 
 <image title="Example of a sigil, taken from the wikipedia page on Sigils" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Sigil.svg" height="120"
 ></image>
-
-</page>
-<page>
 
 #### Positives
 
@@ -102,7 +97,7 @@ If we want to encode a value with repeating patterns like "banana", this method 
 #### Positives
 
 * Very explicitly defined construction with not much space for interpretation.
-* Can be used to encode Words or even Sentences. (No size increase!)
+* Can be used to encode words or even sentences. (No size increase!)
 
 #### Negatives
 
@@ -110,10 +105,25 @@ If we want to encode a value with repeating patterns like "banana", this method 
 
 ### Construction using a Circle
 
-One can first arrange the letters of the alphabets around a circle. Next all letters of the respective word are connected by a continues line.
+Now lets got back an try to construct new sigils for the four element, but this time we consider the binary numbers as points on the circle. Two same numbers results in a squirl (circling around the point), Two different numbers result as a line.
+
+<image title="The four elements represented as a sigil constructed by circle." src="http://hermeticMind.github.io/circleSigil.png" height="240"
+></image>
+
+This concept can be extended to tree points and thus also to 26 points (the letters of the alphabet)
+
+Remark: It does not matter if the squirl goes clockwise or counter clockwise. The only important distinction is if the squirl start left or right of the vertical line.
 
 <interactive name="BraidSigil" value="Hermetic Mind">
 _Designed by Hermetic Mind as described above. The alphabet gets arranged around the circle with respect to the amount of occurences in the English dictionary. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
 
-</page>
+#### Positives
+
+* Very explicitly defined construction with not much space for interpretation.
+* Can be used to encode words. (Small size increase)
+* No Information loss.
+
+#### Negatives
+
+* The circle radius needs to grow with the input, thus full sentences may produce unwanted results. But in practice about 50 letters should work nicely.
