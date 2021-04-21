@@ -1,9 +1,13 @@
-module Markdown exposing (main)
+module TechnicalPaper exposing (main)
 
 import Browser
 import Css
 import Data.Alphabet as Alphabet
 import Direction2d
+import Element exposing (Element)
+import Element.Background as Background
+import Element.Border as Border
+import Element.Font as Font
 import Html as UnstyledHtml
 import Html.Styled as Html exposing (Html)
 import Html.Styled.Attributes as Attributes
@@ -19,7 +23,8 @@ import View.BinarySigil as BinarySigil
 import View.BraidSigil as BraidSigil
 import View.GreekMagicSymbol as GreekMagicSymbol
 import View.MagicSquareSigil as MagicSquareSigil
-import View.Markdown.HtmlRenderer as MarkdownRender
+import View.Markdown.ElementRenderer as MarkdownRender
+import View.Page as Page
 
 
 type alias Model =
@@ -72,29 +77,24 @@ update msg model =
                     ( model, Cmd.none )
 
 
-interactive : String -> Maybe String -> List (Html msg) -> Html msg
+interactive : String -> Maybe String -> List (Element msg) -> Element msg
 interactive name maybeValue content =
     (case name of
         "greekMagicSymbols" ->
             Alphabet.asList
                 |> List.filterMap
                     (GreekMagicSymbol.fromChar 16
-                        >> Maybe.map
-                            (Html.fromUnstyled
-                                >> List.singleton
-                                >> Html.span
-                                    [ Attributes.css
-                                        [ Css.padding2 (Css.px 0) (Css.px 1)
-                                        ]
-                                    ]
-                            )
+                        >> Maybe.map Element.html
                     )
-                |> Html.div
-                    [ Attributes.css
-                        [ Css.displayFlex
-                        , Css.justifyContent Css.center
-                        , Css.margin4 (Css.px 14) (Css.px 0) (Css.px 0) (Css.px 0)
-                        ]
+                |> Element.row
+                    [ Element.centerX
+                    , Element.paddingEach
+                        { top = 14
+                        , right = 0
+                        , bottom = 0
+                        , left = 0
+                        }
+                    , Element.spacing 1
                     ]
                 |> List.singleton
 
@@ -134,13 +134,10 @@ interactive name maybeValue content =
                                         ++ " "
                                         ++ String.fromFloat height
                                 ]
-                            |> Html.fromUnstyled
+                            |> Element.html
                     )
-                |> Html.div
-                    [ Attributes.css
-                        [ Css.displayFlex
-                        , Css.justifyContent Css.center
-                        ]
+                |> Element.row
+                    [ Element.centerX
                     ]
                 |> List.singleton
 
@@ -155,14 +152,15 @@ interactive name maybeValue content =
                     , withText = True
                     , alphabet = Alphabet.english
                     }
-                |> Html.fromUnstyled
-                |> List.singleton
-                |> Html.div
-                    [ Attributes.css
-                        [ Css.displayFlex
-                        , Css.justifyContent Css.center
-                        , Css.margin4 (Css.px 8) (Css.px 0) (Css.px 0) (Css.px 0)
-                        ]
+                |> Element.html
+                |> Element.el
+                    [ Element.centerX
+                    , Element.paddingEach
+                        { top = 8
+                        , right = 0
+                        , bottom = 0
+                        , left = 0
+                        }
                     ]
                 |> List.singleton
 
@@ -183,46 +181,45 @@ interactive name maybeValue content =
                     , fillColor = "white"
                     , strokeColor = "black"
                     }
-                |> Html.fromUnstyled
-                |> List.singleton
-                |> Html.div
-                    [ Attributes.css
-                        [ Css.displayFlex
-                        , Css.justifyContent Css.center
-                        , Css.margin4 (Css.px 8) (Css.px 0) (Css.px 0) (Css.px 0)
-                        ]
+                |> Element.html
+                |> Element.el
+                    [ Element.centerX
+                    , Element.paddingEach
+                        { top = 8
+                        , right = 0
+                        , bottom = 0
+                        , left = 0
+                        }
                     ]
                 |> List.singleton
 
         _ ->
-            Html.text "Content not found"
+            Element.text "Content not found"
                 |> List.singleton
     )
         |> (\list ->
                 list
                     ++ (content
-                            |> Html.div
-                                [ Attributes.css
-                                    [ Css.displayFlex
-                                    , Css.justifyContent Css.center
-                                    ]
+                            |> Element.column
+                                [ Element.centerX
                                 ]
                             |> List.singleton
                        )
            )
-        |> Html.div
-            [ Attributes.css
-                [ Css.border3 (Css.px 1) Css.dashed (Css.rgb 0 0 0)
-                , Css.padding (Css.px 8)
-                , Css.borderRadius (Css.px 8)
-                , Css.margin2 (Css.px 0) (Css.px 32)
-                ]
+        |> Element.column
+            [ Border.width 1
+            , Border.dashed
+            , Border.color <| Element.rgb255 0 0 0
+            , Element.padding 8
+            , Border.rounded 8
+            , Element.width <| Element.fill
             ]
+        |> Element.el [ Element.paddingXY 32 16, Element.width <| Element.fill ]
 
 
 view : Model -> UnstyledHtml.Html Msg
 view model =
-    case model |> Parser.parse of
+    (case model |> Parser.parse of
         Ok list ->
             case
                 list
@@ -231,29 +228,20 @@ view model =
             of
                 Ok elements ->
                     elements
-                        |> Html.div
-                            [ Attributes.css
-                                [ Css.width <| Css.px 800
-                                , Css.margin2 (Css.px 0) Css.auto
-                                , Css.backgroundColor (Css.rgb 255 255 255)
-                                ]
-                            ]
-                        |> List.singleton
-                        |> Html.div
-                            [ Attributes.css
-                                [ Css.fontSize (Css.px 14)
-                                , Css.backgroundColor (Css.rgb 64 64 64)
-                                ]
-                            ]
-                        |> Html.toUnstyled
 
                 Err string ->
-                    string |> UnstyledHtml.text
+                    string |> Element.text |> List.singleton
 
         Err list ->
             list
-                |> List.map (Parser.deadEndToString >> UnstyledHtml.text)
-                |> UnstyledHtml.div []
+                |> List.map (Parser.deadEndToString >> Element.text)
+    )
+        |> Element.column
+            [ Element.width <| Element.px 700
+            , Background.color <| Element.rgb255 255 255 255
+            , Element.padding 64
+            ]
+        |> Page.view []
 
 
 subscriptions : Model -> Sub Msg

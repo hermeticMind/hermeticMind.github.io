@@ -1,4 +1,4 @@
-module View.MarkdownRender exposing (renderer)
+module View.Markdown.HtmlRenderer exposing (renderer)
 
 import Css
 import Element exposing (Element)
@@ -27,7 +27,8 @@ renderer interactive =
                         h1 =
                             Html.h1
                                 [ Attributes.css <|
-                                    [ Css.fontSize (Css.px 36), Css.fontFamilies [ "Dancing Script" ] ]
+                                    [ Css.fontSize (Css.px 36)
+                                    , Css.fontFamilies [ "Dancing Script" ] ]
                                         ++ attr
                                 ]
 

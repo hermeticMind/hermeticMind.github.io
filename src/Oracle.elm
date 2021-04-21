@@ -23,6 +23,7 @@ import Vector2d
 import View.BinarySigil as BinarySigil
 import View.BraidSigil as BraidSigil
 import View.Card as Card
+import View.Page as Page
 
 
 type alias Model =
@@ -198,7 +199,7 @@ view model =
                         |> Element.text
                 }
             ]
-                |> Element.column [ Element.spacing 4 ]
+                |> Element.column [ Element.centerX, Element.spacing 4 ]
 
         list ->
             [ [ Input.button
@@ -293,16 +294,9 @@ view model =
         |> Element.el
             [ Element.centerX
             , Element.centerY
+            , Element.width <| Element.px 850
             ]
-        |> Element.layoutWith
-            { options =
-                [ Element.focusStyle
-                    { borderColor = Nothing
-                    , backgroundColor = Nothing
-                    , shadow = Nothing
-                    }
-                ]
-            }
+        |> Element.el
             [ Element.width <| Element.fill
             , Element.height <| Element.fill
             , model.question
@@ -375,7 +369,9 @@ view model =
                     , Element.centerY
                     ]
                 |> Element.behindContent
-            , Background.color <|
+            ]
+        |> Page.view
+            [ Background.color <|
                 Element.rgb255 ((round <| sin (model.offsetAngle * 25) * 32) + 48)
                     0
                     ((round <| sin (model.offsetAngle * 30) * 8) + 48)
