@@ -1,4 +1,4 @@
-module TechnicalPaper exposing (main)
+module Paper exposing (main)
 
 import Browser
 import Css

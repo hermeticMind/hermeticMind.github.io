@@ -156,23 +156,28 @@ renderer interactive =
                 (items
                     |> List.map
                         (\(ListItem task children) ->
-                            Element.paragraph [ Element.spacing 5 ]
+                            [ case task of
+                                IncompleteTask ->
+                                    Input.defaultCheckbox False
+
+                                CompletedTask ->
+                                    Input.defaultCheckbox True
+
+                                NoTask ->
+                                    Element.text "•"
+                                        |> Element.el
+                                            [ Element.centerX ]
+                                        |> Element.el
+                                            [ Element.width <| Element.px 32
+                                            , Element.alignTop
+                                            ]
+                            , Element.paragraph [ Element.spacing 5 ]
                                 [ Element.paragraph
                                     [ Element.alignTop ]
-                                    ((case task of
-                                        IncompleteTask ->
-                                            Input.defaultCheckbox False
-
-                                        CompletedTask ->
-                                            Input.defaultCheckbox True
-
-                                        NoTask ->
-                                            Element.text "•"
-                                     )
-                                        :: Element.text " "
-                                        :: children
-                                    )
+                                    children
                                 ]
+                            ]
+                                |> Element.row []
                         )
                 )
     , orderedList =
@@ -225,7 +230,7 @@ renderer interactive =
                             ]
                     ]
                         |> Element.column
-                            [ Element.width <| Element.fill, Element.paddingXY 0 8 ]
+                            [ Element.width <| Element.fill, Element.paddingXY 0 16 ]
                 )
                 |> Html.withAttribute "title"
                 |> Html.withOptionalAttribute "height"

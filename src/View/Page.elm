@@ -82,7 +82,10 @@ view attr content =
                         }
                     ]
                     { url = "/oracle"
-                    , label = "Oracle (German)" |> Element.text
+                    , label =
+                        "Oracle (German)"
+                            |> Element.text
+                            |> Element.el []
                     }
                , Element.link
                     [ Font.shadow
@@ -98,21 +101,20 @@ view attr content =
                 |> Element.column
                     [ Element.alignRight
                     , Element.alignTop
-                    , Element.paddingEach
-                        { top = 0
-                        , right = 16
-                        , bottom = 0
-                        , left = 0
-                        }
                     , Font.size 16
                     , Font.color <| Element.rgb255 255 255 255
                     , Element.spacing 8
-                    , Element.width <| Element.px 300
+                    , Element.width <| Element.px 150
                     ]
                 |> Element.el
-                    [ Element.padding 64
+                    [ Element.paddingEach
+                        { top = 64
+                        , right = 0
+                        , bottom = 0
+                        , left = 0
+                        }
                     , Element.centerX
-                    , Element.moveLeft 350
+                    , Element.moveLeft 450
                     ]
                 |> Element.inFront
              ]
