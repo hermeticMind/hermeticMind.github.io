@@ -1,6 +1,6 @@
 module Paper exposing (main)
 
-import Browser
+import Browser exposing (Document)
 import Css
 import Data.Alphabet as Alphabet
 import Direction2d
@@ -84,7 +84,7 @@ interactive name maybeValue content =
             Alphabet.asList
                 |> List.filterMap
                     (GreekMagicSymbol.fromChar 16
-                        >> Maybe.map Element.html
+                        >> Maybe.map (Element.html >> Element.el [])
                     )
                 |> Element.row
                     [ Element.centerX
@@ -214,10 +214,13 @@ interactive name maybeValue content =
             , Border.rounded 8
             , Element.width <| Element.fill
             ]
-        |> Element.el [ Element.paddingXY 32 16, Element.width <| Element.fill ]
+        |> Element.el
+            [ Element.paddingXY 32 16
+            , Element.width <| Element.fill
+            ]
 
 
-view : Model -> UnstyledHtml.Html Msg
+view : Model -> Document Msg
 view model =
     (case model |> Parser.parse of
         Ok list ->
@@ -251,7 +254,7 @@ subscriptions _ =
 
 main : Program () Model Msg
 main =
-    Browser.element
+    Browser.document
         { init = init
         , view = view
         , update = update

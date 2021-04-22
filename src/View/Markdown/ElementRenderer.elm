@@ -96,7 +96,7 @@ renderer interactive =
     -- [Font.family [ Font.typeface "Dancing Script" ]]
     , paragraph =
         Element.paragraph
-            []
+            [ Element.paddingXY 0 8 ]
 
     --[ Element.spacing 15 ]
     , hardLineBreak = Html.br [] [] |> Element.html

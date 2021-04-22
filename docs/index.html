@@ -5617,7 +5617,7 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
-var $elm$browser$Browser$element = _Browser_element;
+var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Paper$GotResponse = function (a) {
 	return {$: 'GotResponse', a: a};
 };
@@ -17899,7 +17899,11 @@ var $author$project$Paper$interactive = F3(
 											A2(
 												$elm$core$Basics$composeR,
 												$author$project$View$GreekMagicSymbol$fromChar(16),
-												$elm$core$Maybe$map($mdgriffith$elm_ui$Element$html)),
+												$elm$core$Maybe$map(
+													A2(
+														$elm$core$Basics$composeR,
+														$mdgriffith$elm_ui$Element$html,
+														$mdgriffith$elm_ui$Element$el(_List_Nil)))),
 											$author$project$Data$Alphabet$asList)));
 							case 'BinarySigil':
 								var width = 40;
@@ -25927,7 +25931,11 @@ var $author$project$View$Markdown$ElementRenderer$renderer = function (interacti
 							}),
 						items));
 			}),
-		paragraph: $mdgriffith$elm_ui$Element$paragraph(_List_Nil),
+		paragraph: $mdgriffith$elm_ui$Element$paragraph(
+			_List_fromArray(
+				[
+					A2($mdgriffith$elm_ui$Element$paddingXY, 0, 8)
+				])),
 		strikethrough: function (content) {
 			return A2(
 				$mdgriffith$elm_ui$Element$paragraph,
@@ -26321,134 +26329,138 @@ var $mdgriffith$elm_ui$Element$Font$shadow = function (shade) {
 };
 var $author$project$View$Page$view = F2(
 	function (attr, content) {
-		return A3(
-			$mdgriffith$elm_ui$Element$layoutWith,
-			{
-				options: _List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$focusStyle(
-						{backgroundColor: $elm$core$Maybe$Nothing, borderColor: $elm$core$Maybe$Nothing, shadow: $elm$core$Maybe$Nothing})
-					])
-			},
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Background$color(
-						A3($mdgriffith$elm_ui$Element$rgb255, 48, 0, 48)),
-						$mdgriffith$elm_ui$Element$Font$family(
+		return {
+			body: $elm$core$List$singleton(
+				A3(
+					$mdgriffith$elm_ui$Element$layoutWith,
+					{
+						options: _List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$focusStyle(
+								{backgroundColor: $elm$core$Maybe$Nothing, borderColor: $elm$core$Maybe$Nothing, shadow: $elm$core$Maybe$Nothing})
+							])
+					},
+					_Utils_ap(
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$Font$typeface('Serif')
-							])),
-						$mdgriffith$elm_ui$Element$Font$color(
-						A3($mdgriffith$elm_ui$Element$rgb255, 32, 32, 32)),
-						$mdgriffith$elm_ui$Element$Font$size(14),
-						$mdgriffith$elm_ui$Element$inFront(
-						A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$paddingEach(
-									{bottom: 0, left: 0, right: 0, top: 64}),
-									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$moveLeft(450)
-								]),
-							A2(
-								$mdgriffith$elm_ui$Element$column,
+								$mdgriffith$elm_ui$Element$Background$color(
+								A3($mdgriffith$elm_ui$Element$rgb255, 48, 0, 48)),
+								$mdgriffith$elm_ui$Element$Font$family(
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$alignRight,
-										$mdgriffith$elm_ui$Element$alignTop,
-										$mdgriffith$elm_ui$Element$Font$size(16),
-										$mdgriffith$elm_ui$Element$Font$color(
-										A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
-										$mdgriffith$elm_ui$Element$spacing(8),
-										$mdgriffith$elm_ui$Element$width(
-										$mdgriffith$elm_ui$Element$px(150))
-									]),
-								_List_fromArray(
-									[
-										A2(
+										$mdgriffith$elm_ui$Element$Font$typeface('Serif')
+									])),
+								$mdgriffith$elm_ui$Element$Font$color(
+								A3($mdgriffith$elm_ui$Element$rgb255, 32, 32, 32)),
+								$mdgriffith$elm_ui$Element$Font$size(14),
+								$mdgriffith$elm_ui$Element$inFront(
+								A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$paddingEach(
+											{bottom: 0, left: 0, right: 0, top: 64}),
+											$mdgriffith$elm_ui$Element$centerX,
+											$mdgriffith$elm_ui$Element$moveLeft(450)
+										]),
+									A2(
 										$mdgriffith$elm_ui$Element$column,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$Font$size(36),
-												$mdgriffith$elm_ui$Element$Border$widthEach(
-												{bottom: 1, left: 0, right: 0, top: 0}),
-												$mdgriffith$elm_ui$Element$Border$color(
-												A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
-												$mdgriffith$elm_ui$Element$paddingEach(
-												{bottom: 4, left: 0, right: 0, top: 0}),
+												$mdgriffith$elm_ui$Element$alignRight,
 												$mdgriffith$elm_ui$Element$alignTop,
-												$mdgriffith$elm_ui$Element$alignLeft
+												$mdgriffith$elm_ui$Element$Font$size(16),
+												$mdgriffith$elm_ui$Element$Font$color(
+												A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
+												$mdgriffith$elm_ui$Element$spacing(8),
+												$mdgriffith$elm_ui$Element$width(
+												$mdgriffith$elm_ui$Element$px(150))
 											]),
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$text('Hermetic'),
-												$mdgriffith$elm_ui$Element$text('Mind')
-											])),
-										A2(
-										$mdgriffith$elm_ui$Element$link,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$Font$shadow(
+												A2(
+												$mdgriffith$elm_ui$Element$column,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$size(36),
+														$mdgriffith$elm_ui$Element$Border$widthEach(
+														{bottom: 1, left: 0, right: 0, top: 0}),
+														$mdgriffith$elm_ui$Element$Border$color(
+														A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
+														$mdgriffith$elm_ui$Element$paddingEach(
+														{bottom: 4, left: 0, right: 0, top: 0}),
+														$mdgriffith$elm_ui$Element$alignTop,
+														$mdgriffith$elm_ui$Element$alignLeft
+													]),
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$text('Hermetic'),
+														$mdgriffith$elm_ui$Element$text('Mind')
+													])),
+												A2(
+												$mdgriffith$elm_ui$Element$link,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$shadow(
+														{
+															blur: 32,
+															color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
+															offset: _Utils_Tuple2(0, 0)
+														})
+													]),
 												{
-													blur: 32,
-													color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
-													offset: _Utils_Tuple2(0, 0)
-												})
-											]),
-										{
-											label: A2(
-												$mdgriffith$elm_ui$Element$el,
-												_List_Nil,
-												$mdgriffith$elm_ui$Element$text('Oracle (German)')),
-											url: '/oracle'
-										}),
-										A2(
-										$mdgriffith$elm_ui$Element$link,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$Font$shadow(
+													label: A2(
+														$mdgriffith$elm_ui$Element$el,
+														_List_Nil,
+														$mdgriffith$elm_ui$Element$text('Oracle (German)')),
+													url: '/oracle'
+												}),
+												A2(
+												$mdgriffith$elm_ui$Element$link,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$shadow(
+														{
+															blur: 32,
+															color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
+															offset: _Utils_Tuple2(0, 0)
+														})
+													]),
 												{
-													blur: 32,
-													color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
-													offset: _Utils_Tuple2(0, 0)
+													label: $mdgriffith$elm_ui$Element$text('Technical Paper'),
+													url: '/papers'
 												})
-											]),
-										{
-											label: $mdgriffith$elm_ui$Element$text('Technical Paper'),
-											url: '/papers'
-										})
-									]))))
-					]),
-				attr),
-			A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$padding(64),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$el,
+											]))))
+							]),
+						attr),
+					A2(
+						$mdgriffith$elm_ui$Element$row,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$padding(64),
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 							]),
-						$mdgriffith$elm_ui$Element$none),
-						content,
-						A2(
-						$mdgriffith$elm_ui$Element$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-							]),
-						$mdgriffith$elm_ui$Element$none)
-					])));
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									]),
+								$mdgriffith$elm_ui$Element$none),
+								content,
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									]),
+								$mdgriffith$elm_ui$Element$none)
+							])))),
+			title: 'Hermetic Mind'
+		};
 	});
 var $author$project$Paper$view = function (model) {
 	return A2(
@@ -26489,7 +26501,7 @@ var $author$project$Paper$view = function (model) {
 				}
 			}()));
 };
-var $author$project$Paper$main = $elm$browser$Browser$element(
+var $author$project$Paper$main = $elm$browser$Browser$document(
 	{init: $author$project$Paper$init, subscriptions: $author$project$Paper$subscriptions, update: $author$project$Paper$update, view: $author$project$Paper$view});
 _Platform_export({'Paper':{'init':$author$project$Paper$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
