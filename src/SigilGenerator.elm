@@ -2,7 +2,8 @@ module SigilGenerator exposing (..)
 
 import Browser
 import Data.Alphabet as Alphabet
-import Element
+import Data.Card exposing (description)
+import Element exposing (Element)
 import Element.Background as Background
 import Element.Font as Font
 import Html exposing (Html)
@@ -28,7 +29,7 @@ type SigilSort
 
 sigilSort : SigilSort
 sigilSort =
-    MagicSquareSigil
+    BraidSigil
 
 
 zoom : number
@@ -65,11 +66,6 @@ withCircle =
     True
 
 
-isGerman : Bool
-isGerman =
-    False
-
-
 interactive : Bool
 interactive =
     True
@@ -92,7 +88,7 @@ withText =
 
 withBorder : Bool
 withBorder =
-    True
+    False
 
 
 paths =
@@ -125,12 +121,18 @@ paths =
 
 
 type alias Model =
-    String
+    { string : String
+    , isGerman : Bool
+    }
 
 
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( "", Cmd.none )
+    ( { string = ""
+      , isGerman = False
+      }
+    , Cmd.none
+    )
 
 
 
@@ -141,13 +143,17 @@ init () =
 
 type Msg
     = ChangedText String
+    | SetField (Model -> Model)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg _ =
+update msg model =
     case msg of
         ChangedText string ->
-            ( string, Cmd.none )
+            ( { model | string = string }, Cmd.none )
+
+        SetField fun ->
+            ( fun model, Cmd.none )
 
 
 
@@ -167,6 +173,26 @@ subscriptions _ =
 --------------------------------------------------------------------------------
 
 
+switch :
+    { description : String
+    , onPress : Model -> Model
+    , active : Bool
+    }
+    -> Element Msg
+switch { description, onPress, active } =
+    [ Element.text description
+    , Widget.switch (Material.switch Material.defaultPalette)
+        { description = description
+        , onPress =
+            onPress
+                |> SetField
+                |> Just
+        , active = active
+        }
+    ]
+        |> Element.row [ Element.spacing 4 ]
+
+
 view : Model -> Html Msg
 view model =
     let
@@ -179,7 +205,7 @@ view model =
                         , radius = radius
                         , zoom = zoom
                         , asAlphabet =
-                            if isGerman then
+                            if model.isGerman then
                                 Alphabet.german
 
                             else
@@ -199,7 +225,7 @@ view model =
                         , zoom = 1
                         , strokeWidth = 5
                         , alphabet =
-                            if isGerman then
+                            if model.isGerman then
                                 Alphabet.german
 
                             else
@@ -220,15 +246,24 @@ view model =
             }
         , Widget.textInput (Material.textInput Material.defaultPalette)
             { chips = []
-            , text = model
+            , text = model.string
             , placeholder = Nothing
             , label = "Word"
             , onChange = ChangedText
             }
             |> Widget.asItem
         , Widget.divider (Material.fullBleedDivider Material.defaultPalette)
+        , [ switch
+                { description = "is German"
+                , onPress = \m -> { m | isGerman = not model.isGerman }
+                , active = model.isGerman
+                }
+          ]
+            |> Element.wrappedRow [ Element.width <| Element.fill ]
+            |> Widget.asItem
+        , Widget.divider (Material.fullBleedDivider Material.defaultPalette)
         , viewFun
-            model
+            model.string
             |> Element.html
             |> Element.el [ Element.centerX ]
             |> Widget.asItem

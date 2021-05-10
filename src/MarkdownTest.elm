@@ -1,6 +1,6 @@
 module MarkdownTest exposing (main)
 
-import Element exposing (Element)
+import Element
 import Html exposing (Html)
 import Html.Attributes as Attributes
 

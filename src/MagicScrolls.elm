@@ -8,7 +8,6 @@ import Element
 import Element.Background as Background
 import Element.Font as Font
 import Geometry.Svg as Svg
-import GreekMagicSymbols as GreekMagicSymbols
 import Html exposing (Html)
 import LineSegment2d
 import List.Extra as List
@@ -17,6 +16,7 @@ import String.Extra as String
 import Svg
 import Svg.Attributes as Attributes
 import View.BraidSigil as BraidSigil
+import View.GreekMagicSymbol as GreekMagicSymbols
 import View.MagicSquareSigil as MagicSquareSigil
 
 
@@ -38,11 +38,11 @@ type Sigil
 
 
 inputText =
-    "Alive"
+    "Wahrheit"
 
 
 isGerman =
-    False
+    True
 
 
 asAlphabet =
@@ -80,12 +80,12 @@ globalPadding =
 
 font : Font
 font =
-    Hebrew
+    Mystical
 
 
 sigilStyle : Sigil
 sigilStyle =
-    MagicSquare
+    Braid
 
 
 

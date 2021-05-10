@@ -1,22 +1,15 @@
 module Paper exposing (main)
 
 import Browser exposing (Document)
-import Css
 import Data.Alphabet as Alphabet
 import Direction2d
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Border as Border
-import Element.Font as Font
-import Html as UnstyledHtml
-import Html.Styled as Html exposing (Html)
-import Html.Styled.Attributes as Attributes
 import Http exposing (Error)
-import Markdown.Block exposing (HeadingLevel)
 import Markdown.Parser as Parser
-import Markdown.Renderer as Renderer exposing (Renderer)
+import Markdown.Renderer as Renderer
 import Point2d
-import Quantity
 import Svg
 import Svg.Attributes as SvgAttributes
 import View.BinarySigil as BinarySigil

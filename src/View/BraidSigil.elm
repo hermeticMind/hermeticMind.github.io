@@ -14,6 +14,7 @@ import List.Extra as List
 import Pixels
 import Point2d exposing (Point2d)
 import Quantity exposing (Quantity(..))
+import Set
 import StaticArray exposing (StaticArray)
 import StaticArray.Index as Index exposing (Index)
 import StaticArray.Length as Length exposing (Length)
@@ -21,6 +22,7 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attributes
 import Vector2d
 import View.BinarySigil as BinarySigil
+import View.GreekMagicSymbol as GreekMagicSymbol
 
 
 type alias N =
@@ -753,23 +755,26 @@ view { width, height, radius, fillColor, strokeColor, withText, asAlphabet, with
             )
         |> List.append
             (if withRunes then
-                Index.range n
+                (string |> String.toList |> List.unique)
                     |> List.map
-                        (\r ->
+                        (\char ->
                             let
                                 symbolLength =
-                                    4
+                                    5
+
+                                r =
+                                    asAlphabet <| char
                             in
-                            { value = Index.toInt r
+                            { value = Index.toInt <| r
                             , size = symbolLength
                             , color = "black"
                             , radius = 2
                             , strokeWidth = 1 / 2
                             , point =
                                 Point2d.pixels (width / 2) (height / 2)
-                                    |> Point2d.translateBy (Vector2d.pixels (radius * 1.25) 0)
+                                    |> Point2d.translateBy (Vector2d.pixels (radius * 1.3) 0)
                                     |> Point2d.rotateAround (Point2d.pixels (width / 2) (height / 2))
-                                        (Angle.radians <| (2 * pi / toFloat (Length.toInt n)) * (0.5 + toFloat (Index.toInt r)))
+                                        (Angle.radians <| (2 * pi / toFloat (Length.toInt n)) * (0.5 + toFloat (-7 + Index.toInt r)))
                             , direction =
                                 (Angle.radians <| (2 * pi / toFloat (Length.toInt n)) * (0.5 + toFloat (Index.toInt r)))
                                     |> Direction2d.fromAngle
