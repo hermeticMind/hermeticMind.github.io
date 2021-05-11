@@ -5240,14 +5240,14 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
-var $elm$browser$Browser$element = _Browser_element;
+var $elm$browser$Browser$document = _Browser_document;
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Oracle$init = function (_v0) {
 	return _Utils_Tuple2(
-		{cards: _List_Nil, flipped: $elm$core$Dict$empty, offsetAngle: 0, question: ''},
+		{cards: _List_Nil, flipped: $elm$core$Dict$empty, isGerman: true, offsetAngle: 0, question: ''},
 		$elm$core$Platform$Cmd$none);
 };
 var $author$project$Oracle$TimePassed = function (a) {
@@ -6143,6 +6143,7 @@ var $elm$random$Random$generate = F2(
 			$elm$random$Random$Generate(
 				A2($elm$random$Random$map, tagger, generator)));
 	});
+var $elm$core$Basics$not = _Basics_not;
 var $elm$core$Dict$getMin = function (dict) {
 	getMin:
 	while (true) {
@@ -6563,11 +6564,17 @@ var $author$project$Oracle$update = F2(
 						model,
 						{question: string}),
 					$elm$core$Platform$Cmd$none);
-			default:
+			case 'Reset':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{cards: _List_Nil, flipped: $elm$core$Dict$empty, question: ''}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{isGerman: !model.isGerman}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -6576,6 +6583,7 @@ var $author$project$Oracle$FlipCard = function (a) {
 };
 var $author$project$Oracle$PressedGetCards = {$: 'PressedGetCards'};
 var $author$project$Oracle$Reset = {$: 'Reset'};
+var $author$project$Oracle$ToggleLanguage = {$: 'ToggleLanguage'};
 var $author$project$Oracle$UpdatedQuestion = function (a) {
 	return {$: 'UpdatedQuestion', a: a};
 };
@@ -10279,7 +10287,6 @@ var $elm$virtual_dom$VirtualDom$keyedNode = function (tag) {
 	return _VirtualDom_keyedNode(
 		_VirtualDom_noScript(tag));
 };
-var $elm$core$Basics$not = _Basics_not;
 var $elm$html$Html$p = _VirtualDom_node('p');
 var $mdgriffith$elm_ui$Internal$Flag$present = F2(
 	function (myFlag, _v0) {
@@ -15409,13 +15416,6 @@ var $ianmackenzie$elm_geometry$Vector2d$pixels = F2(
 		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
 			{x: x, y: y});
 	});
-var $Orasund$elm_static_array$StaticArray$Index$range = function (_v0) {
-	var _const = _v0.a;
-	return A2(
-		$elm$core$List$map,
-		$Orasund$elm_static_array$StaticArray$Internal$I,
-		A2($elm$core$List$range, 0, _const - 1));
-};
 var $elm$core$List$singleton = function (value) {
 	return _List_fromArray(
 		[value]);
@@ -15461,6 +15461,9 @@ var $elm_community$list_extra$List$Extra$uniqueHelp = F4(
 			}
 		}
 	});
+var $elm_community$list_extra$List$Extra$unique = function (list) {
+	return A4($elm_community$list_extra$List$Extra$uniqueHelp, $elm$core$Basics$identity, $elm$core$Set$empty, list, _List_Nil);
+};
 var $elm_community$list_extra$List$Extra$uniqueBy = F2(
 	function (f, list) {
 		return A4($elm_community$list_extra$List$Extra$uniqueHelp, f, $elm$core$Set$empty, list, _List_Nil);
@@ -16650,8 +16653,9 @@ var $author$project$View$BraidSigil$view = F2(
 						withRunes ? $elm$core$List$concat(
 							A2(
 								$elm$core$List$map,
-								function (r) {
-									var symbolLength = 4;
+								function (_char) {
+									var symbolLength = 5;
+									var r = asAlphabet(_char);
 									return $author$project$View$BinarySigil$view(
 										{
 											color: 'black',
@@ -16663,10 +16667,10 @@ var $author$project$View$BraidSigil$view = F2(
 												$ianmackenzie$elm_geometry$Point2d$rotateAround,
 												A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2),
 												$ianmackenzie$elm_units$Angle$radians(
-													((2 * $elm$core$Basics$pi) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)) * (0.5 + $Orasund$elm_static_array$StaticArray$Index$toInt(r))),
+													((2 * $elm$core$Basics$pi) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)) * (0.5 + ((-7) + $Orasund$elm_static_array$StaticArray$Index$toInt(r)))),
 												A2(
 													$ianmackenzie$elm_geometry$Point2d$translateBy,
-													A2($ianmackenzie$elm_geometry$Vector2d$pixels, radius * 1.25, 0),
+													A2($ianmackenzie$elm_geometry$Vector2d$pixels, radius * 1.3, 0),
 													A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2))),
 											radius: 2,
 											size: symbolLength,
@@ -16674,7 +16678,8 @@ var $author$project$View$BraidSigil$view = F2(
 											value: $Orasund$elm_static_array$StaticArray$Index$toInt(r)
 										});
 								},
-								$Orasund$elm_static_array$StaticArray$Index$range($author$project$View$BraidSigil$n))) : _List_Nil,
+								$elm_community$list_extra$List$Extra$unique(
+									$elm$core$String$toList(string)))) : _List_Nil,
 						A2(
 							$elm$core$List$append,
 							debugMode ? $author$project$View$BraidSigil$drawPoints(options) : _List_Nil,
@@ -16821,146 +16826,268 @@ var $author$project$Data$Card$color = function (card) {
 	}
 	return 'none';
 };
-var $author$project$Data$Card$description = function (card) {
-	switch (card.$) {
-		case 'Joker':
-			return 'Sorglosigkeit';
-		case 'Binary':
-			var n = card.a;
-			switch (n) {
-				case 0:
-					return 'Geborgenheit';
-				case 1:
-					return 'Wandel';
-				default:
-					return 'Binary';
+var $author$project$Data$Card$title = F2(
+	function (isGerman, card) {
+		var _default = _Utils_Tuple2('', '');
+		return (isGerman ? $elm$core$Tuple$first : $elm$core$Tuple$second)(
+			function () {
+				switch (card.$) {
+					case 'Joker':
+						return _Utils_Tuple2('Narr', 'Fool');
+					case 'Binary':
+						var n = card.a;
+						switch (n) {
+							case 0:
+								return _Utils_Tuple2('Nacht', 'Night');
+							case 1:
+								return _Utils_Tuple2('Day', 'Tag');
+							default:
+								return _default;
+						}
+					case 'Trump':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Der Magier', 'The Magician');
+							case 2:
+								return _Utils_Tuple2('Die Hohepriesterin', 'The High Priestess');
+							case 3:
+								return _Utils_Tuple2('Die Herrscherin', 'The Empress');
+							case 4:
+								return _Utils_Tuple2('Der Herrscher', 'The Emperor');
+							case 5:
+								return _Utils_Tuple2('Der Hierophant', 'The Hierophant');
+							case 6:
+								return _Utils_Tuple2('Die Liebenden', 'The Lovers');
+							case 7:
+								return _Utils_Tuple2('Der Wagen', 'The Chariot');
+							case 8:
+								return _Utils_Tuple2('Die Gerechtigkeit', 'Justice');
+							case 9:
+								return _Utils_Tuple2('Der Eremit', 'The Hermit');
+							case 10:
+								return _Utils_Tuple2('Das Rad des Schicksals', 'Wheel of Fortune');
+							case 11:
+								return _Utils_Tuple2('Die Kraft', 'Strength');
+							case 12:
+								return _Utils_Tuple2('Der Gehängte', 'The Hanged Man');
+							case 13:
+								return _Utils_Tuple2('Der Tod', 'Death');
+							case 14:
+								return _Utils_Tuple2('Die Mäßigkeit', 'Temperance');
+							case 15:
+								return _Utils_Tuple2('Der Teufel', 'The Devil');
+							case 16:
+								return _Utils_Tuple2('Der Turm', 'The Tower');
+							case 17:
+								return _Utils_Tuple2('Der Stern', 'The Star');
+							case 18:
+								return _Utils_Tuple2('Der Mond', 'The Moon');
+							case 19:
+								return _Utils_Tuple2('Die Sonne', 'The Sun');
+							case 20:
+								return _Utils_Tuple2('Das Gericht', 'Judgement');
+							case 21:
+								return _Utils_Tuple2('Die Welt', 'The World');
+							default:
+								return _default;
+						}
+					case 'Element':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Erde', 'Earth');
+							case 2:
+								return _Utils_Tuple2('Feuer', 'Fire');
+							case 3:
+								return _Utils_Tuple2('Luft', 'Air');
+							case 4:
+								return _Utils_Tuple2('Wasser', 'Water');
+							default:
+								return _default;
+						}
+					case 'Planet':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Merkur', 'Mercury');
+							case 2:
+								return _Utils_Tuple2('Venus', 'Venus');
+							case 3:
+								return _Utils_Tuple2('Planet Erde', 'Planet Earth');
+							case 4:
+								return _Utils_Tuple2('Mars', 'Mars');
+							case 5:
+								return _Utils_Tuple2('Jupiter', 'Jupiter');
+							case 6:
+								return _Utils_Tuple2('Saturn', 'Saturn');
+							case 7:
+								return _Utils_Tuple2('Uranus', 'Uranus');
+							case 8:
+								return _Utils_Tuple2('Neptun', 'Neptun');
+							default:
+								return _default;
+						}
+					case 'Virtue':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Mitgefühl', 'Compassion');
+							case 2:
+								return _Utils_Tuple2('Freundlichkeit', 'Kindness');
+							case 3:
+								return _Utils_Tuple2('Offenheit', 'Openness');
+							case 4:
+								return _Utils_Tuple2('Vergebung', 'Forgiveness');
+							case 5:
+								return _Utils_Tuple2('Geduld', 'Patience');
+							case 6:
+								return _Utils_Tuple2('Treue', 'Loyalty');
+							case 7:
+								return _Utils_Tuple2('Selbstbeherrschung', 'Self-control');
+							case 8:
+								return _Utils_Tuple2('Ausdauer', 'Endurance');
+							case 9:
+								return _Utils_Tuple2('Selbsterkenntnis', 'Self-knowledge');
+							case 10:
+								return _Utils_Tuple2('Autentizität', 'Authenticity');
+							case 11:
+								return _Utils_Tuple2('Ehrlichkeit', 'Honesty');
+							case 12:
+								return _Utils_Tuple2('Mäßigkeit', 'Temperance');
+							case 13:
+								return _Utils_Tuple2('Humor', 'Humor');
+							case 14:
+								return _Utils_Tuple2('Hoffnung', 'Hope');
+							case 15:
+								return _Utils_Tuple2('Mut', 'Courage');
+							case 16:
+								return _Utils_Tuple2('Fleiß', 'Diligence');
+							default:
+								return _default;
+						}
+					default:
+						return _default;
+				}
+			}());
+	});
+var $author$project$Data$Card$description = F2(
+	function (isGerman, card) {
+		var _default = _Utils_Tuple2('', '');
+		return function () {
+			if (card.$ === 'Virtue') {
+				return $elm$core$Basics$always(
+					A2($author$project$Data$Card$title, isGerman, card));
+			} else {
+				return isGerman ? $elm$core$Tuple$first : $elm$core$Tuple$second;
 			}
-		case 'Trump':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Klarheit';
-				case 2:
-					return 'Intuition';
-				case 3:
-					return 'Selbstvertrauen';
-				case 4:
-					return 'Selbstbeherrschung';
-				case 5:
-					return 'Spiritualität';
-				case 6:
-					return 'Verbindung';
-				case 7:
-					return 'Erfolg';
-				case 8:
-					return 'Gerechtigkeit';
-				case 9:
-					return 'Suche';
-				case 10:
-					return 'Schicksal';
-				case 11:
-					return 'Kraft';
-				case 12:
-					return 'Ruhe';
-				case 13:
-					return 'Wandel';
-				case 14:
-					return 'Mäßigkeit';
-				case 15:
-					return 'Abhängigkeit';
-				case 16:
-					return 'Konfrontation';
-				case 17:
-					return 'Hoffnung';
-				case 18:
-					return 'Hingabe';
-				case 19:
-					return 'Zufriedenheit';
-				case 20:
-					return 'Neubeginn';
-				case 21:
-					return 'Selbsterkenntnis';
-				default:
-					return 'Trumpf';
-			}
-		case 'Element':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Traum';
-				case 2:
-					return 'Emotion';
-				case 3:
-					return 'Realität';
-				case 4:
-					return 'Taktik';
-				default:
-					return 'Jahreszeit';
-			}
-		case 'Planet':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Wissen';
-				case 2:
-					return 'Familie';
-				case 3:
-					return 'Gesundheit';
-				case 4:
-					return 'Reichtum';
-				case 5:
-					return 'Verwirklichung';
-				case 6:
-					return 'Anerkennung';
-				case 7:
-					return 'Erfolg';
-				case 8:
-					return 'Freiheit';
-				default:
-					return 'Jahreszeit';
-			}
-		case 'Virtue':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Mitgefühl';
-				case 2:
-					return 'Freundlichkeit';
-				case 3:
-					return 'Offenheit';
-				case 4:
-					return 'Vergebung';
-				case 5:
-					return 'Geduld';
-				case 6:
-					return 'Treue';
-				case 7:
-					return 'Selbstbeherrschung';
-				case 8:
-					return 'Ausdauer';
-				case 9:
-					return 'Selbsterkenntnis';
-				case 10:
-					return 'Autentizität';
-				case 11:
-					return 'Ehrlichkeit';
-				case 12:
-					return 'Mäßigkeit';
-				case 13:
-					return 'Humor';
-				case 14:
-					return 'Hoffnung';
-				case 15:
-					return 'Mut';
-				case 16:
-					return 'Fleiß';
-				default:
-					return 'Tugend';
-			}
-		default:
-			return '';
-	}
-};
+		}()(
+			function () {
+				switch (card.$) {
+					case 'Joker':
+						return _Utils_Tuple2('Sorglosigkeit', 'carefreeness');
+					case 'Binary':
+						var n = card.a;
+						switch (n) {
+							case 0:
+								return _Utils_Tuple2('Geborgenheit', 'Security');
+							case 1:
+								return _Utils_Tuple2('Wandel', 'Change');
+							default:
+								return _default;
+						}
+					case 'Trump':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Klarheit', 'Clarity');
+							case 2:
+								return _Utils_Tuple2('Intuition', 'Intuition');
+							case 3:
+								return _Utils_Tuple2('Selbstvertrauen', 'Self-confidence');
+							case 4:
+								return _Utils_Tuple2('Selbstbeherrschung', 'Self-control');
+							case 5:
+								return _Utils_Tuple2('Spiritualität', 'Spirituality');
+							case 6:
+								return _Utils_Tuple2('Verbindung', 'Connection');
+							case 7:
+								return _Utils_Tuple2('Erfolg', 'Success');
+							case 8:
+								return _Utils_Tuple2('Gerechtigkeit', 'Justice');
+							case 9:
+								return _Utils_Tuple2('Suche', 'Search');
+							case 10:
+								return _Utils_Tuple2('Schicksal', 'Fate');
+							case 11:
+								return _Utils_Tuple2('Kraft', 'Strength');
+							case 12:
+								return _Utils_Tuple2('Ruhe', 'Calmness');
+							case 13:
+								return _Utils_Tuple2('Wandel', 'Change');
+							case 14:
+								return _Utils_Tuple2('Mäßigkeit', 'Temperance');
+							case 15:
+								return _Utils_Tuple2('Abhängigkeit', 'Dependency');
+							case 16:
+								return _Utils_Tuple2('Konfrontation', 'Confrontation');
+							case 17:
+								return _Utils_Tuple2('Hoffnung', 'Hope');
+							case 18:
+								return _Utils_Tuple2('Hingabe', 'Dedication');
+							case 19:
+								return _Utils_Tuple2('Zufriedenheit', 'Satisfaction');
+							case 20:
+								return _Utils_Tuple2('Neubeginn', 'Restart');
+							case 21:
+								return _Utils_Tuple2('Selbsterkenntnis', 'Self-knowledge');
+							default:
+								return _default;
+						}
+					case 'Element':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Träumerei', 'Reverie');
+							case 2:
+								return _Utils_Tuple2('Emotion', 'Emotion');
+							case 3:
+								return _Utils_Tuple2('Realität', 'Reality');
+							case 4:
+								return _Utils_Tuple2('Taktik', 'Tactics');
+							default:
+								return _default;
+						}
+					case 'Planet':
+						var n = card.a;
+						switch (n) {
+							case 1:
+								return _Utils_Tuple2('Wissen', 'Knowledge');
+							case 2:
+								return _Utils_Tuple2('Familie/Liebe', 'Family/Love');
+							case 3:
+								return _Utils_Tuple2('Gesundheit', 'Health');
+							case 4:
+								return _Utils_Tuple2('Reichtum', 'Wealth');
+							case 5:
+								return _Utils_Tuple2('Verwirklichung', 'Fulfillment');
+							case 6:
+								return _Utils_Tuple2('Anerkennung', 'Acknowledgment');
+							case 7:
+								return _Utils_Tuple2('Erfolg', 'Success');
+							case 8:
+								return _Utils_Tuple2('Freiheit', 'Freedom');
+							default:
+								return _default;
+						}
+					case 'Virtue':
+						var n = card.a;
+						return _default;
+					default:
+						return _default;
+				}
+			}());
+	});
 var $ianmackenzie$elm_geometry$Geometry$Types$Rectangle2d = function (a) {
 	return {$: 'Rectangle2d', a: a};
 };
@@ -17131,146 +17258,6 @@ var $author$project$View$Card$relative = function () {
 	return $elm$core$Basics$mul((factor * $author$project$View$Card$width) / 70);
 }();
 var $elm$svg$Svg$Attributes$style = _VirtualDom_attribute('style');
-var $author$project$Data$Card$title = function (card) {
-	switch (card.$) {
-		case 'Joker':
-			return 'Narr';
-		case 'Binary':
-			var n = card.a;
-			switch (n) {
-				case 0:
-					return 'Anfang';
-				case 1:
-					return 'Ende';
-				default:
-					return 'Binary';
-			}
-		case 'Trump':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Der Magier';
-				case 2:
-					return 'Die Hohepriesterin';
-				case 3:
-					return 'Die Herrscherin';
-				case 4:
-					return 'Der Herrscher';
-				case 5:
-					return 'Der Hierophant';
-				case 6:
-					return 'Die Liebenden';
-				case 7:
-					return 'Der Wagen';
-				case 8:
-					return 'Die Gerechtigkeit';
-				case 9:
-					return 'Der Eremit';
-				case 10:
-					return 'Das Rad des Schicksals';
-				case 11:
-					return 'Die Kraft';
-				case 12:
-					return 'Der Gehängte';
-				case 13:
-					return 'Der Tod';
-				case 14:
-					return 'Die Mäßigkeit';
-				case 15:
-					return 'Der Teufel';
-				case 16:
-					return 'Der Turm';
-				case 17:
-					return 'Der Stern';
-				case 18:
-					return 'Der Mond';
-				case 19:
-					return 'Die Sonne';
-				case 20:
-					return 'Das Gericht';
-				case 21:
-					return 'Die Welt';
-				default:
-					return 'Trumpf';
-			}
-		case 'Element':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Erde';
-				case 2:
-					return 'Feuer';
-				case 3:
-					return 'Luft';
-				case 4:
-					return 'Wasser';
-				default:
-					return 'Elemente';
-			}
-		case 'Planet':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Merkur';
-				case 2:
-					return 'Venus';
-				case 3:
-					return 'Planet Erde';
-				case 4:
-					return 'Mars';
-				case 5:
-					return 'Jupiter';
-				case 6:
-					return 'Saturn';
-				case 7:
-					return 'Uranus';
-				case 8:
-					return 'Neptun';
-				default:
-					return 'Planet';
-			}
-		case 'Virtue':
-			var n = card.a;
-			switch (n) {
-				case 1:
-					return 'Mitgefühl';
-				case 2:
-					return 'Freundlichkeit';
-				case 3:
-					return 'Offenheit';
-				case 4:
-					return 'Vergebung';
-				case 5:
-					return 'Geduld';
-				case 6:
-					return 'Treue';
-				case 7:
-					return 'Selbstbeherrschung';
-				case 8:
-					return 'Ausdauer';
-				case 9:
-					return 'Selbsterkenntnis';
-				case 10:
-					return 'Autentizität';
-				case 11:
-					return 'Ehrlichkeit';
-				case 12:
-					return 'Mäßigkeit';
-				case 13:
-					return 'Humor';
-				case 14:
-					return 'Hoffnung';
-				case 15:
-					return 'Mut';
-				case 16:
-					return 'Fleiß';
-				default:
-					return 'Tugend';
-			}
-		default:
-			return '';
-	}
-};
 var $author$project$Data$Card$value = function (card) {
 	switch (card.$) {
 		case 'Joker':
@@ -19449,413 +19436,414 @@ var $author$project$View$Card$viewSymbol = function (card) {
 	}
 };
 var $elm$svg$Svg$Attributes$writingMode = _VirtualDom_attribute('writing-mode');
-var $author$project$View$Card$view = function (card) {
-	var viewValue = A2(
-		$elm$svg$Svg$text_,
-		_List_fromArray(
-			[
-				$elm$svg$Svg$Attributes$x(
-				$elm$core$String$fromFloat($author$project$View$Card$padding)),
-				$elm$svg$Svg$Attributes$y(
-				$elm$core$String$fromFloat(
-					$author$project$View$Card$padding + $author$project$View$Card$relative(3))),
-				$elm$svg$Svg$Attributes$textAnchor('middle'),
-				$elm$svg$Svg$Attributes$style(
-				'font: ' + ($elm$core$String$fromFloat(
-					$author$project$View$Card$relative(5)) + 'px sans-serif')),
-				$elm$svg$Svg$Attributes$fill(
-				$author$project$Data$Card$color(card))
-			]),
-		$elm$core$List$singleton(
-			$elm$svg$Svg$text(
-				$elm$core$String$fromInt(
-					$author$project$Data$Card$value(card)))));
-	var isWhite = function () {
-		_v3$2:
-		while (true) {
-			switch (card.$) {
-				case 'Binary':
-					if (card.a === 1) {
-						return false;
-					} else {
-						break _v3$2;
-					}
-				case 'Back':
-					return false;
-				default:
-					break _v3$2;
-			}
-		}
-		return true;
-	}();
-	return A2(
-		$elm$core$List$cons,
-		A2(
-			$ianmackenzie$elm_geometry_svg$Geometry$Svg$rectangle2d,
+var $author$project$View$Card$view = F2(
+	function (isGerman, card) {
+		var viewValue = A2(
+			$elm$svg$Svg$text_,
 			_List_fromArray(
 				[
-					$elm$svg$Svg$Attributes$stroke('none'),
-					$elm$svg$Svg$Attributes$strokeWidth(
-					$elm$core$String$fromFloat(0)),
+					$elm$svg$Svg$Attributes$x(
+					$elm$core$String$fromFloat($author$project$View$Card$padding)),
+					$elm$svg$Svg$Attributes$y(
+					$elm$core$String$fromFloat(
+						$author$project$View$Card$padding + $author$project$View$Card$relative(3))),
+					$elm$svg$Svg$Attributes$textAnchor('middle'),
+					$elm$svg$Svg$Attributes$style(
+					'font: ' + ($elm$core$String$fromFloat(
+						$author$project$View$Card$relative(5)) + 'px sans-serif')),
 					$elm$svg$Svg$Attributes$fill(
-					isWhite ? 'white' : $author$project$View$Color$blackBackground)
+					$author$project$Data$Card$color(card))
 				]),
-			A2(
-				$ianmackenzie$elm_geometry$Rectangle2d$from,
-				$ianmackenzie$elm_geometry$Point2d$origin,
-				A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, $author$project$View$Card$height))),
-		_Utils_ap(
-			function () {
+			$elm$core$List$singleton(
+				$elm$svg$Svg$text(
+					$elm$core$String$fromInt(
+						$author$project$Data$Card$value(card)))));
+		var isWhite = function () {
+			_v3$2:
+			while (true) {
 				switch (card.$) {
-					case 'Joker':
-						return $author$project$View$BinarySigil$view(
-							{
-								color: 'black',
-								direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
-								point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
-								radius: $author$project$View$Card$relative(1 / 2),
-								size: 0,
-								strokeWidth: $author$project$View$Card$relative(1 / 8),
-								value: 0
-							});
-					case 'Trump':
-						return _List_Nil;
-					case 'Element':
-						var n = card.a;
-						return $author$project$View$BinarySigil$view(
-							{
-								color: 'black',
-								direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
-								point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
-								radius: $author$project$View$Card$relative(1 / 2),
-								size: 2,
-								strokeWidth: $author$project$View$Card$relative(1 / 8),
-								value: $author$project$Data$Card$value(card)
-							});
-					case 'Planet':
-						return $author$project$View$BinarySigil$view(
-							{
-								color: 'black',
-								direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
-								point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
-								radius: $author$project$View$Card$relative(1 / 2),
-								size: 3,
-								strokeWidth: $author$project$View$Card$relative(1 / 8),
-								value: $author$project$Data$Card$value(card) - 1
-							});
 					case 'Binary':
-						var n = card.a;
-						switch (n) {
-							case 0:
-								return $author$project$View$BinarySigil$view(
-									{
-										color: 'black',
-										direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
-										point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
-										radius: $author$project$View$Card$relative(1 / 2),
-										size: 1,
-										strokeWidth: $author$project$View$Card$relative(1 / 8),
-										value: n
-									});
-							case 1:
-								return $author$project$View$BinarySigil$view(
-									{
-										color: 'white',
-										direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
-										point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
-										radius: $author$project$View$Card$relative(1 / 2),
-										size: 1,
-										strokeWidth: $author$project$View$Card$relative(1 / 8),
-										value: n
-									});
-							default:
-								return _List_Nil;
+						if (card.a === 1) {
+							return false;
+						} else {
+							break _v3$2;
 						}
-					case 'Virtue':
-						return $author$project$View$BinarySigil$view(
-							{
-								color: 'black',
-								direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
-								point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
-								radius: $author$project$View$Card$relative(1 / 2),
-								size: 4,
-								strokeWidth: $author$project$View$Card$relative(1 / 8),
-								value: $author$project$Data$Card$value(card) - 1
-							});
+					case 'Back':
+						return false;
 					default:
-						return _List_Nil;
+						break _v3$2;
 				}
-			}(),
+			}
+			return true;
+		}();
+		return A2(
+			$elm$core$List$cons,
+			A2(
+				$ianmackenzie$elm_geometry_svg$Geometry$Svg$rectangle2d,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$stroke('none'),
+						$elm$svg$Svg$Attributes$strokeWidth(
+						$elm$core$String$fromFloat(0)),
+						$elm$svg$Svg$Attributes$fill(
+						isWhite ? 'white' : $author$project$View$Color$blackBackground)
+					]),
+				A2(
+					$ianmackenzie$elm_geometry$Rectangle2d$from,
+					$ianmackenzie$elm_geometry$Point2d$origin,
+					A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, $author$project$View$Card$height))),
 			_Utils_ap(
 				function () {
 					switch (card.$) {
-						case 'Planet':
+						case 'Joker':
+							return $author$project$View$BinarySigil$view(
+								{
+									color: 'black',
+									direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+									point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
+									radius: $author$project$View$Card$relative(1 / 2),
+									size: 0,
+									strokeWidth: $author$project$View$Card$relative(1 / 8),
+									value: 0
+								});
+						case 'Trump':
 							return _List_Nil;
 						case 'Element':
-							return _List_fromArray(
-								[
-									A2(
-									$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke('none'),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('black')
-										]),
-									$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, $author$project$View$Card$padding + $author$project$View$Card$radius),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, 0),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$padding + $author$project$View$Card$radius, 0)
-											]))),
-									A2(
-									$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke('none'),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('black')
-										]),
-									$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - $author$project$View$Card$padding) - $author$project$View$Card$radius, 0),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, 0),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, $author$project$View$Card$padding + $author$project$View$Card$radius)
-											]))),
-									A2(
-									$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke('none'),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('black')
-										]),
-									$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, ($author$project$View$Card$height - $author$project$View$Card$padding) - $author$project$View$Card$radius),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, $author$project$View$Card$height),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - $author$project$View$Card$padding) - $author$project$View$Card$radius, $author$project$View$Card$height)
-											]))),
-									A2(
-									$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke('none'),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('black')
-										]),
-									$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$padding + $author$project$View$Card$radius, $author$project$View$Card$height),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, $author$project$View$Card$height),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, ($author$project$View$Card$height - $author$project$View$Card$padding) - $author$project$View$Card$radius)
-											])))
-								]);
+							var n = card.a;
+							return $author$project$View$BinarySigil$view(
+								{
+									color: 'black',
+									direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+									point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
+									radius: $author$project$View$Card$relative(1 / 2),
+									size: 2,
+									strokeWidth: $author$project$View$Card$relative(1 / 8),
+									value: $author$project$Data$Card$value(card)
+								});
+						case 'Planet':
+							return $author$project$View$BinarySigil$view(
+								{
+									color: 'black',
+									direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+									point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
+									radius: $author$project$View$Card$relative(1 / 2),
+									size: 3,
+									strokeWidth: $author$project$View$Card$relative(1 / 8),
+									value: $author$project$Data$Card$value(card) - 1
+								});
 						case 'Binary':
-							return A2(
-								$elm$core$List$map,
-								$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d(
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke(
-											$author$project$Data$Card$color(card)),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('none')
-										])),
-								_List_fromArray(
-									[
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, (12 * 7) + ($author$project$View$Card$radius * 2), 12 * 7)
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - (12 * 7)) - ($author$project$View$Card$radius * 2), 12 * 7),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7)
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), (12 * 7) + ($author$project$View$Card$radius * 2))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), ($author$project$View$Card$height - (12 * 7)) - ($author$project$View$Card$radius * 2)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - (12 * 7)) - ($author$project$View$Card$radius * 2), $author$project$View$Card$height - (12 * 7))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, (12 * 7) + ($author$project$View$Card$radius * 2), $author$project$View$Card$height - (12 * 7)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, ($author$project$View$Card$height - (12 * 7)) - ($author$project$View$Card$radius * 2))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, (12 * 7) + ($author$project$View$Card$radius * 2)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7)
-											]))
-									]));
-						case 'Trump':
-							return A2(
-								$elm$core$List$map,
-								$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d(
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke(
-											$author$project$Data$Card$color(card)),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('none'),
-											$elm$svg$Svg$Attributes$strokeLinecap('square')
-										])),
-								_List_fromArray(
-									[
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7)
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7)),
-												A2(
-												$ianmackenzie$elm_geometry$Point2d$pixels,
-												12 * 7,
-												($author$project$View$Card$height - (12 * 7)) - $author$project$View$Card$relative(1))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2(
-												$ianmackenzie$elm_geometry$Point2d$pixels,
-												12 * 7,
-												(12 * 7) + $author$project$View$Card$relative(1)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7)
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7),
-												A2(
-												$ianmackenzie$elm_geometry$Point2d$pixels,
-												$author$project$View$Card$width - (12 * 7),
-												(12 * 7) + $author$project$View$Card$relative(1))
-											])),
-										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
-										_List_fromArray(
-											[
-												A2(
-												$ianmackenzie$elm_geometry$Point2d$pixels,
-												$author$project$View$Card$width - (12 * 7),
-												($author$project$View$Card$height - (12 * 7)) - $author$project$View$Card$relative(1)),
-												A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7))
-											]))
-									]));
+							var n = card.a;
+							switch (n) {
+								case 0:
+									return $author$project$View$BinarySigil$view(
+										{
+											color: 'black',
+											direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+											point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
+											radius: $author$project$View$Card$relative(1 / 2),
+											size: 1,
+											strokeWidth: $author$project$View$Card$relative(1 / 8),
+											value: n
+										});
+								case 1:
+									return $author$project$View$BinarySigil$view(
+										{
+											color: 'white',
+											direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+											point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
+											radius: $author$project$View$Card$relative(1 / 2),
+											size: 1,
+											strokeWidth: $author$project$View$Card$relative(1 / 8),
+											value: n
+										});
+								default:
+									return _List_Nil;
+							}
+						case 'Virtue':
+							return $author$project$View$BinarySigil$view(
+								{
+									color: 'black',
+									direction: $ianmackenzie$elm_geometry$Direction2d$positiveX,
+									point: A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width / 2, $author$project$View$Card$padding),
+									radius: $author$project$View$Card$relative(1 / 2),
+									size: 4,
+									strokeWidth: $author$project$View$Card$relative(1 / 8),
+									value: $author$project$Data$Card$value(card) - 1
+								});
 						default:
-							return $elm$core$List$singleton(
-								A2(
-									$ianmackenzie$elm_geometry_svg$Geometry$Svg$rectangle2d,
-									_List_fromArray(
-										[
-											$elm$svg$Svg$Attributes$stroke(
-											$author$project$Data$Card$color(card)),
-											$elm$svg$Svg$Attributes$strokeWidth(
-											$elm$core$String$fromFloat(
-												$author$project$View$Card$relative(0.1))),
-											$elm$svg$Svg$Attributes$fill('none')
-										]),
-									A2(
-										$ianmackenzie$elm_geometry$Rectangle2d$from,
-										A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7),
-										A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7)))));
+							return _List_Nil;
 					}
 				}(),
 				_Utils_ap(
-					$author$project$View$Card$viewSymbol(card),
-					A2(
-						$elm$core$List$cons,
+					function () {
+						switch (card.$) {
+							case 'Planet':
+								return _List_Nil;
+							case 'Element':
+								return _List_fromArray(
+									[
+										A2(
+										$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke('none'),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('black')
+											]),
+										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, $author$project$View$Card$padding + $author$project$View$Card$radius),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, 0),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$padding + $author$project$View$Card$radius, 0)
+												]))),
+										A2(
+										$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke('none'),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('black')
+											]),
+										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - $author$project$View$Card$padding) - $author$project$View$Card$radius, 0),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, 0),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, $author$project$View$Card$padding + $author$project$View$Card$radius)
+												]))),
+										A2(
+										$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke('none'),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('black')
+											]),
+										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, ($author$project$View$Card$height - $author$project$View$Card$padding) - $author$project$View$Card$radius),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width, $author$project$View$Card$height),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - $author$project$View$Card$padding) - $author$project$View$Card$radius, $author$project$View$Card$height)
+												]))),
+										A2(
+										$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d,
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke('none'),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('black')
+											]),
+										$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$padding + $author$project$View$Card$radius, $author$project$View$Card$height),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, $author$project$View$Card$height),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 0, ($author$project$View$Card$height - $author$project$View$Card$padding) - $author$project$View$Card$radius)
+												])))
+									]);
+							case 'Binary':
+								return A2(
+									$elm$core$List$map,
+									$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d(
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke(
+												$author$project$Data$Card$color(card)),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('none')
+											])),
+									_List_fromArray(
+										[
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, (12 * 7) + ($author$project$View$Card$radius * 2), 12 * 7)
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - (12 * 7)) - ($author$project$View$Card$radius * 2), 12 * 7),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7)
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), (12 * 7) + ($author$project$View$Card$radius * 2))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), ($author$project$View$Card$height - (12 * 7)) - ($author$project$View$Card$radius * 2)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, ($author$project$View$Card$width - (12 * 7)) - ($author$project$View$Card$radius * 2), $author$project$View$Card$height - (12 * 7))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, (12 * 7) + ($author$project$View$Card$radius * 2), $author$project$View$Card$height - (12 * 7)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, ($author$project$View$Card$height - (12 * 7)) - ($author$project$View$Card$radius * 2))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, (12 * 7) + ($author$project$View$Card$radius * 2)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7)
+												]))
+										]));
+							case 'Trump':
+								return A2(
+									$elm$core$List$map,
+									$ianmackenzie$elm_geometry_svg$Geometry$Svg$polyline2d(
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke(
+												$author$project$Data$Card$color(card)),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('none'),
+												$elm$svg$Svg$Attributes$strokeLinecap('square')
+											])),
+									_List_fromArray(
+										[
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7)
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, $author$project$View$Card$height - (12 * 7)),
+													A2(
+													$ianmackenzie$elm_geometry$Point2d$pixels,
+													12 * 7,
+													($author$project$View$Card$height - (12 * 7)) - $author$project$View$Card$relative(1))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2(
+													$ianmackenzie$elm_geometry$Point2d$pixels,
+													12 * 7,
+													(12 * 7) + $author$project$View$Card$relative(1)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7)
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), 12 * 7),
+													A2(
+													$ianmackenzie$elm_geometry$Point2d$pixels,
+													$author$project$View$Card$width - (12 * 7),
+													(12 * 7) + $author$project$View$Card$relative(1))
+												])),
+											$ianmackenzie$elm_geometry$Polyline2d$fromVertices(
+											_List_fromArray(
+												[
+													A2(
+													$ianmackenzie$elm_geometry$Point2d$pixels,
+													$author$project$View$Card$width - (12 * 7),
+													($author$project$View$Card$height - (12 * 7)) - $author$project$View$Card$relative(1)),
+													A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7))
+												]))
+										]));
+							default:
+								return $elm$core$List$singleton(
+									A2(
+										$ianmackenzie$elm_geometry_svg$Geometry$Svg$rectangle2d,
+										_List_fromArray(
+											[
+												$elm$svg$Svg$Attributes$stroke(
+												$author$project$Data$Card$color(card)),
+												$elm$svg$Svg$Attributes$strokeWidth(
+												$elm$core$String$fromFloat(
+													$author$project$View$Card$relative(0.1))),
+												$elm$svg$Svg$Attributes$fill('none')
+											]),
+										A2(
+											$ianmackenzie$elm_geometry$Rectangle2d$from,
+											A2($ianmackenzie$elm_geometry$Point2d$pixels, 12 * 7, 12 * 7),
+											A2($ianmackenzie$elm_geometry$Point2d$pixels, $author$project$View$Card$width - (12 * 7), $author$project$View$Card$height - (12 * 7)))));
+						}
+					}(),
+					_Utils_ap(
+						$author$project$View$Card$viewSymbol(card),
 						A2(
-							$elm$svg$Svg$text_,
-							_List_fromArray(
-								[
-									$elm$svg$Svg$Attributes$x(
-									$elm$core$String$fromFloat($author$project$View$Card$width / 2)),
-									$elm$svg$Svg$Attributes$y(
-									$elm$core$String$fromFloat(
-										($author$project$View$Card$height - $author$project$View$Card$padding) - $author$project$View$Card$relative(3))),
-									$elm$svg$Svg$Attributes$textAnchor('middle'),
-									$elm$svg$Svg$Attributes$style(
-									'font: ' + ($elm$core$String$fromFloat(
-										$author$project$View$Card$relative(3)) + 'px sans-serif')),
-									$elm$svg$Svg$Attributes$fill(
-									isWhite ? 'black' : 'white')
-								]),
-							$elm$core$List$singleton(
-								$elm$svg$Svg$text(
-									$author$project$Data$Card$description(card)))),
-						$elm$core$List$singleton(
+							$elm$core$List$cons,
 							A2(
 								$elm$svg$Svg$text_,
 								_List_fromArray(
 									[
 										$elm$svg$Svg$Attributes$x(
-										$elm$core$String$fromFloat(
-											($author$project$View$Card$width - $author$project$View$Card$padding) - $author$project$View$Card$relative(0.6))),
+										$elm$core$String$fromFloat($author$project$View$Card$width / 2)),
 										$elm$svg$Svg$Attributes$y(
-										$elm$core$String$fromFloat($author$project$View$Card$padding)),
-										$elm$svg$Svg$Attributes$textAnchor('start'),
+										$elm$core$String$fromFloat(
+											($author$project$View$Card$height - $author$project$View$Card$padding) - $author$project$View$Card$relative(3))),
+										$elm$svg$Svg$Attributes$textAnchor('middle'),
 										$elm$svg$Svg$Attributes$style(
 										'font: ' + ($elm$core$String$fromFloat(
-											$author$project$View$Card$relative(1.8)) + 'px sans-serif')),
-										$elm$svg$Svg$Attributes$writingMode('tb'),
+											$author$project$View$Card$relative(3)) + 'px sans-serif')),
 										$elm$svg$Svg$Attributes$fill(
 										isWhite ? 'black' : 'white')
 									]),
 								$elm$core$List$singleton(
 									$elm$svg$Svg$text(
-										$author$project$Data$Card$title(card))))))))));
-};
+										A2($author$project$Data$Card$description, isGerman, card)))),
+							$elm$core$List$singleton(
+								A2(
+									$elm$svg$Svg$text_,
+									_List_fromArray(
+										[
+											$elm$svg$Svg$Attributes$x(
+											$elm$core$String$fromFloat(
+												($author$project$View$Card$width - $author$project$View$Card$padding) - $author$project$View$Card$relative(0.6))),
+											$elm$svg$Svg$Attributes$y(
+											$elm$core$String$fromFloat($author$project$View$Card$padding)),
+											$elm$svg$Svg$Attributes$textAnchor('start'),
+											$elm$svg$Svg$Attributes$style(
+											'font: ' + ($elm$core$String$fromFloat(
+												$author$project$View$Card$relative(1.8)) + 'px sans-serif')),
+											$elm$svg$Svg$Attributes$writingMode('tb'),
+											$elm$svg$Svg$Attributes$fill(
+											isWhite ? 'black' : 'white')
+										]),
+									$elm$core$List$singleton(
+										$elm$svg$Svg$text(
+											A2($author$project$Data$Card$title, isGerman, card))))))))));
+	});
 var $mdgriffith$elm_ui$Internal$Model$Left = {$: 'Left'};
 var $mdgriffith$elm_ui$Element$alignLeft = $mdgriffith$elm_ui$Internal$Model$AlignX($mdgriffith$elm_ui$Internal$Model$Left);
 var $mdgriffith$elm_ui$Internal$Model$Right = {$: 'Right'};
@@ -20167,134 +20155,138 @@ var $mdgriffith$elm_ui$Element$Border$widthEach = function (_v0) {
 };
 var $author$project$View$Page$view = F2(
 	function (attr, content) {
-		return A3(
-			$mdgriffith$elm_ui$Element$layoutWith,
-			{
-				options: _List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$focusStyle(
-						{backgroundColor: $elm$core$Maybe$Nothing, borderColor: $elm$core$Maybe$Nothing, shadow: $elm$core$Maybe$Nothing})
-					])
-			},
-			_Utils_ap(
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$Background$color(
-						A3($mdgriffith$elm_ui$Element$rgb255, 48, 0, 48)),
-						$mdgriffith$elm_ui$Element$Font$family(
+		return {
+			body: $elm$core$List$singleton(
+				A3(
+					$mdgriffith$elm_ui$Element$layoutWith,
+					{
+						options: _List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$focusStyle(
+								{backgroundColor: $elm$core$Maybe$Nothing, borderColor: $elm$core$Maybe$Nothing, shadow: $elm$core$Maybe$Nothing})
+							])
+					},
+					_Utils_ap(
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$Font$typeface('Serif')
-							])),
-						$mdgriffith$elm_ui$Element$Font$color(
-						A3($mdgriffith$elm_ui$Element$rgb255, 32, 32, 32)),
-						$mdgriffith$elm_ui$Element$Font$size(14),
-						$mdgriffith$elm_ui$Element$inFront(
-						A2(
-							$mdgriffith$elm_ui$Element$el,
-							_List_fromArray(
-								[
-									$mdgriffith$elm_ui$Element$paddingEach(
-									{bottom: 0, left: 0, right: 0, top: 64}),
-									$mdgriffith$elm_ui$Element$centerX,
-									$mdgriffith$elm_ui$Element$moveLeft(450)
-								]),
-							A2(
-								$mdgriffith$elm_ui$Element$column,
+								$mdgriffith$elm_ui$Element$Background$color(
+								A3($mdgriffith$elm_ui$Element$rgb255, 48, 0, 48)),
+								$mdgriffith$elm_ui$Element$Font$family(
 								_List_fromArray(
 									[
-										$mdgriffith$elm_ui$Element$alignRight,
-										$mdgriffith$elm_ui$Element$alignTop,
-										$mdgriffith$elm_ui$Element$Font$size(16),
-										$mdgriffith$elm_ui$Element$Font$color(
-										A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
-										$mdgriffith$elm_ui$Element$spacing(8),
-										$mdgriffith$elm_ui$Element$width(
-										$mdgriffith$elm_ui$Element$px(150))
-									]),
-								_List_fromArray(
-									[
-										A2(
+										$mdgriffith$elm_ui$Element$Font$typeface('Serif')
+									])),
+								$mdgriffith$elm_ui$Element$Font$color(
+								A3($mdgriffith$elm_ui$Element$rgb255, 32, 32, 32)),
+								$mdgriffith$elm_ui$Element$Font$size(14),
+								$mdgriffith$elm_ui$Element$inFront(
+								A2(
+									$mdgriffith$elm_ui$Element$el,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$paddingEach(
+											{bottom: 0, left: 0, right: 0, top: 64}),
+											$mdgriffith$elm_ui$Element$centerX,
+											$mdgriffith$elm_ui$Element$moveLeft(450)
+										]),
+									A2(
 										$mdgriffith$elm_ui$Element$column,
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$Font$size(36),
-												$mdgriffith$elm_ui$Element$Border$widthEach(
-												{bottom: 1, left: 0, right: 0, top: 0}),
-												$mdgriffith$elm_ui$Element$Border$color(
-												A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
-												$mdgriffith$elm_ui$Element$paddingEach(
-												{bottom: 4, left: 0, right: 0, top: 0}),
+												$mdgriffith$elm_ui$Element$alignRight,
 												$mdgriffith$elm_ui$Element$alignTop,
-												$mdgriffith$elm_ui$Element$alignLeft
+												$mdgriffith$elm_ui$Element$Font$size(16),
+												$mdgriffith$elm_ui$Element$Font$color(
+												A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
+												$mdgriffith$elm_ui$Element$spacing(8),
+												$mdgriffith$elm_ui$Element$width(
+												$mdgriffith$elm_ui$Element$px(150))
 											]),
 										_List_fromArray(
 											[
-												$mdgriffith$elm_ui$Element$text('Hermetic'),
-												$mdgriffith$elm_ui$Element$text('Mind')
-											])),
-										A2(
-										$mdgriffith$elm_ui$Element$link,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$Font$shadow(
+												A2(
+												$mdgriffith$elm_ui$Element$column,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$size(36),
+														$mdgriffith$elm_ui$Element$Border$widthEach(
+														{bottom: 1, left: 0, right: 0, top: 0}),
+														$mdgriffith$elm_ui$Element$Border$color(
+														A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
+														$mdgriffith$elm_ui$Element$paddingEach(
+														{bottom: 4, left: 0, right: 0, top: 0}),
+														$mdgriffith$elm_ui$Element$alignTop,
+														$mdgriffith$elm_ui$Element$alignLeft
+													]),
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$text('Hermetic'),
+														$mdgriffith$elm_ui$Element$text('Mind')
+													])),
+												A2(
+												$mdgriffith$elm_ui$Element$link,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$shadow(
+														{
+															blur: 32,
+															color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
+															offset: _Utils_Tuple2(0, 0)
+														})
+													]),
 												{
-													blur: 32,
-													color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
-													offset: _Utils_Tuple2(0, 0)
-												})
-											]),
-										{
-											label: A2(
-												$mdgriffith$elm_ui$Element$el,
-												_List_Nil,
-												$mdgriffith$elm_ui$Element$text('Oracle (German)')),
-											url: '/oracle'
-										}),
-										A2(
-										$mdgriffith$elm_ui$Element$link,
-										_List_fromArray(
-											[
-												$mdgriffith$elm_ui$Element$Font$shadow(
+													label: A2(
+														$mdgriffith$elm_ui$Element$el,
+														_List_Nil,
+														$mdgriffith$elm_ui$Element$text('Oracle')),
+													url: '/oracle'
+												}),
+												A2(
+												$mdgriffith$elm_ui$Element$link,
+												_List_fromArray(
+													[
+														$mdgriffith$elm_ui$Element$Font$shadow(
+														{
+															blur: 32,
+															color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
+															offset: _Utils_Tuple2(0, 0)
+														})
+													]),
 												{
-													blur: 32,
-													color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
-													offset: _Utils_Tuple2(0, 0)
+													label: $mdgriffith$elm_ui$Element$text('Technical Paper'),
+													url: '/papers'
 												})
-											]),
-										{
-											label: $mdgriffith$elm_ui$Element$text('Technical Paper'),
-											url: '/papers'
-										})
-									]))))
-					]),
-				attr),
-			A2(
-				$mdgriffith$elm_ui$Element$row,
-				_List_fromArray(
-					[
-						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-						$mdgriffith$elm_ui$Element$padding(64),
-						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$mdgriffith$elm_ui$Element$el,
+											]))))
+							]),
+						attr),
+					A2(
+						$mdgriffith$elm_ui$Element$row,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+								$mdgriffith$elm_ui$Element$padding(64),
+								$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 							]),
-						$mdgriffith$elm_ui$Element$none),
-						content,
-						A2(
-						$mdgriffith$elm_ui$Element$el,
 						_List_fromArray(
 							[
-								$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
-							]),
-						$mdgriffith$elm_ui$Element$none)
-					])));
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									]),
+								$mdgriffith$elm_ui$Element$none),
+								content,
+								A2(
+								$mdgriffith$elm_ui$Element$el,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+									]),
+								$mdgriffith$elm_ui$Element$none)
+							])))),
+			title: 'Hermetic Mind'
+		};
 	});
 var $author$project$Oracle$viewCircle = function (_v0) {
 	var offset = _v0.offset;
@@ -20440,13 +20432,45 @@ var $author$project$Oracle$view = function (model) {
 							_List_fromArray(
 								[
 									A2(
-									$mdgriffith$elm_ui$Element$el,
+									$mdgriffith$elm_ui$Element$row,
 									_List_fromArray(
 										[
-											$mdgriffith$elm_ui$Element$Font$color(
-											A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255))
+											$mdgriffith$elm_ui$Element$spaceEvenly,
+											$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
 										]),
-									$mdgriffith$elm_ui$Element$text('Frage stellen')),
+									_List_fromArray(
+										[
+											A2(
+											$mdgriffith$elm_ui$Element$el,
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$Font$size(16),
+													$mdgriffith$elm_ui$Element$Font$color(
+													A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255))
+												]),
+											$mdgriffith$elm_ui$Element$text(
+												model.isGerman ? 'Frage stellen' : 'Ask Question')),
+											A2(
+											$mdgriffith$elm_ui$Element$Input$button,
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$Font$size(16),
+													$mdgriffith$elm_ui$Element$Border$width(0),
+													$mdgriffith$elm_ui$Element$Font$color(
+													A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255)),
+													$mdgriffith$elm_ui$Element$Font$shadow(
+													{
+														blur: 32,
+														color: A3($mdgriffith$elm_ui$Element$rgb255, 0, 0, 255),
+														offset: _Utils_Tuple2(0, 0)
+													})
+												]),
+											{
+												label: $mdgriffith$elm_ui$Element$text(
+													model.isGerman ? 'English' : 'Deutsch'),
+												onPress: $elm$core$Maybe$Just($author$project$Oracle$ToggleLanguage)
+											})
+										])),
 									A2(
 									$mdgriffith$elm_ui$Element$Input$multiline,
 									_List_fromArray(
@@ -20460,7 +20484,8 @@ var $author$project$Oracle$view = function (model) {
 											A3($mdgriffith$elm_ui$Element$rgb255, 255, 255, 255))
 										]),
 									{
-										label: $mdgriffith$elm_ui$Element$Input$labelHidden('Deine Frage'),
+										label: $mdgriffith$elm_ui$Element$Input$labelHidden(
+											model.isGerman ? 'Deine Frage' : 'Your question'),
 										onChange: $author$project$Oracle$UpdatedQuestion,
 										placeholder: $elm$core$Maybe$Nothing,
 										spellcheck: false,
@@ -20484,7 +20509,8 @@ var $author$project$Oracle$view = function (model) {
 											})
 										]),
 									{
-										label: $mdgriffith$elm_ui$Element$text('Orakel befragen'),
+										label: $mdgriffith$elm_ui$Element$text(
+											model.isGerman ? 'Orakel befragen' : 'Ask the oracle'),
 										onPress: $elm$core$Maybe$Just($author$project$Oracle$PressedGetCards)
 									})
 								]));
@@ -20522,7 +20548,8 @@ var $author$project$Oracle$view = function (model) {
 													$mdgriffith$elm_ui$Element$padding(16)
 												]),
 											{
-												label: $mdgriffith$elm_ui$Element$text('Wiederholen'),
+												label: $mdgriffith$elm_ui$Element$text(
+													model.isGerman ? 'Wiederholen' : 'Restart'),
 												onPress: $elm$core$Maybe$Just($author$project$Oracle$Reset)
 											}),
 											(3 === $elm$core$Dict$size(model.flipped)) ? A2(
@@ -20542,7 +20569,8 @@ var $author$project$Oracle$view = function (model) {
 													$mdgriffith$elm_ui$Element$padding(16)
 												]),
 											{
-												label: $mdgriffith$elm_ui$Element$text('Karten auf Etsy kaufen'),
+												label: $mdgriffith$elm_ui$Element$text(
+													model.isGerman ? 'Karten auf Etsy kaufen' : 'Buy cards on Etsy'),
 												url: 'https://www.etsy.com/HermeticMind/listing/971853626'
 											}) : $mdgriffith$elm_ui$Element$none
 										])),
@@ -20591,7 +20619,9 @@ var $author$project$Oracle$view = function (model) {
 																		$elm$svg$Svg$Attributes$viewBox(
 																		'0 0 ' + ($elm$core$String$fromFloat($author$project$View$Card$width) + (' ' + $elm$core$String$fromFloat($author$project$View$Card$height))))
 																	]),
-																$author$project$View$Card$view(
+																A2(
+																	$author$project$View$Card$view,
+																	model.isGerman,
 																	function () {
 																		var _v1 = A2($elm$core$Dict$get, i, model.flipped);
 																		if (_v1.$ === 'Just') {
@@ -20610,7 +20640,7 @@ var $author$project$Oracle$view = function (model) {
 					}
 				}())));
 };
-var $author$project$Oracle$main = $elm$browser$Browser$element(
+var $author$project$Oracle$main = $elm$browser$Browser$document(
 	{init: $author$project$Oracle$init, subscriptions: $author$project$Oracle$subscriptions, update: $author$project$Oracle$update, view: $author$project$Oracle$view});
 _Platform_export({'Oracle':{'init':$author$project$Oracle$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

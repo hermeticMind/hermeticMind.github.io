@@ -14,7 +14,7 @@ main =
         :: Card.asList
         |> List.map
             (\card ->
-                Card.view card
+                Card.view True card
                     |> Svg.svg
                         [ Attributes.width <| (String.fromFloat <| Card.zoom * Card.width) ++ "px"
                         , Attributes.height <| (String.fromFloat <| Card.zoom * Card.height) ++ "px"

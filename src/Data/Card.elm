@@ -74,380 +74,357 @@ color card =
             "none"
 
 
-title : Card -> String
-title card =
-    case card of
+title : Bool -> Card -> String
+title isGerman card =
+    let
+        default =
+            ( "", "" )
+    in
+    (case card of
         Joker ->
-            "Narr"
+            ( "Narr", "Fool" )
 
         Binary n ->
             case n of
                 0 ->
-                    "Anfang"
+                    ( "Nacht", "Night" )
 
                 1 ->
-                    "Ende"
+                    ( "Day", "Tag" )
 
                 _ ->
-                    "Binary"
+                    default
 
         Trump n ->
             case n of
                 1 ->
-                    "Der Magier"
+                    ( "Der Magier", "The Magician" )
 
                 2 ->
-                    "Die Hohepriesterin"
+                    ( "Die Hohepriesterin", "The High Priestess" )
 
                 3 ->
-                    "Die Herrscherin"
+                    ( "Die Herrscherin", "The Empress" )
 
                 4 ->
-                    "Der Herrscher"
+                    ( "Der Herrscher", "The Emperor" )
 
                 5 ->
-                    "Der Hierophant"
+                    ( "Der Hierophant", "The Hierophant" )
 
                 6 ->
-                    "Die Liebenden"
+                    ( "Die Liebenden", "The Lovers" )
 
                 7 ->
-                    "Der Wagen"
+                    ( "Der Wagen", "The Chariot" )
 
                 8 ->
-                    "Die Gerechtigkeit"
+                    ( "Die Gerechtigkeit", "Justice" )
 
                 9 ->
-                    "Der Eremit"
+                    ( "Der Eremit", "The Hermit" )
 
                 10 ->
-                    "Das Rad des Schicksals"
+                    ( "Das Rad des Schicksals", "Wheel of Fortune" )
 
                 11 ->
-                    "Die Kraft"
+                    ( "Die Kraft", "Strength" )
 
                 12 ->
-                    "Der Gehängte"
+                    ( "Der Gehängte", "The Hanged Man" )
 
                 13 ->
-                    "Der Tod"
+                    ( "Der Tod", "Death" )
 
                 14 ->
-                    "Die Mäßigkeit"
+                    ( "Die Mäßigkeit", "Temperance" )
 
                 15 ->
-                    "Der Teufel"
+                    ( "Der Teufel", "The Devil" )
 
                 16 ->
-                    "Der Turm"
+                    ( "Der Turm", "The Tower" )
 
                 17 ->
-                    "Der Stern"
+                    ( "Der Stern", "The Star" )
 
                 18 ->
-                    "Der Mond"
+                    ( "Der Mond", "The Moon" )
 
                 19 ->
-                    "Die Sonne"
+                    ( "Die Sonne", "The Sun" )
 
                 20 ->
-                    "Das Gericht"
+                    ( "Das Gericht", "Judgement" )
 
                 21 ->
-                    "Die Welt"
+                    ( "Die Welt", "The World" )
 
                 _ ->
-                    "Trumpf"
+                    default
 
         Element n ->
             case n of
                 1 ->
-                    "Erde"
+                    ( "Erde", "Earth" )
 
                 2 ->
-                    "Feuer"
+                    ( "Feuer", "Fire" )
 
                 3 ->
-                    "Luft"
+                    ( "Luft", "Air" )
 
                 4 ->
-                    "Wasser"
+                    ( "Wasser", "Water" )
 
                 _ ->
-                    "Elemente"
+                    default
 
         Planet n ->
             case n of
                 1 ->
-                    "Merkur"
+                    ( "Merkur", "Mercury" )
 
                 2 ->
-                    "Venus"
+                    ( "Venus", "Venus" )
 
                 3 ->
-                    "Planet Erde"
+                    ( "Planet Erde", "Planet Earth" )
 
                 4 ->
-                    "Mars"
+                    ( "Mars", "Mars" )
 
                 5 ->
-                    "Jupiter"
+                    ( "Jupiter", "Jupiter" )
 
                 6 ->
-                    "Saturn"
+                    ( "Saturn", "Saturn" )
 
                 7 ->
-                    "Uranus"
+                    ( "Uranus", "Uranus" )
 
                 8 ->
-                    "Neptun"
+                    ( "Neptun", "Neptun" )
 
                 _ ->
-                    "Planet"
+                    default
 
         Virtue n ->
             case n of
                 1 ->
-                    "Mitgefühl"
+                    ( "Mitgefühl", "Compassion" )
 
                 2 ->
-                    "Freundlichkeit"
+                    ( "Freundlichkeit", "Kindness" )
 
                 3 ->
-                    "Offenheit"
+                    ( "Offenheit", "Openness" )
 
                 4 ->
-                    "Vergebung"
+                    ( "Vergebung", "Forgiveness" )
 
                 5 ->
-                    "Geduld"
+                    ( "Geduld", "Patience" )
 
                 6 ->
-                    "Treue"
+                    ( "Treue", "Loyalty" )
 
                 7 ->
-                    "Selbstbeherrschung"
+                    ( "Selbstbeherrschung", "Self-control" )
 
                 8 ->
-                    "Ausdauer"
+                    ( "Ausdauer", "Endurance" )
 
                 9 ->
-                    "Selbsterkenntnis"
+                    ( "Selbsterkenntnis", "Self-knowledge" )
 
                 10 ->
-                    "Autentizität"
+                    ( "Autentizität", "Authenticity" )
 
                 11 ->
-                    "Ehrlichkeit"
+                    ( "Ehrlichkeit", "Honesty" )
 
                 12 ->
-                    "Mäßigkeit"
+                    ( "Mäßigkeit", "Temperance" )
 
                 13 ->
-                    "Humor"
+                    ( "Humor", "Humor" )
 
                 14 ->
-                    "Hoffnung"
+                    ( "Hoffnung", "Hope" )
 
                 15 ->
-                    "Mut"
+                    ( "Mut", "Courage" )
 
                 16 ->
-                    "Fleiß"
+                    ( "Fleiß", "Diligence" )
 
                 _ ->
-                    "Tugend"
+                    default
 
         Back ->
-            ""
+            default
+    )
+        |> (if isGerman then
+                Tuple.first
+
+            else
+                Tuple.second
+           )
 
 
-description : Card -> String
-description card =
-    case card of
+description : Bool -> Card -> String
+description isGerman card =
+    let
+        default =
+            ( "", "" )
+    in
+    (case card of
         Joker ->
-            "Sorglosigkeit"
+            ( "Sorglosigkeit", "carefreeness" )
 
         Binary n ->
             case n of
                 0 ->
-                    "Geborgenheit"
+                    ( "Geborgenheit", "Security" )
 
                 1 ->
-                    "Wandel"
+                    ( "Wandel", "Change" )
 
                 _ ->
-                    "Binary"
+                    default
 
         Trump n ->
             case n of
                 1 ->
-                    "Klarheit"
+                    ( "Klarheit", "Clarity" )
 
                 2 ->
-                    "Intuition"
+                    ( "Intuition", "Intuition" )
 
                 3 ->
-                    "Selbstvertrauen"
+                    ( "Selbstvertrauen", "Self-confidence" )
 
                 4 ->
-                    "Selbstbeherrschung"
+                    ( "Selbstbeherrschung", "Self-control" )
 
                 5 ->
-                    "Spiritualität"
+                    ( "Spiritualität", "Spirituality" )
 
                 6 ->
-                    "Verbindung"
+                    ( "Verbindung", "Connection" )
 
                 7 ->
-                    "Erfolg"
+                    ( "Erfolg", "Success" )
 
                 8 ->
-                    "Gerechtigkeit"
+                    ( "Gerechtigkeit", "Justice" )
 
                 9 ->
-                    "Suche"
+                    ( "Suche", "Search" )
 
                 10 ->
-                    "Schicksal"
+                    ( "Schicksal", "Fate" )
 
                 11 ->
-                    "Kraft"
+                    ( "Kraft", "Strength" )
 
                 12 ->
-                    "Ruhe"
+                    ( "Ruhe", "Calmness" )
 
                 13 ->
-                    "Wandel"
+                    ( "Wandel", "Change" )
 
                 14 ->
-                    "Mäßigkeit"
+                    ( "Mäßigkeit", "Temperance" )
 
                 15 ->
-                    "Abhängigkeit"
+                    ( "Abhängigkeit", "Dependency" )
 
                 16 ->
-                    "Konfrontation"
+                    ( "Konfrontation", "Confrontation" )
 
                 17 ->
-                    "Hoffnung"
+                    ( "Hoffnung", "Hope" )
 
                 18 ->
-                    "Hingabe"
+                    ( "Hingabe", "Dedication" )
 
                 19 ->
-                    "Zufriedenheit"
+                    ( "Zufriedenheit", "Satisfaction" )
 
                 20 ->
-                    "Neubeginn"
+                    ( "Neubeginn", "Restart" )
 
                 21 ->
-                    "Selbsterkenntnis"
+                    ( "Selbsterkenntnis", "Self-knowledge" )
 
                 _ ->
-                    "Trumpf"
+                    default
 
         Element n ->
             case n of
                 1 ->
-                    "Traum"
+                    ( "Träumerei", "Reverie" )
 
                 2 ->
-                    "Emotion"
+                    ( "Emotion", "Emotion" )
 
                 3 ->
-                    "Realität"
+                    ( "Realität", "Reality" )
 
                 4 ->
-                    "Taktik"
+                    ( "Taktik", "Tactics" )
 
                 _ ->
-                    "Jahreszeit"
+                    default
 
         Planet n ->
             case n of
                 1 ->
-                    "Wissen"
+                    ( "Wissen", "Knowledge" )
 
                 2 ->
-                    "Familie"
+                    ( "Familie/Liebe", "Family/Love" )
 
                 3 ->
-                    "Gesundheit"
+                    ( "Gesundheit", "Health" )
 
                 4 ->
-                    "Reichtum"
+                    ( "Reichtum", "Wealth" )
 
                 5 ->
-                    "Verwirklichung"
+                    ( "Verwirklichung", "Fulfillment" )
 
                 6 ->
-                    "Anerkennung"
+                    ( "Anerkennung", "Acknowledgment" )
 
                 7 ->
-                    "Erfolg"
+                    ( "Erfolg", "Success" )
 
                 8 ->
-                    "Freiheit"
+                    ( "Freiheit", "Freedom" )
 
                 _ ->
-                    "Jahreszeit"
+                    default
 
         Virtue n ->
-            case n of
-                1 ->
-                    "Mitgefühl"
-
-                2 ->
-                    "Freundlichkeit"
-
-                3 ->
-                    "Offenheit"
-
-                4 ->
-                    "Vergebung"
-
-                5 ->
-                    "Geduld"
-
-                6 ->
-                    "Treue"
-
-                7 ->
-                    "Selbstbeherrschung"
-
-                8 ->
-                    "Ausdauer"
-
-                9 ->
-                    "Selbsterkenntnis"
-
-                10 ->
-                    "Autentizität"
-
-                11 ->
-                    "Ehrlichkeit"
-
-                12 ->
-                    "Mäßigkeit"
-
-                13 ->
-                    "Humor"
-
-                14 ->
-                    "Hoffnung"
-
-                15 ->
-                    "Mut"
-
-                16 ->
-                    "Fleiß"
-
-                _ ->
-                    "Tugend"
+            default
 
         Back ->
-            ""
+            default
+    )
+        |> (case card of
+                Virtue _ ->
+                    always <| title isGerman card
+
+                _ ->
+                    if isGerman then
+                        Tuple.first
+
+                    else
+                        Tuple.second
+           )
 
 
 value : Card -> Int

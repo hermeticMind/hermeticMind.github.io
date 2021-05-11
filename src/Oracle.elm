@@ -1,7 +1,7 @@
 module Oracle exposing (..)
 
 import Angle
-import Browser
+import Browser exposing (Document)
 import Data.Alphabet as Alphabet
 import Data.Card as Card exposing (Card)
 import Dict exposing (Dict)
@@ -31,6 +31,7 @@ type alias Model =
     , cards : List Card
     , flipped : Dict Int ()
     , question : String
+    , isGerman : Bool
     }
 
 
@@ -41,6 +42,7 @@ type Msg
     | FlipCard Int
     | UpdatedQuestion String
     | Reset
+    | ToggleLanguage
 
 
 init : () -> ( Model, Cmd Msg )
@@ -49,6 +51,7 @@ init () =
       , cards = []
       , flipped = Dict.empty
       , question = ""
+      , isGerman = True
       }
     , Cmd.none
     )
@@ -109,6 +112,13 @@ update msg model =
             , Cmd.none
             )
 
+        ToggleLanguage ->
+            ( { model
+                | isGerman = not model.isGerman
+              }
+            , Cmd.none
+            )
+
 
 viewCircle : { offset : Float, n : Int, size : Float, radius : Float, strokeWidth : Float } -> Html Msg
 viewCircle { offset, n, size, radius, strokeWidth } =
@@ -150,7 +160,7 @@ viewCircle { offset, n, size, radius, strokeWidth } =
             ]
 
 
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
     let
         size =
@@ -167,9 +177,39 @@ view model =
     in
     (case model.cards of
         [] ->
-            [ "Frage stellen"
-                |> Element.text
-                |> Element.el [ Font.color <| Element.rgb255 255 255 255 ]
+            [ [ (if model.isGerman then
+                    "Frage stellen"
+
+                 else
+                    "Ask Question"
+                )
+                    |> Element.text
+                    |> Element.el
+                        [ Font.size 16
+                        , Font.color <| Element.rgb255 255 255 255
+                        ]
+              , Input.button
+                    [ Font.size 16
+                    , Border.width <| 0
+                    , Font.color <| Element.rgb255 255 255 255
+                    , Font.shadow
+                        { offset = ( 0, 0 )
+                        , blur = 32
+                        , color = Element.rgb255 0 0 255
+                        }
+                    ]
+                    { onPress = ToggleLanguage |> Just
+                    , label =
+                        (if model.isGerman then
+                            "English"
+
+                         else
+                            "Deutsch"
+                        )
+                            |> Element.text
+                    }
+              ]
+                |> Element.row [ Element.spaceEvenly, Element.width <| Element.fill ]
             , Input.multiline
                 [ Element.width <| Element.px <| round <| size / 2
                 , Background.color <| Element.rgba255 0 0 0 0
@@ -178,7 +218,14 @@ view model =
                 { onChange = UpdatedQuestion
                 , text = model.question
                 , placeholder = Nothing
-                , label = Input.labelHidden "Deine Frage"
+                , label =
+                    Input.labelHidden
+                        (if model.isGerman then
+                            "Deine Frage"
+
+                         else
+                            "Your question"
+                        )
                 , spellcheck = False
                 }
             , Input.button
@@ -195,7 +242,12 @@ view model =
                 ]
                 { onPress = PressedGetCards |> Just
                 , label =
-                    "Orakel befragen"
+                    (if model.isGerman then
+                        "Orakel befragen"
+
+                     else
+                        "Ask the oracle"
+                    )
                         |> Element.text
                 }
             ]
@@ -215,7 +267,12 @@ view model =
                     ]
                     { onPress = Reset |> Just
                     , label =
-                        "Wiederholen"
+                        (if model.isGerman then
+                            "Wiederholen"
+
+                         else
+                            "Restart"
+                        )
                             |> Element.text
                     }
               , if
@@ -236,7 +293,12 @@ view model =
                         ]
                         { url = "https://www.etsy.com/HermeticMind/listing/971853626"
                         , label =
-                            "Karten auf Etsy kaufen"
+                            (if model.isGerman then
+                                "Karten auf Etsy kaufen"
+
+                             else
+                                "Buy cards on Etsy"
+                            )
                                 |> Element.text
                         }
 
@@ -267,7 +329,7 @@ view model =
                                     Nothing ->
                                         Card.back
                                 )
-                                    |> Card.view
+                                    |> Card.view model.isGerman
                                     |> Svg.svg
                                         [ SvgAttributes.width <| (String.fromInt <| round <| cardZoom * Card.width) ++ "px"
                                         , SvgAttributes.height <| (String.fromInt <| round <| cardZoom * Card.height) ++ "px"
@@ -380,10 +442,9 @@ view model =
 
 main : Program () Model Msg
 main =
-    Browser.element
+    Browser.document
         { init = init
-        , view =
-            view
+        , view = view
         , update = update
         , subscriptions = subscriptions
         }

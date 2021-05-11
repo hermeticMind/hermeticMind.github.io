@@ -85,7 +85,7 @@ view attr content =
                         ]
                         { url = "/oracle"
                         , label =
-                            "Oracle (German)"
+                            "Oracle"
                                 |> Element.text
                                 |> Element.el []
                         }

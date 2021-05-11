@@ -17100,13 +17100,6 @@ var $ianmackenzie$elm_geometry$Vector2d$pixels = F2(
 		return $ianmackenzie$elm_geometry$Geometry$Types$Vector2d(
 			{x: x, y: y});
 	});
-var $Orasund$elm_static_array$StaticArray$Index$range = function (_v0) {
-	var _const = _v0.a;
-	return A2(
-		$elm$core$List$map,
-		$Orasund$elm_static_array$StaticArray$Internal$I,
-		A2($elm$core$List$range, 0, _const - 1));
-};
 var $elm$svg$Svg$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$svg$Svg$Attributes$textAnchor = _VirtualDom_attribute('text-anchor');
 var $elm$svg$Svg$text_ = $elm$svg$Svg$trustedNode('text');
@@ -17148,6 +17141,9 @@ var $elm_community$list_extra$List$Extra$uniqueHelp = F4(
 			}
 		}
 	});
+var $elm_community$list_extra$List$Extra$unique = function (list) {
+	return A4($elm_community$list_extra$List$Extra$uniqueHelp, $elm$core$Basics$identity, $elm$core$Set$empty, list, _List_Nil);
+};
 var $elm_community$list_extra$List$Extra$uniqueBy = F2(
 	function (f, list) {
 		return A4($elm_community$list_extra$List$Extra$uniqueHelp, f, $elm$core$Set$empty, list, _List_Nil);
@@ -17310,8 +17306,9 @@ var $author$project$View$BraidSigil$view = F2(
 						withRunes ? $elm$core$List$concat(
 							A2(
 								$elm$core$List$map,
-								function (r) {
-									var symbolLength = 4;
+								function (_char) {
+									var symbolLength = 5;
+									var r = asAlphabet(_char);
 									return $author$project$View$BinarySigil$view(
 										{
 											color: 'black',
@@ -17323,10 +17320,10 @@ var $author$project$View$BraidSigil$view = F2(
 												$ianmackenzie$elm_geometry$Point2d$rotateAround,
 												A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2),
 												$ianmackenzie$elm_units$Angle$radians(
-													((2 * $elm$core$Basics$pi) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)) * (0.5 + $Orasund$elm_static_array$StaticArray$Index$toInt(r))),
+													((2 * $elm$core$Basics$pi) / $Orasund$elm_static_array$StaticArray$Length$toInt($author$project$View$BraidSigil$n)) * (0.5 + ((-7) + $Orasund$elm_static_array$StaticArray$Index$toInt(r)))),
 												A2(
 													$ianmackenzie$elm_geometry$Point2d$translateBy,
-													A2($ianmackenzie$elm_geometry$Vector2d$pixels, radius * 1.25, 0),
+													A2($ianmackenzie$elm_geometry$Vector2d$pixels, radius * 1.3, 0),
 													A2($ianmackenzie$elm_geometry$Point2d$pixels, width / 2, height / 2))),
 											radius: 2,
 											size: symbolLength,
@@ -17334,7 +17331,8 @@ var $author$project$View$BraidSigil$view = F2(
 											value: $Orasund$elm_static_array$StaticArray$Index$toInt(r)
 										});
 								},
-								$Orasund$elm_static_array$StaticArray$Index$range($author$project$View$BraidSigil$n))) : _List_Nil,
+								$elm_community$list_extra$List$Extra$unique(
+									$elm$core$String$toList(string)))) : _List_Nil,
 						A2(
 							$elm$core$List$append,
 							debugMode ? $author$project$View$BraidSigil$drawPoints(options) : _List_Nil,
@@ -26412,7 +26410,7 @@ var $author$project$View$Page$view = F2(
 													label: A2(
 														$mdgriffith$elm_ui$Element$el,
 														_List_Nil,
-														$mdgriffith$elm_ui$Element$text('Oracle (German)')),
+														$mdgriffith$elm_ui$Element$text('Oracle')),
 													url: '/oracle'
 												}),
 												A2(
