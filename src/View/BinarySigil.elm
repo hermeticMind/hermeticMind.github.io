@@ -80,9 +80,9 @@ spiral { radius, size, direction } =
             { drawing =
                 Turtle.arcRightBy { angle = Angle.radians 0, radius = radius / 2 }
                     >> Turtle.map (Turtle.rotateLeftBy (Angle.radians <| pi / 2))
-                    >> Turtle.andThen (Turtle.arcRightBy { angle = Angle.radians pi, radius = radius * 2 })
+                    >> Turtle.andThen (Turtle.arcLeftBy { angle = Angle.radians pi, radius = radius * 2 })
                     >> Turtle.map (Turtle.rotateLeftBy (Angle.radians <| pi / 2))
-            , size = size |> Vector2d.plus (Vector2d.unsafe { x = radius * 4, y = 0 })
+            , size = size |> Vector2d.plus (Vector2d.unsafe { x = -(radius * 4), y = 0 })
             , direction = Down
             }
 

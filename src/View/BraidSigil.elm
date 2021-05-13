@@ -14,7 +14,6 @@ import List.Extra as List
 import Pixels
 import Point2d exposing (Point2d)
 import Quantity exposing (Quantity(..))
-import Set
 import StaticArray exposing (StaticArray)
 import StaticArray.Index as Index exposing (Index)
 import StaticArray.Length as Length exposing (Length)
@@ -22,7 +21,6 @@ import Svg exposing (Svg)
 import Svg.Attributes as Attributes
 import Vector2d
 import View.BinarySigil as BinarySigil
-import View.GreekMagicSymbol as GreekMagicSymbol
 
 
 type alias N =

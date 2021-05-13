@@ -1,5 +1,6 @@
-module Data.Card exposing (Card(..), asList, back, color, description, title, value)
+module Data.Card exposing (Card(..), asList, back, color, decode, description, encode, parser, title, value)
 
+import Parser exposing ((|.), (|=), Parser)
 import View.Color as Color
 
 
@@ -13,9 +14,70 @@ type Card
     | Back
 
 
+encode : Card -> String
+encode card =
+    case card of
+        Binary int ->
+            "binary " ++ String.fromInt int
+
+        Trump int ->
+            "trump " ++ String.fromInt int
+
+        Element int ->
+            "element " ++ String.fromInt int
+
+        Planet int ->
+            "planet " ++ String.fromInt int
+
+        Virtue int ->
+            "virtue " ++ String.fromInt int
+
+        Joker ->
+            "joker"
+
+        Back ->
+            "back"
+
+
+parser : Parser Card
+parser =
+    Parser.oneOf
+        [ Parser.succeed Binary
+            |. Parser.keyword "binary"
+            |. Parser.spaces
+            |= Parser.int
+        , Parser.succeed Trump
+            |. Parser.keyword "trump"
+            |. Parser.spaces
+            |= Parser.int
+        , Parser.succeed Element
+            |. Parser.keyword "element"
+            |. Parser.spaces
+            |= Parser.int
+        , Parser.succeed Planet
+            |. Parser.keyword "planet"
+            |. Parser.spaces
+            |= Parser.int
+        , Parser.succeed Virtue
+            |. Parser.keyword "virtue"
+            |. Parser.spaces
+            |= Parser.int
+        , Parser.succeed Joker
+            |. Parser.keyword "joker"
+        , Parser.succeed Back
+            |. Parser.keyword "back"
+        ]
+
+
+decode : String -> Result () Card
+decode =
+    Parser.run parser
+        >> Result.mapError (always ())
+
+
 asList : List Card
 asList =
-    [ Binary 0, Binary 1, Joker ]
+    [ Binary 1, Binary 2, Joker ]
         |> List.append
             (List.range 1 16
                 |> List.map Virtue
@@ -42,13 +104,13 @@ back =
 color : Card -> String
 color card =
     case card of
+        Binary 2 ->
+            "black"
+
         Binary 1 ->
             "white"
 
-        Binary 0 ->
-            "black"
-
-        Trump n ->
+        Trump _ ->
             Color.gray
 
         Planet _ ->
@@ -86,10 +148,10 @@ title isGerman card =
 
         Binary n ->
             case n of
-                0 ->
+                1 ->
                     ( "Nacht", "Night" )
 
-                1 ->
+                2 ->
                     ( "Day", "Tag" )
 
                 _ ->
@@ -281,15 +343,15 @@ description isGerman card =
     in
     (case card of
         Joker ->
-            ( "Sorglosigkeit", "carefreeness" )
+            ( "Sorglosigkeit", "Carefreeness" )
 
         Binary n ->
             case n of
-                0 ->
-                    ( "Geborgenheit", "Security" )
-
                 1 ->
                     ( "Wandel", "Change" )
+
+                2 ->
+                    ( "Geborgenheit", "Protection" )
 
                 _ ->
                     default
@@ -309,7 +371,7 @@ description isGerman card =
                     ( "Selbstbeherrschung", "Self-control" )
 
                 5 ->
-                    ( "Spiritualität", "Spirituality" )
+                    ( "Geist", "Spirit" )
 
                 6 ->
                     ( "Verbindung", "Connection" )
@@ -408,7 +470,7 @@ description isGerman card =
                 _ ->
                     default
 
-        Virtue n ->
+        Virtue _ ->
             default
 
         Back ->
@@ -431,7 +493,7 @@ value : Card -> Int
 value card =
     case card of
         Joker ->
-            0
+            1
 
         Binary n ->
             n
@@ -448,7 +510,7 @@ value card =
                    )
 
         Element v ->
-            v |> modBy 4
+            v |> modBy 4 |> (+) 1
 
         Planet v ->
             v

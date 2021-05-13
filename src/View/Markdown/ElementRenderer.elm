@@ -1,15 +1,14 @@
 module View.Markdown.ElementRenderer exposing (..)
 
-import Css
 import Element exposing (Element)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Element.Region as Region
-import Html exposing (Html)
+import Html
 import Html.Attributes as Attributes
-import Markdown.Block as Block exposing (Block, HeadingLevel(..), Inline, ListItem(..), Task(..))
+import Markdown.Block as Block exposing (HeadingLevel(..), ListItem(..), Task(..))
 import Markdown.Html as Html
 import Markdown.Renderer exposing (Renderer)
 
@@ -46,7 +45,7 @@ renderer interactive =
                             18
 
                         _ ->
-                            16
+                            14
                     )
                  , Element.paddingEach
                     { top =
@@ -129,7 +128,7 @@ renderer interactive =
                 ]
                 (Element.text snippet)
     , link =
-        \{ title, destination } body ->
+        \{ destination } body ->
             Element.newTabLink []
                 { url = destination
                 , label =
@@ -143,7 +142,7 @@ renderer interactive =
     , image =
         \image ->
             case image.title of
-                Just title ->
+                Just _ ->
                     Element.image [ Element.width Element.fill ] { src = image.src, description = image.alt }
 
                 Nothing ->
@@ -202,6 +201,16 @@ renderer interactive =
             , Html.tag "interactive" interactive
                 |> Html.withAttribute "name"
                 |> Html.withOptionalAttribute "value"
+            , Html.tag "box"
+                (Element.row
+                    [ Border.width 1
+                    , Border.dashed
+                    , Border.color (Element.rgb 0 0 0)
+                    , Element.padding 8
+                    , Border.rounded 8
+                    ]
+                    >> Element.el [ Element.paddingXY 32 0 ]
+                )
             , Html.tag "abstract" (Element.column [])
             , Html.tag "image"
                 (\title height src _ ->
@@ -263,12 +272,12 @@ renderer interactive =
     , tableBody = Element.column []
     , tableRow = Element.row [ Element.height Element.fill, Element.width Element.fill ]
     , tableHeaderCell =
-        \maybeAlignment children ->
+        \_ children ->
             Element.paragraph
                 tableBorder
                 children
     , tableCell =
-        \maybeAlignment children ->
+        \_ children ->
             Element.paragraph
                 tableBorder
                 children

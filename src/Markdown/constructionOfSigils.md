@@ -10,9 +10,11 @@ For each type of sigil we will first present its history, followed by an overvie
 
 Magical symbols, as known today, can be dated back to Arabic translations of Greek translations of Egyptian papyrus scrolls. While translating into Greek, the Greeks used letters of their own alphabet with added circles as a replacement for the magical Egyptian glyphs. While the Egyptian glyphs had a very specific meaning, the Greek magical symbols did not. Can can even see the same symbols be used by two different authors for two different meanings. (See [Magical Symbols - History of Sigils Angelic Alphabets and Symbols of Power by ESOTERICA](https://www.youtube.com/watch?v=7dhz4GR2yio))
 
+<box>
 <interactive  name="greekMagicSymbols">
 _Font "Greek Magic" designed by Hermetic Mind in 2021. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)_
 </interactive>
+</box>
 
 In that sense these symbols are used similarly to the way how symbols are used in mathematics: You can declare that a specific symbols has a specific meaning and then continue using said symbol as a sort of abbreviation. This means that the symbol itself has no magical power, it just denotes a magical concept.
 
@@ -60,9 +62,11 @@ Note that we use binary attributes (Hot/Cold and Dry/Wet) for the construction o
 
 This motivates the mapping of the element onto the numbers 0 to 3 in binary presentation: Water - 00, Earth - 01, Fire - 10, Wind - 11. You might wonder why one starts with water and then continues clockwise. One can map the elements on the four seasons: Water - Winter, Earth - Spring, Fire - Summer, Wind - Fall and then use the order of the seasons. Winter is the first of the four seasons (according to our calendar).
 
+<box>
 <interactive  name="BinarySigil">
 _Designed by Hermetic Mind by extending on the original construction. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
+</box>
 
 #### Positives
 
@@ -113,9 +117,11 @@ This concept can be extended to three points and also even further to 26 points 
 
 Remark: It does not matter if the spiral goes clockwise or counterclockwise. The only important distinction is if the spiral starts left or right of the vertical line.
 
+<box>
 <interactive  name="BraidSigil"  value="Hermetic Mind">
 _Designed by Hermetic Mind as described above. The alphabet gets arranged around the circle with respect to the amount of occurrences in the English dictionary. Additionally we do a shift by 7 (a prim not dividing 26). The end point gets connected with the starting point to produce a looping path. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </interactive>
+</box>
 
 #### Positives
 

@@ -1166,7 +1166,7 @@ viewSymbol card =
 
         Binary n ->
             case n of
-                0 ->
+                2 ->
                     [ RegularPolygon.view
                         { n = 3, scale = radius, standing = True }
                         ( width / 2, height / 2 )
@@ -1223,6 +1223,93 @@ viewSymbol card =
             viewBack
 
 
+viewSigil : Card -> List (Svg msg)
+viewSigil card =
+    case card of
+        Joker ->
+            { value = Card.value card - 1
+            , size = 0
+            , color = "black"
+            , radius = relative <| 1 / 2
+            , strokeWidth = relative <| 1 / 8
+            , point = Point2d.pixels (width / 2) padding
+            , direction =
+                Direction2d.positiveX
+            }
+                |> BinarySigil.view
+
+        Trump _ ->
+            []
+
+        Element _ ->
+            { value = Card.value card - 1
+            , size = 2
+            , color = "black"
+            , radius = relative <| 1 / 2
+            , strokeWidth = relative <| 1 / 8
+            , point = Point2d.pixels (width / 2) padding
+            , direction =
+                Direction2d.positiveX
+            }
+                |> BinarySigil.view
+
+        Planet _ ->
+            { value = Card.value card - 1
+            , size = 3
+            , color = "black"
+            , radius = relative <| 1 / 2
+            , strokeWidth = relative <| 1 / 8
+            , point = Point2d.pixels (width / 2) padding
+            , direction =
+                Direction2d.positiveX
+            }
+                |> BinarySigil.view
+
+        Binary n ->
+            case n of
+                1 ->
+                    { value = n - 1
+                    , size = 1
+                    , color = "white"
+                    , radius = relative <| 1 / 2
+                    , strokeWidth = relative <| 1 / 8
+                    , point = Point2d.pixels (width / 2) padding
+                    , direction =
+                        Direction2d.positiveX
+                    }
+                        |> BinarySigil.view
+
+                2 ->
+                    { value = n - 1
+                    , size = 1
+                    , color = "black"
+                    , radius = relative <| 1 / 2
+                    , strokeWidth = relative <| 1 / 8
+                    , point = Point2d.pixels (width / 2) padding
+                    , direction =
+                        Direction2d.positiveX
+                    }
+                        |> BinarySigil.view
+
+                _ ->
+                    []
+
+        Virtue _ ->
+            { value = Card.value card - 1
+            , size = 4
+            , color = "black"
+            , radius = relative <| 1 / 2
+            , strokeWidth = relative <| 1 / 8
+            , point = Point2d.pixels (width / 2) padding
+            , direction =
+                Direction2d.positiveX
+            }
+                |> BinarySigil.view
+
+        _ ->
+            []
+
+
 view : Bool -> Card -> List (Svg msg)
 view isGerman card =
     let
@@ -1236,20 +1323,6 @@ view isGerman card =
 
                 _ ->
                     True
-
-        viewValue =
-            Card.value card
-                |> String.fromInt
-                |> Svg.text
-                |> List.singleton
-                |> Svg.text_
-                    [ Attributes.x <| String.fromFloat <| padding
-                    , Attributes.y <| String.fromFloat <| padding + relative 3
-                    , Attributes.textAnchor <| "middle"
-                    , Attributes.style <| "font: " ++ (String.fromFloat <| relative 5) ++ "px sans-serif"
-                    , Attributes.fill <|
-                        Card.color card
-                    ]
     in
     (Rectangle2d.from Point2d.origin (Point2d.pixels width height)
         |> Svg.rectangle2d
@@ -1263,106 +1336,7 @@ view isGerman card =
                     Color.blackBackground
             ]
     )
-        :: (case card of
-                Joker ->
-                    { value = 0
-                    , size = 0
-                    , color = "black"
-                    , radius = relative <| 1 / 2
-                    , strokeWidth = relative <| 1 / 8
-                    , point = Point2d.pixels (width / 2) padding
-                    , direction =
-                        Direction2d.positiveX
-                    }
-                        |> BinarySigil.view
-
-                Trump _ ->
-                    []
-
-                Element n ->
-                    { value =
-                        {--case n of
-                            1 ->
-                                2
-
-                            2 ->
-                                3
-
-                            3 ->
-                                1
-
-                            4 ->
-                                0
-
-                            _ ->
-                                0--}
-                        Card.value card
-                    , size = 2
-                    , color = "black"
-                    , radius = relative <| 1 / 2
-                    , strokeWidth = relative <| 1 / 8
-                    , point = Point2d.pixels (width / 2) padding
-                    , direction =
-                        Direction2d.positiveX
-                    }
-                        |> BinarySigil.view
-
-                Planet _ ->
-                    { value = Card.value card - 1
-                    , size = 3
-                    , color = "black"
-                    , radius = relative <| 1 / 2
-                    , strokeWidth = relative <| 1 / 8
-                    , point = Point2d.pixels (width / 2) padding
-                    , direction =
-                        Direction2d.positiveX
-                    }
-                        |> BinarySigil.view
-
-                Binary n ->
-                    case n of
-                        0 ->
-                            { value = n
-                            , size = 1
-                            , color = "black"
-                            , radius = relative <| 1 / 2
-                            , strokeWidth = relative <| 1 / 8
-                            , point = Point2d.pixels (width / 2) padding
-                            , direction =
-                                Direction2d.positiveX
-                            }
-                                |> BinarySigil.view
-
-                        1 ->
-                            { value = n
-                            , size = 1
-                            , color = "white"
-                            , radius = relative <| 1 / 2
-                            , strokeWidth = relative <| 1 / 8
-                            , point = Point2d.pixels (width / 2) padding
-                            , direction =
-                                Direction2d.positiveX
-                            }
-                                |> BinarySigil.view
-
-                        _ ->
-                            []
-
-                Virtue _ ->
-                    { value = Card.value card - 1
-                    , size = 4
-                    , color = "black"
-                    , radius = relative <| 1 / 2
-                    , strokeWidth = relative <| 1 / 8
-                    , point = Point2d.pixels (width / 2) padding
-                    , direction =
-                        Direction2d.positiveX
-                    }
-                        |> BinarySigil.view
-
-                _ ->
-                    []
-           )
+        :: viewSigil card
         ++ (case card of
                 Planet _ ->
                     []

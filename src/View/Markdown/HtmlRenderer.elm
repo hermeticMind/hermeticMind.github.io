@@ -1,16 +1,9 @@
 module View.Markdown.HtmlRenderer exposing (renderer)
 
 import Css
-import Element exposing (Element)
-import Element.Background as Background
-import Element.Border as Border
-import Element.Font as Font
-import Element.Input as Input
-import Element.Region as Region
-import Html as UnstyledHtml
 import Html.Styled as Html exposing (Html)
 import Html.Styled.Attributes as Attributes
-import Markdown.Block as Block exposing (Block, HeadingLevel(..), Inline, ListItem(..), Task(..))
+import Markdown.Block as Block exposing (HeadingLevel(..), ListItem(..), Task(..))
 import Markdown.Html as Html
 import Markdown.Renderer exposing (Renderer)
 
@@ -28,7 +21,9 @@ renderer interactive =
                             Html.h1
                                 [ Attributes.css <|
                                     [ Css.fontSize (Css.px 36)
-                                    , Css.fontFamilies [ "Dancing Script" ] ]
+                                    , Css.fontFamilies [ "Dancing Script" ]
+                                    , Css.textAlign Css.center
+                                    ]
                                         ++ attr
                                 ]
 
@@ -54,7 +49,7 @@ renderer interactive =
                         h4 =
                             Html.h4
                                 [ Attributes.css <|
-                                    [ Css.fontSize (Css.px 16)
+                                    [ Css.fontSize (Css.px 14)
                                     , Css.margin2 (Css.px 0) (Css.px 0)
                                     ]
                                         ++ attr
@@ -191,6 +186,12 @@ renderer interactive =
             , Html.tag "interactive" interactive
                 |> Html.withAttribute "name"
                 |> Html.withOptionalAttribute "value"
+            , Html.tag "box" (Html.div [Attributes.css
+                [ Css.border3 (Css.px 1) Css.dashed (Css.rgb 0 0 0)
+                , Css.padding (Css.px 8)
+                , Css.borderRadius (Css.px 8)
+                , Css.margin2 (Css.px 0) (Css.px 32)
+                ]])
             , Html.tag "abstract" (Html.div [])
             , Html.tag "image"
                 (\title height src _ ->
@@ -236,7 +237,7 @@ renderer interactive =
                 |> Html.withAttribute "src"
             ]
     , codeBlock =
-        \{ body, language } ->
+        \{ body } ->
             Html.pre []
                 [ Html.code []
                     [ Html.text body
@@ -269,6 +270,6 @@ renderer interactive =
                         |> Maybe.withDefault []
             in
             Html.th attrs
-    , tableCell = \maybeAlignment -> Html.td []
+    , tableCell = \_ -> Html.td []
     , strikethrough = Html.s []
     }

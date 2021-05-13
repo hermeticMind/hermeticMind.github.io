@@ -1,34 +1,30 @@
-module Markdown exposing (main)
+module OracleReading exposing (..)
 
 import Browser
 import Css
-import Data.Alphabet as Alphabet
-import Direction2d
+import Data.Card as Card exposing (Card(..))
+import Data.Oracle as Oracle
 import Html as UnstyledHtml
-import Html.Styled as Html exposing (Html)
+import Html.Styled as Html
 import Html.Styled.Attributes as Attributes
-import Http exposing (Error)
-import Markdown.Block exposing (HeadingLevel)
+import Html.Styled.Events as Events
 import Markdown.Parser as Parser
-import Markdown.Renderer as Renderer exposing (Renderer)
-import Point2d
-import Quantity
-import Svg
-import Svg.Attributes as SvgAttributes
-import View.BinarySigil as BinarySigil
-import View.BraidSigil as BraidSigil
-import View.GreekMagicSymbol as GreekMagicSymbol
+import Markdown.Renderer as Renderer
+import Random
+import Random.List as Random
 import View.Interactive as Interactive
-import View.MagicSquareSigil as MagicSquareSigil
 import View.Markdown.HtmlRenderer as MarkdownRender
 
 
 type alias Model =
-    String
+    { cards : ( Card, Card, Card )
+    , summary : String
+    }
 
 
 type Msg
-    = GotResponse (Result Error String)
+    = GotCards (List Card)
+    | ChangeSummary String
 
 
 file =
@@ -41,41 +37,34 @@ file =
 
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( "loading...", getMarkdown GotResponse )
-
-
-getMarkdown : (Result Error String -> Msg) -> Cmd Msg
-getMarkdown gotResponse =
-    Http.get
-        { url =
-            "https://raw.githubusercontent.com/HermeticMind/"
-                ++ "HermeticMind.github.io/master/src/Markdown/"
-                ++ file
-                ++ ".md"
-        , expect = Http.expectString gotResponse
-        }
+    ( { cards = ( Back, Back, Back )
+      , summary = ""
+      }
+    , Random.generate GotCards
+        (Random.choices 3 Card.asList
+            |> Random.map Tuple.first
+        )
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        GotResponse result ->
-            case result of
-                Ok string ->
-                    ( string, Cmd.none )
+        GotCards cards ->
+            case cards of
+                [ c1, c2, c3 ] ->
+                    ( { model | cards = ( c1, c2, c3 ) }, Cmd.none )
 
-                Err err ->
-                    let
-                        _ =
-                            err
-                                |> Debug.log "Error"
-                    in
+                _ ->
                     ( model, Cmd.none )
+
+        ChangeSummary string ->
+            ( { model | summary = string }, Cmd.none )
 
 
 view : Model -> UnstyledHtml.Html Msg
 view model =
-    case model |> Parser.parse of
+    case model.cards |> Oracle.reading model.summary |> Parser.parse of
         Ok list ->
             case
                 list
@@ -83,7 +72,12 @@ view model =
                         (MarkdownRender.renderer Interactive.view)
             of
                 Ok elements ->
-                    elements
+                    Html.input
+                        [ Events.onInput <| ChangeSummary
+                        , Attributes.value <| model.summary
+                        ]
+                        []
+                        :: elements
                         |> Html.div
                             [ Attributes.css
                                 [ Css.width <| Css.px 800
