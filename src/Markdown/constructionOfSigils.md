@@ -12,7 +12,6 @@ Magical symbols, as known today, can be dated back to Arabic translations of Gre
 
 <box>
 <interactive  name="greekMagicSymbols"></interactive>
-_Font "Greek Magic" designed by Hermetic Mind in 2021. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)_
 </box>
 
 In that sense these symbols are used similarly to the way how symbols are used in mathematics: You can declare that a specific symbols has a specific meaning and then continue using said symbol as a sort of abbreviation. This means that the symbol itself has no magical power, it just denotes a magical concept.
@@ -62,8 +61,10 @@ Note that we use binary attributes (Hot/Cold and Dry/Wet) for the construction o
 This motivates the mapping of the element onto the numbers 0 to 3 in binary presentation: Water - 00, Earth - 01, Fire - 10, Wind - 11. You might wonder why one starts with water and then continues clockwise. One can map the elements on the four seasons: Water - Winter, Earth - Spring, Fire - Summer, Wind - Fall and then use the order of the seasons. Winter is the first of the four seasons (according to our calendar).
 
 <box>
-<interactive  name="BinarySigil"></interactive>
-_Designed by Hermetic Mind by extending on the original construction. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
+<interactive  name="BinarySigil" value="00"></interactive>
+<interactive  name="BinarySigil" value="01"></interactive>
+<interactive  name="BinarySigil" value="02"></interactive>
+<interactive  name="BinarySigil" value="03"></interactive>
 </box>
 
 #### Positives
@@ -123,7 +124,6 @@ Remark: It does not matter if the spiral goes clockwise or counterclockwise. The
 
 <box>
 <interactive  name="BraidSigil"  value="Hermetic Mind"></interactive>
-_Designed by Hermetic Mind as described above. The alphabet gets arranged around the circle with respect to the amount of occurrences in the English dictionary. Additionally we do a shift by 7 (a prim not dividing 26). The end point gets connected with the starting point to produce a looping path. The graphics are licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/)._
 </box>
 
 #### Positives
