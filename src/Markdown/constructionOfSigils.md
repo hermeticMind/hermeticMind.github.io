@@ -63,8 +63,8 @@ This motivates the mapping of the element onto the numbers 0 to 3 in binary pres
 <box>
 <interactive  name="BinarySigil" value="00"></interactive>
 <interactive  name="BinarySigil" value="01"></interactive>
-<interactive  name="BinarySigil" value="02"></interactive>
-<interactive  name="BinarySigil" value="03"></interactive>
+<interactive  name="BinarySigil" value="10"></interactive>
+<interactive  name="BinarySigil" value="11"></interactive>
 </box>
 
 #### Positives

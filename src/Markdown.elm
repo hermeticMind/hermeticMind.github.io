@@ -80,7 +80,7 @@ view model =
             case
                 list
                     |> Renderer.render
-                        (MarkdownRender.renderer Interactive.view)
+                        (MarkdownRender.renderer (Interactive.view True))
             of
                 Ok elements ->
                     elements

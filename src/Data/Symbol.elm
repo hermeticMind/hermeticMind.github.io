@@ -7,14 +7,26 @@ type Symbol
     | Square
 
 
-meaning : Symbol -> String
-meaning symbol =
+meaning : Bool -> Symbol -> String
+meaning isGerman symbol =
     case symbol of
         Circle ->
-            "the mind"
+            if isGerman then
+                "intellektuelle und geistliche Aspekte"
+
+            else
+                "the mind"
 
         Triangle ->
-            "social interactions"
+            if isGerman then
+                "soziale Interaktionen"
+
+            else
+                "social interactions"
 
         Square ->
-            "material matters"
+            if isGerman then
+                "materielle Aspekte"
+
+            else
+                "material matters"

@@ -37,14 +37,28 @@ file =
 
 init : () -> ( Model, Cmd Msg )
 init () =
-    ( { cards = ( Back, Back, Back )
-      , summary = ""
-      }
-    , Random.generate GotCards
-        (Random.choices 3 Card.asList
-            |> Random.map Tuple.first
-        )
-    )
+    let
+        cards : Maybe ( Card, Card, Card )
+        cards =
+            Nothing
+    in
+    case cards of
+        Just c ->
+            ( { cards = c
+              , summary = ""
+              }
+            , Cmd.none
+            )
+
+        Nothing ->
+            ( { cards = ( Back, Back, Back )
+              , summary = ""
+              }
+            , Random.generate GotCards
+                (Random.choices 3 Card.asList
+                    |> Random.map Tuple.first
+                )
+            )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -64,12 +78,17 @@ update msg model =
 
 view : Model -> UnstyledHtml.Html Msg
 view model =
-    case model.cards |> Oracle.reading model.summary |> Parser.parse of
+    let
+        isGerman : Bool
+        isGerman =
+            True
+    in
+    case model.cards |> Oracle.reading isGerman model.summary |> Parser.parse of
         Ok list ->
             case
                 list
                     |> Renderer.render
-                        (MarkdownRender.renderer Interactive.view)
+                        (MarkdownRender.renderer (Interactive.view isGerman))
             of
                 Ok elements ->
                     Html.input

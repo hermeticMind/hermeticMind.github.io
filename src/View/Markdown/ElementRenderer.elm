@@ -208,6 +208,7 @@ renderer interactive =
                     , Border.color (Element.rgb 0 0 0)
                     , Element.padding 8
                     , Border.rounded 8
+                    , Element.spaceEvenly
                     ]
                     >> Element.el [ Element.paddingXY 32 0 ]
                 )

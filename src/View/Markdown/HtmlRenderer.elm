@@ -186,12 +186,19 @@ renderer interactive =
             , Html.tag "interactive" interactive
                 |> Html.withAttribute "name"
                 |> Html.withOptionalAttribute "value"
-            , Html.tag "box" (Html.div [Attributes.css
-                [ Css.border3 (Css.px 1) Css.dashed (Css.rgb 0 0 0)
-                , Css.padding (Css.px 8)
-                , Css.borderRadius (Css.px 8)
-                , Css.margin2 (Css.px 0) (Css.px 32)
-                ]])
+            , Html.tag "box"
+                (Html.div
+                    [ Attributes.css
+                        [ Css.border3 (Css.px 1) Css.dashed (Css.rgb 0 0 0)
+                        , Css.padding (Css.px 8)
+                        , Css.borderRadius (Css.px 8)
+                        , Css.margin2 (Css.px 0) (Css.px 32)
+                        , Css.displayFlex
+                        , Css.flexDirection <| Css.row
+                        , Css.justifyContent <| Css.spaceBetween
+                        ]
+                    ]
+                )
             , Html.tag "abstract" (Html.div [])
             , Html.tag "image"
                 (\title height src _ ->

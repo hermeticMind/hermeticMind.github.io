@@ -144,7 +144,7 @@ title isGerman card =
     in
     (case card of
         Joker ->
-            ( "Narr", "Fool" )
+            ( "Narr", "The Fool" )
 
         Binary n ->
             case n of
@@ -187,7 +187,7 @@ title isGerman card =
                     ( "Der Eremit", "The Hermit" )
 
                 10 ->
-                    ( "Das Rad des Schicksals", "Wheel of Fortune" )
+                    ( "Das Rad des Schicksals", "The Wheel of Fortune" )
 
                 11 ->
                     ( "Die Kraft", "Strength" )
@@ -498,16 +498,8 @@ value card =
         Binary n ->
             n
 
-        Trump v ->
-            v
-                |> modBy 7
-                |> (\n ->
-                        if n == 0 then
-                            7
-
-                        else
-                            n
-                   )
+        Trump n ->
+            n
 
         Element v ->
             v |> modBy 4 |> (+) 1
