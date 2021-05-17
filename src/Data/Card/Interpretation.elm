@@ -122,13 +122,15 @@ fromCard isGerman card =
                             Square
                       , text =
                             if isGerman then
-                                "todo"
+                                "Es ist an der Zeit eine Entscheidung zu treffen. "
+                                    ++ "Lege die Karten offen auf den Tisch und sei objektiv. "
+                                    ++ "Behandel die Leute um dich herum so wie du behandelt werden willst. "
+                                    ++ "Sei neutral und freundlich."
 
                             else
-                                "Life treats those who are good and punishes the ones who are bad. "
-                                    ++ "You will see justice. "
-                                    ++ "Straighten out all your flaws. "
-                                    ++ "Treat others the way you want to be treated."
+                                "It is time to make a decision. Put the facts on the table and be objective. "
+                                    ++ "Be just to others and treat them the way you want to be treated."
+                                    ++ "Be neutral and kind."
                       }
                     , Nothing
                     )
@@ -202,7 +204,10 @@ fromCard isGerman card =
                             Triangle
                       , text =
                             if isGerman then
-                                "todo"
+                                "Du bist auf die Leuten um dich herum angewiesen und sie auf dich. "
+                                    ++ "Manchmal wird diese Abhängigkeit gebraucht und manchmal nicht. "
+                                    ++ "Denk über deine Beziehungen zu anderen nach. "
+                                    ++ "Ist diese Bindung einseitig? Soll es so sein?"
 
                             else
                                 "You depend on the people around you, and they depend on you. "
@@ -214,13 +219,14 @@ fromCard isGerman card =
                         { symbol = Square
                         , text =
                             if isGerman then
-                                "todo"
+                                "Du bist angewiesen auf etwas oder jemanden. "
+                                    ++ "Vielleicht ist es an der Zeit diese Abhängigkeit zu hinterfragen. "
+                                    ++ "Ist diese Bindnung hilfreich für dich? Macht sie dich glücklich?"
 
                             else
-                                "You are dependent to something or someone. "
+                                "You dependent on something or someone. "
                                     ++ "It might be time to question this dependency. "
-                                    ++ "Is this dependency helpful to you? Does it make you happy? "
-                                    ++ "Sometimes the first step to change is to acknowledge that a problem exists."
+                                    ++ "Is this dependency helpful to you? Does it make you happy?"
                         }
                     )
 
@@ -267,7 +273,9 @@ fromCard isGerman card =
                             Triangle
                       , text =
                             if isGerman then
-                                "todo"
+                                "Akzeptiere deine Emotionen. "
+                                    ++ "Alle können manchmal emotional handeln und das darf so sein. "
+                                    ++ "Aber lasse deine Emotionen nicht aus dem Ruder laufen."
 
                             else
                                 "Accept your emotions. "

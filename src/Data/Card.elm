@@ -380,7 +380,7 @@ description isGerman card =
                     ( "Erfolg", "Success" )
 
                 8 ->
-                    ( "Gerechtigkeit", "Justice" )
+                    ( "Entscheidung", "Decision" )
 
                 9 ->
                     ( "Suche", "Search" )

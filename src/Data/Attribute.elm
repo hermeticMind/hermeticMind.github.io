@@ -112,7 +112,7 @@ description isGerman att =
     case att of
         Observant ->
             if isGerman then
-                "Du beobachtest wachsam die Leute um dich herum."
+                "Du beobachtest wachsam die Leute um dich herum. "
                     ++ "Du wartest für den richtigen Moment um zur Tat zu schreiten."
 
             else
@@ -121,8 +121,8 @@ description isGerman att =
 
         Active ->
             if isGerman then
-                "Du bist nimmst aktiv eine Rolle in dem Lebem um dich herum ein."
-                    ++ "Du hast kontrolle über das Geschehen."
+                "Du bist nimmst aktiv eine Rolle in dem Lebem um dich herum ein. "
+                    ++ "Du hast Kontrolle über das Geschehen."
 
             else
                 "You are actively taking a role in everything around you. "
@@ -130,7 +130,7 @@ description isGerman att =
 
         Calculated ->
             if isGerman then
-                "Du benützt deine Intelligenz zu deinem Vorteil."
+                "Du benützt deine Intelligenz zu deinem Vorteil. "
                     ++ "Du verfolgst einem Plan um zu erreichen was du willst."
 
             else
@@ -175,9 +175,9 @@ description isGerman att =
 
         Peaceful ->
             if isGerman then
-                "Du lebst friedlich dein Leben."
+                "Du lebst friedlich dein Leben. "
                     ++ "Du bist in Harmonie und eine Quelle für positive Energie."
 
             else
-                "You are peaceful living your live."
+                "You are peaceful living your live. "
                     ++ "You are in harmony and a source for positive energy."

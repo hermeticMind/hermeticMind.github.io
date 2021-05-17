@@ -46,8 +46,8 @@ reading isGerman string cards =
                 ++ "\n "
            )
         ++ (if isGerman then
-                "Für diese Lesung benützen wir drei Karten."
-                    ++ "Die visuelle, semantische sowie numerologische Ähnlichkeiten zwischen den Karten werden anschließend für die Auswertung genützt."
+                "Für diese Lesung benützen wir drei Karten. "
+                    ++ "Die visuellen, semantischen sowie numerologischen Ähnlichkeiten zwischen den Karten werden anschließend für die Auswertung genützt."
 
             else
                 "For this reading we are using three cards. "
@@ -253,7 +253,7 @@ sectionYourCards isGerman ( c1, c2, c3 ) =
 
                                         l ->
                                             (if isGerman then
-                                                "Außerdem sollten "
+                                                " Außerdem sollten "
 
                                              else
                                                 " Additionally, "
@@ -341,7 +341,7 @@ sectionYourCards isGerman ( c1, c2, c3 ) =
 
                                         [ head ] ->
                                             (if isGerman then
-                                                "Außerdem bezieht sich "
+                                                " Außerdem bezieht sich "
 
                                              else
                                                 " Additionally, "
@@ -728,8 +728,8 @@ sectionNumerology isGerman ( c1, c2, c3 ) =
         "## Numerology\n"
     )
         ++ (if isGerman then
-                "Jeder Karte kann eine eindeutige Sigille zugeordnet werden. "
-                    ++ "Diese Sigillen sind visuelle representationen von numerologische Konzepte. "
+                "Jeder Karte kann einer eindeutigen Sigille zugeordnet werden. "
+                    ++ "Diese Sigillen sind visuelle Representationen von numerologischen Konzepten. "
 
             else
                 "Each card can be represented as a unique sigil. "
@@ -749,10 +749,10 @@ sectionNumerology isGerman ( c1, c2, c3 ) =
                 ++ "</box>\n"
            )
         ++ ((if isGerman then
-                "Das erste Symbol steht für "
+                "Das erste Symbol steht für _"
 
              else
-                "The first symbol stands for "
+                "The first symbol stands for _"
             )
                 ++ (c1
                         |> Card.title isGerman
@@ -763,13 +763,24 @@ sectionNumerology isGerman ( c1, c2, c3 ) =
                                 String.toLower
                            )
                    )
-                ++ ",  "
+                ++ (if isGerman then
+                        "_ und hat den Wert "
+
+                    else
+                        "_ and has the value "
+                   )
+                ++ (c1
+                        |> Card.value
+                        |> (+) -1
+                        |> String.fromInt
+                   )
+                ++ ".  "
            )
         ++ ((if isGerman then
-                "das zweite Symbol steht für "
+                "Das zweite Symbol steht für _"
 
              else
-                "the second symbol stands for "
+                "The second symbol stands for _"
             )
                 ++ (c2
                         |> Card.title isGerman
@@ -780,13 +791,24 @@ sectionNumerology isGerman ( c1, c2, c3 ) =
                                 String.toLower
                            )
                    )
-                ++ " and "
+                ++ (if isGerman then
+                        "_ und hat den Wert "
+
+                    else
+                        "_ and has the value "
+                   )
+                ++ (c2
+                        |> Card.value
+                        |> (+) -1
+                        |> String.fromInt
+                   )
+                ++ ". "
            )
         ++ ((if isGerman then
-                "das dritte Symbol steht für "
+                "Das dritte Symbol steht für _"
 
              else
-                "the third symbol stands for "
+                "The third symbol stands for _"
             )
                 ++ (c3
                         |> Card.title isGerman
@@ -796,6 +818,28 @@ sectionNumerology isGerman ( c1, c2, c3 ) =
                             else
                                 String.toLower
                            )
+                   )
+                ++ (if isGerman then
+                        "_ und hat den Wert "
+
+                    else
+                        "_ and has the value "
+                   )
+                ++ (c3
+                        |> Card.value
+                        |> (+) -1
+                        |> String.fromInt
+                   )
+                ++ ".\n"
+                ++ (if isGerman then
+                        "Wenn wir die Zahlen in Relation zu einander stellen, erhalten wir folgende Eigenschaften: "
+
+                    else
+                        "If we put the numbers in relation to eachother we obtain the following attributes: "
+                   )
+                ++ (attrList
+                        |> List.map (Tuple.first >> Attribute.toString isGerman >> (\string -> "_" ++ string ++ "_"))
+                        |> listToSentence isGerman
                    )
                 ++ ".\n"
            )
@@ -809,26 +853,31 @@ sectionNumerology isGerman ( c1, c2, c3 ) =
                                )
                             ++ (if (l |> List.length) == 1 then
                                     if isGerman then
-                                        " steht"
+                                        " zeigt,"
 
                                     else
                                         " stands"
 
                                 else if isGerman then
-                                    " stehen"
+                                    " zeigen,"
 
                                 else
                                     " stand"
                                )
                             ++ (if isGerman then
-                                    " für "
+                                    " dass du "
 
                                 else
                                     " for being "
                                )
-                            ++ "_"
-                            ++ (attr |> Attribute.toString isGerman)
-                            ++ "_.\n"
+                            ++ ""
+                            ++ (attr |> Attribute.toString isGerman |> String.toLower)
+                            ++ (if isGerman then
+                                    " bist.\n"
+
+                                else
+                                    ".\n"
+                               )
                             ++ (attr |> Attribute.description isGerman)
                             ++ "\n"
                     )

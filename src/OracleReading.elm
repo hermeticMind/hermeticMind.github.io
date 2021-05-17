@@ -40,7 +40,7 @@ init () =
     let
         cards : Maybe ( Card, Card, Card )
         cards =
-            Nothing
+            Just ( Trump 15, Element 2, Trump 8 )
     in
     case cards of
         Just c ->
