@@ -2,6 +2,8 @@ module View.MagicSquareSigil exposing (view)
 
 import Angle
 import Arc2d
+import Array
+import Circle2d
 import Data.Alphabet as Alphabet
 import Data.Turtle as Turtle exposing (Turtle)
 import Direction2d exposing (Direction2d)
@@ -11,7 +13,7 @@ import LineSegment2d
 import List.Extra as List
 import Point2d exposing (Point2d)
 import Polyline2d
-import Quantity
+import Quantity exposing (Quantity(..))
 import StaticArray exposing (StaticArray)
 import StaticArray.Index exposing (Index)
 import StaticArray.Length exposing (Length)
@@ -29,37 +31,70 @@ n =
     Alphabet.twentySix
 
 
-points : StaticArray N ( Int, Int )
-points =
+debugMode : Bool
+debugMode =
+    False
+
+
+circlePoints : Int -> Float -> Point2d Float () -> List (Point2d Float ())
+circlePoints max radius center =
+    if max == 1 then
+        center
+            |> List.singleton
+
+    else
+        List.range 0 ((max - 1) * 4 - 1)
+            |> List.map
+                (\r ->
+                    center
+                        |> Point2d.translateBy (Vector2d.unsafe { x = radius, y = 0 })
+                        |> Point2d.rotateAround center
+                            (Angle.radians <| (2 * pi / toFloat ((max - 1) * 4)) * toFloat r)
+                )
+
+
+points : Int -> Float -> Point2d Float () -> StaticArray N (Point2d Float ())
+points max radius center =
+    let
+        lookup =
+            [ 2, 4, 6 ]
+                |> List.map
+                    (\max0 ->
+                        circlePoints max0 (toFloat max0 * radius / toFloat max) center
+                    )
+                |> List.concat
+                |> Array.fromList
+    in
     StaticArray.fromList n
-        ( 2, 0 )
+        0
         --1
-        [ ( 1, 4 ) --2
-        , ( 5, 2 ) --3
-        , ( 5, 4 ) --4
-        , ( 2, 2 ) --5
-        , ( 0, 0 ) --6
-        , ( 1, 3 ) --7
-        , ( 4, 1 ) --8
-        , ( 3, 5 ) --9
-        , ( 3, 1 ) --10
-        , ( 0, 4 ) --11
-        , ( 4, 3 ) --12
-        , ( 4, 5 ) --13
-        , ( 3, 2 ) --14
-        , ( 0, 1 ) --15
-        , ( 0, 3 ) --16
-        , ( 4, 0 ) --17
-        , ( 2, 5 ) --18
-        , ( 2, 1 ) --19
-        , ( 2, 5 ) --20
-        , ( 5, 3 ) --21
-        , ( 5, 5 ) --22
-        , ( 3, 3 ) --23
-        , ( 1, 1 ) --24
-        , ( 1, 2 ) --25
-        , ( 5, 0 ) --26
+        [ 1 --2
+        , 2 --3
+        , 3 --4
+        , 4 --5
+        , 5 --6
+        , 6 --7
+        , 7 --8
+        , 8 --9
+        , 9 --10
+        , 10 --11
+        , 11 --12
+        , 12 --13
+        , 13 --14
+        , 14 --15
+        , 15 --16
+        , 16 --17
+        , 17 --18
+        , 18 --19
+        , 19 --20
+        , 20 --21
+        , 21 --22
+        , 22 --23
+        , 23 --24
+        , 24 --25
+        , 25 --26
         ]
+        |> StaticArray.map (\i -> lookup |> Array.get i |> Maybe.withDefault center)
 
 
 turtle :
@@ -192,24 +227,20 @@ viewWord { strokeWidth } path =
 
 view :
     { size : Float
+    , radius : Float
     , zoom : Float
     , strokeWidth : Float
     , alphabet : Char -> Index Alphabet.TwentySix
     , withText : Bool
     , withBorder : Bool
+    , withCircle : Bool
     }
     -> String
     -> Html msg
 view config inputText =
     let
-        sigilSize =
-            config.size / 2
-
-        tileSize =
-            sigilSize / 6
-
-        toPos =
-            toFloat >> (+) 0.5 >> (*) tileSize >> (+) ((config.size - sigilSize) / 2)
+        p =
+            points 6 (config.radius - config.strokeWidth * 2) (Point2d.unsafe { x = config.size / 2, y = config.size / 2 })
     in
     inputText
         |> String.words
@@ -218,9 +249,8 @@ view config inputText =
                 >> List.map
                     (config.alphabet
                         >> (\i ->
-                                StaticArray.get i points
-                                    |> Tuple.mapBoth toPos toPos
-                                    |> Point2d.fromTuple Quantity.unsafe
+                                p
+                                    |> StaticArray.get i
                            )
                     )
                 >> viewWord
@@ -246,6 +276,35 @@ view config inputText =
              else
                 []
             )
+        |> List.append
+            (if debugMode then
+                p
+                    |> StaticArray.toList
+                    |> List.map
+                        (Circle2d.withRadius (Quantity 1)
+                            >> Svg.circle2d
+                                [ Attributes.fill "black"
+                                ]
+                        )
+
+             else
+                []
+            )
+        |> (if config.withCircle then
+                List.append
+                    (Circle2d.atPoint (Point2d.unsafe { x = config.size / 2, y = config.size / 2 })
+                        (Quantity <| config.radius)
+                        |> Svg.circle2d
+                            [ Attributes.fill <| "none"
+                            , Attributes.stroke <| "black"
+                            , Attributes.strokeWidth <| String.fromFloat <| config.strokeWidth
+                            ]
+                        |> List.singleton
+                    )
+
+            else
+                identity
+           )
         |> List.append
             (if config.withBorder then
                 { position = Point2d.unsafe { x = config.size / 2, y = config.strokeWidth * 3 }

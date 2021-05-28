@@ -1,4 +1,4 @@
-module View.Card exposing (height, padding, radius, relative, view, viewSymbol, width, zoom)
+module View.Card exposing (defaultConfig, padding, view, viewSymbol)
 
 import Angle
 import Circle2d
@@ -23,26 +23,59 @@ import View.RegularPolygon as RegularPolygon
 --------------------------------------------------------------------------------
 
 
-zoom : Float
-zoom =
-    --4 * 0.63
-    --0.63
-    --0.73
-    0.36
+type alias Config =
+    { width : Float
+    , height : Float
+    , relative : Float -> Float
+    , radius : Float
+    , bigRadius : Float
+    }
 
 
-width : Float
-width =
-    --52
-    -- 70
-    898
+defaultConfig : Config
+defaultConfig =
+    let
+        width : Float
+        width =
+            --52
+            -- 70
+            898
 
+        height : Float
+        height =
+            --86
+            --120
+            1488
 
-height : Float
-height =
-    --86
-    --120
-    1488
+        radius : Float
+        radius =
+            --relative 4
+            (width - padding) / 7
+
+        bigRadius : Float
+        bigRadius =
+            -- radius * 5 / 4
+            2 * radius / sqrt 2
+
+        relative : Float -> Float
+        relative =
+            let
+                factor =
+                    if height > width then
+                        height / width
+
+                    else
+                        width / height
+            in
+            --factor
+            (*) (factor * width / 70)
+    in
+    { width = width
+    , height = height
+    , relative = relative
+    , radius = radius
+    , bigRadius = bigRadius
+    }
 
 
 padding : Float
@@ -51,40 +84,14 @@ padding =
     12 * (3 + (4 * 2))
 
 
-radius : Float
-radius =
-    --relative 4
-    (width - padding) / 7
-
-
-relative : Float -> Float
-relative =
-    let
-        factor =
-            if height > width then
-                height / width
-
-            else
-                width / height
-    in
-    --factor
-    (*) (factor * width / 70)
-
-
 
 --------------------------------------------------------------------------------
 -- Views
 --------------------------------------------------------------------------------
 
 
-bigRadius : Float
-bigRadius =
-    -- radius * 5 / 4
-    2 * radius / sqrt 2
-
-
-viewElement : Int -> List (Svg msg)
-viewElement n =
+viewElement : Config -> Int -> List (Svg msg)
+viewElement { width, height, relative, radius, bigRadius } n =
     case n of
         1 ->
             --Earth
@@ -106,13 +113,13 @@ viewElement n =
                 (Point2d.pixels (width / 2) (height / 2 + bigRadius / 4))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint
                 (Point2d.pixels (width / 2) (height / 2 - bigRadius / 4))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
 
@@ -149,7 +156,7 @@ viewElement n =
                 , Point2d.pixels (width / 2) (height / 2 - (bigRadius / 2) - (relative <| 1))
                 ]
                 |> Svg.polyline2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -170,7 +177,7 @@ viewElement n =
                 , Point2d.pixels width (height / 2)
                 ]
                 |> Svg.polyline2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -179,7 +186,7 @@ viewElement n =
                 , Point2d.pixels (width / 2) (height / 2 - (bigRadius / 2))
                 ]
                 |> Svg.polyline2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -189,8 +196,8 @@ viewElement n =
             []
 
 
-viewPlanet : Int -> List (Svg msg)
-viewPlanet n =
+viewPlanet : Config -> Int -> List (Svg msg)
+viewPlanet { width, height, relative, radius, bigRadius } n =
     case n of
         1 ->
             --Wissen
@@ -198,14 +205,14 @@ viewPlanet n =
                 { n = 4, scale = radius / 2, standing = True }
                 ( width / 2, height / 2 - bigRadius - radius / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill <| "none"
                     ]
@@ -214,7 +221,7 @@ viewPlanet n =
                 , Point2d.pixels (width / 2) (height / 2 - bigRadius - relative 0.5)
                 ]
                 |> Svg.polyline2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -226,7 +233,7 @@ viewPlanet n =
                 { n = 3, scale = radius * 2 + relative 1, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -234,7 +241,7 @@ viewPlanet n =
                 { n = 3, scale = radius, standing = False }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -246,7 +253,7 @@ viewPlanet n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -254,7 +261,7 @@ viewPlanet n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 4
@@ -266,7 +273,7 @@ viewPlanet n =
                                     )
                                     (Pixels.pixels <| relative <| 1 / 2)
                                     |> Svg.circle2d
-                                        [ Attributes.fill <| "black"
+                                        [ Attributes.fill <| Color.black
                                         ]
                             )
                    )
@@ -277,7 +284,7 @@ viewPlanet n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -285,7 +292,7 @@ viewPlanet n =
                 { n = 4, scale = radius * 2, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -297,7 +304,7 @@ viewPlanet n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -305,7 +312,7 @@ viewPlanet n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 8
@@ -318,7 +325,7 @@ viewPlanet n =
                                     )
                                     (Pixels.pixels <| relative <| 1 / 2)
                                     |> Svg.circle2d
-                                        [ Attributes.fill <| "black"
+                                        [ Attributes.fill <| Color.black
                                         ]
                             )
                    )
@@ -329,7 +336,7 @@ viewPlanet n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -337,19 +344,19 @@ viewPlanet n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint
                 (Point2d.pixels (width / 2 + bigRadius) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint
                 (Point2d.pixels (width / 2 + bigRadius * 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
 
@@ -359,7 +366,7 @@ viewPlanet n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -367,7 +374,7 @@ viewPlanet n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 4
@@ -380,7 +387,7 @@ viewPlanet n =
                                     )
                                     (Pixels.pixels <| relative <| 1 / 2)
                                     |> Svg.circle2d
-                                        [ Attributes.fill <| "black"
+                                        [ Attributes.fill <| Color.black
                                         ]
                             )
                    )
@@ -391,7 +398,7 @@ viewPlanet n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -400,7 +407,7 @@ viewPlanet n =
                 , Point2d.pixels (width / 2) (height / 2 + bigRadius)
                 ]
                 |> Svg.polyline2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -410,14 +417,14 @@ viewPlanet n =
             []
 
 
-viewTrump : Int -> List (Svg msg)
-viewTrump n =
+viewTrump : Config -> Int -> List (Svg msg)
+viewTrump { width, height, relative, radius, bigRadius } n =
     case n of
         1 ->
             [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill <| "none"
                     ]
@@ -436,14 +443,14 @@ viewTrump n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2 - bigRadius))
                 (Pixels.pixels <| relative <| 1 / 2)
@@ -467,7 +474,7 @@ viewTrump n =
             [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill <| "none"
                     ]
@@ -475,7 +482,7 @@ viewTrump n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
 
@@ -490,7 +497,7 @@ viewTrump n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -516,14 +523,14 @@ viewTrump n =
             [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2 + bigRadius) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
@@ -542,7 +549,7 @@ viewTrump n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -580,7 +587,7 @@ viewTrump n =
                 , Point2d.pixels width (height / 2)
                 ]
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     ]
             ]
@@ -596,7 +603,7 @@ viewTrump n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -629,7 +636,7 @@ viewTrump n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -656,8 +663,8 @@ viewTrump n =
             []
 
 
-viewBack : List (Svg msg)
-viewBack =
+viewBack : Config -> List (Svg msg)
+viewBack { width, height, relative, radius, bigRadius } =
     [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
         (Pixels.pixels <| radius)
         |> Svg.circle2d
@@ -668,8 +675,8 @@ viewBack =
     ]
 
 
-viewVirtue : Int -> List (Svg msg)
-viewVirtue n =
+viewVirtue : Config -> Int -> List (Svg msg)
+viewVirtue { width, height, relative, radius, bigRadius } n =
     case n of
         1 ->
             --Mitgefühl
@@ -677,7 +684,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2 - radius + relative 1 / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -685,7 +692,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2 + radius - relative 1 / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -705,14 +712,14 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 5
@@ -729,7 +736,7 @@ viewVirtue n =
                                                 Card.color <| Virtue n
 
                                             else
-                                                "black"
+                                                Color.black
                                         ]
                             )
                    )
@@ -739,14 +746,14 @@ viewVirtue n =
             [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill <| "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2 - bigRadius))
                 (Pixels.pixels <| relative <| 1 / 2)
@@ -766,7 +773,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "white"
                     ]
@@ -775,7 +782,7 @@ viewVirtue n =
                 , Point2d.pixels (width / 4) (height / 2)
                 ]
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     ]
             , Polygon2d.singleLoop
@@ -783,7 +790,7 @@ viewVirtue n =
                 , Point2d.pixels (width / 4) ((height / 2) + relative 2)
                 ]
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     ]
             ]
@@ -794,7 +801,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -822,7 +829,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -830,7 +837,7 @@ viewVirtue n =
                 { n = 3, scale = radius / 2, standing = True }
                 ( width / 2, height / 2 - bigRadius - radius / (2 * sqrt 2) )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -839,7 +846,7 @@ viewVirtue n =
                 , Point2d.pixels (width / 2) (height / 2)
                 ]
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     ]
             ]
@@ -850,14 +857,14 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 8
@@ -874,7 +881,7 @@ viewVirtue n =
                                                 Card.color <| Virtue n
 
                                             else
-                                                "black"
+                                                Color.black
                                         ]
                             )
                    )
@@ -885,7 +892,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -894,7 +901,7 @@ viewVirtue n =
                 , Point2d.pixels width (height / 2)
                 ]
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     ]
             ]
@@ -905,14 +912,14 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2 + bigRadius))
                 (Pixels.pixels <| relative <| 1 / 2)
@@ -932,7 +939,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -940,7 +947,7 @@ viewVirtue n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 3
@@ -958,7 +965,7 @@ viewVirtue n =
                                                 Card.color <| Virtue n
 
                                             else
-                                                "black"
+                                                Color.black
                                         ]
                             )
                    )
@@ -969,7 +976,7 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -997,7 +1004,7 @@ viewVirtue n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -1005,7 +1012,7 @@ viewVirtue n =
                 (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 4
@@ -1027,14 +1034,14 @@ viewVirtue n =
             [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill <| "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             ]
                 ++ (List.range 1 5
@@ -1051,7 +1058,7 @@ viewVirtue n =
                                                 Card.color <| Virtue n
 
                                             else
-                                                "black"
+                                                Color.black
                                         ]
                             )
                    )
@@ -1062,14 +1069,14 @@ viewVirtue n =
                 { n = 3, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
                 |> Svg.circle2d
-                    [ Attributes.fill <| "black"
+                    [ Attributes.fill <| Color.black
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2 + bigRadius) (height / 2))
                 (Pixels.pixels <| relative <| 1 / 2)
@@ -1098,7 +1105,7 @@ viewVirtue n =
                 , Point2d.pixels width (height / 2)
                 ]
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     ]
             ]
@@ -1108,7 +1115,7 @@ viewVirtue n =
                 { n = 4, scale = radius, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -1134,31 +1141,31 @@ viewVirtue n =
             []
 
 
-viewSymbol : Card -> List (Svg msg)
-viewSymbol card =
+viewSymbol : Config -> Card -> List (Svg msg)
+viewSymbol ({ width, height, relative, radius, bigRadius } as config) card =
     case card of
         Trump n ->
-            viewTrump n
+            viewTrump config n
 
         Element n ->
-            viewElement n
+            viewElement config n
 
         Planet n ->
-            viewPlanet n
+            viewPlanet config n
 
         Joker ->
             [ RegularPolygon.view
                 { n = 3, scale = radius * 2, standing = True }
                 ( width / 2, height / 2 )
                 |> Svg.polygon2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
             , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
                 (Pixels.pixels <| bigRadius / 2)
                 |> Svg.circle2d
-                    [ Attributes.stroke <| "black"
+                    [ Attributes.stroke <| Color.black
                     , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                     , Attributes.fill "none"
                     ]
@@ -1171,7 +1178,7 @@ viewSymbol card =
                         { n = 3, scale = radius, standing = True }
                         ( width / 2, height / 2 )
                         |> Svg.polygon2d
-                            [ Attributes.stroke <| "black"
+                            [ Attributes.stroke <| Color.black
                             , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                             , Attributes.fill "none"
                             ]
@@ -1179,7 +1186,7 @@ viewSymbol card =
                         { n = 4, scale = radius * 2, standing = True }
                         ( width / 2, height / 2 )
                         |> Svg.polygon2d
-                            [ Attributes.stroke <| "black"
+                            [ Attributes.stroke <| Color.black
                             , Attributes.strokeWidth <| String.fromFloat <| relative <| 1
                             , Attributes.fill "none"
                             ]
@@ -1217,19 +1224,19 @@ viewSymbol card =
                     []
 
         Virtue n ->
-            viewVirtue n
+            viewVirtue config n
 
         Back ->
-            viewBack
+            viewBack config
 
 
-viewSigil : Card -> List (Svg msg)
-viewSigil card =
+viewSigil : Config -> Card -> List (Svg msg)
+viewSigil { width, height, relative, radius, bigRadius } card =
     case card of
         Joker ->
             { value = Card.value card - 1
             , size = 0
-            , color = "black"
+            , color = Color.black
             , radius = relative <| 1 / 2
             , strokeWidth = relative <| 1 / 8
             , point = Point2d.pixels (width / 2) padding
@@ -1244,7 +1251,7 @@ viewSigil card =
         Element _ ->
             { value = Card.value card - 1
             , size = 2
-            , color = "black"
+            , color = Color.black
             , radius = relative <| 1 / 2
             , strokeWidth = relative <| 1 / 8
             , point = Point2d.pixels (width / 2) padding
@@ -1256,7 +1263,7 @@ viewSigil card =
         Planet _ ->
             { value = Card.value card - 1
             , size = 3
-            , color = "black"
+            , color = Color.black
             , radius = relative <| 1 / 2
             , strokeWidth = relative <| 1 / 8
             , point = Point2d.pixels (width / 2) padding
@@ -1282,7 +1289,7 @@ viewSigil card =
                 2 ->
                     { value = n - 1
                     , size = 1
-                    , color = "black"
+                    , color = Color.black
                     , radius = relative <| 1 / 2
                     , strokeWidth = relative <| 1 / 8
                     , point = Point2d.pixels (width / 2) padding
@@ -1297,7 +1304,7 @@ viewSigil card =
         Virtue _ ->
             { value = Card.value card - 1
             , size = 4
-            , color = "black"
+            , color = Color.black
             , radius = relative <| 1 / 2
             , strokeWidth = relative <| 1 / 8
             , point = Point2d.pixels (width / 2) padding
@@ -1323,6 +1330,9 @@ view isGerman card =
 
                 _ ->
                     True
+
+        { width, height, relative, radius } =
+            defaultConfig
     in
     (Rectangle2d.from Point2d.origin (Point2d.pixels width height)
         |> Svg.rectangle2d
@@ -1336,7 +1346,7 @@ view isGerman card =
                     Color.blackBackground
             ]
     )
-        :: viewSigil card
+        :: viewSigil defaultConfig card
         ++ (case card of
                 Planet _ ->
                     []
@@ -1350,7 +1360,7 @@ view isGerman card =
                         |> Svg.polyline2d
                             [ Attributes.stroke <| "none"
                             , Attributes.strokeWidth <| String.fromFloat <| relative <| 0.1
-                            , Attributes.fill "black"
+                            , Attributes.fill Color.black
                             ]
                     , Polyline2d.fromVertices
                         [ Point2d.pixels (width - padding - radius) 0
@@ -1360,7 +1370,7 @@ view isGerman card =
                         |> Svg.polyline2d
                             [ Attributes.stroke <| "none"
                             , Attributes.strokeWidth <| String.fromFloat <| relative <| 0.1
-                            , Attributes.fill "black"
+                            , Attributes.fill Color.black
                             ]
                     , Polyline2d.fromVertices
                         [ Point2d.pixels width (height - padding - radius)
@@ -1370,7 +1380,7 @@ view isGerman card =
                         |> Svg.polyline2d
                             [ Attributes.stroke <| "none"
                             , Attributes.strokeWidth <| String.fromFloat <| relative <| 0.1
-                            , Attributes.fill "black"
+                            , Attributes.fill Color.black
                             ]
                     , Polyline2d.fromVertices
                         [ Point2d.pixels (padding + radius) height
@@ -1380,7 +1390,7 @@ view isGerman card =
                         |> Svg.polyline2d
                             [ Attributes.stroke <| "none"
                             , Attributes.strokeWidth <| String.fromFloat <| relative <| 0.1
-                            , Attributes.fill "black"
+                            , Attributes.fill Color.black
                             ]
                     ]
 
@@ -1472,7 +1482,7 @@ view isGerman card =
                             ]
                         |> List.singleton
            )
-        ++ viewSymbol card
+        ++ viewSymbol defaultConfig card
         ++ ((card
                 |> Card.description isGerman
                 |> Svg.text
@@ -1484,7 +1494,7 @@ view isGerman card =
                     , Attributes.style <| "font: " ++ (String.fromFloat <| relative <| 3) ++ "px sans-serif"
                     , Attributes.fill <|
                         if isWhite then
-                            "black"
+                            Color.black
 
                         else
                             "white"
@@ -1502,7 +1512,7 @@ view isGerman card =
                             , Attributes.writingMode <| "tb"
                             , Attributes.fill <|
                                 if isWhite then
-                                    "black"
+                                    Color.black
 
                                 else
                                     "white"

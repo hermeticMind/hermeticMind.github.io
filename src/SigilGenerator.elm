@@ -9,6 +9,7 @@ import Element.Font as Font
 import Html exposing (Html)
 import List.Extra as List
 import View.BraidSigil as BraidSigil
+import View.Color as Color
 import View.MagicSquareSigil as MagicSquareSigil
 import Widget
 import Widget.Customize as Customize
@@ -29,7 +30,7 @@ type SigilSort
 
 sigilSort : SigilSort
 sigilSort =
-    BraidSigil
+    MagicSquareSigil
 
 
 zoom : number
@@ -78,23 +79,24 @@ debugMode =
 
 withRunes : Bool
 withRunes =
-    False
+    True
 
 
 withText : Bool
 withText =
-    True
+    False
 
 
 withBorder : Bool
 withBorder =
-    False
+    True
 
 
 paths =
     --[ "Glueck", "Liebe", "Geld", "Erfolg" ]
     --[ "Fortune", "Love", "Money", "Success", "Health", "Protection", "Energy", "Divination" ]
-    [ "Gegenwart", "Ziel", "Kraft", "Bedeutung", "Dankbarkeit", "Werte", "Gedanken", "Zukunft" ]
+    --[ "Gegenwart", "Ziel", "Kraft", "Bedeutung", "Dankbarkeit", "Werte", "Gedanken", "Zukunft" ]
+    [ "abcdefghijklmnopqrstuvwxyz" ]
 
 
 
@@ -215,15 +217,17 @@ view model =
                         , withRunes = withRunes
                         , withText = withText
                         , withBorder = withBorder
-                        , fillColor = "white"
-                        , strokeColor = "black"
+                        , fillColor = Color.dark --"white"
+                        , strokeColor = Color.light --Color.primary --"black"
                         }
 
                 MagicSquareSigil ->
                     MagicSquareSigil.view
-                        { size = width * 1.5
-                        , zoom = 1
-                        , strokeWidth = 5
+                        { size = width
+                        , radius = radius
+                        , zoom = zoom
+                        , strokeWidth = 2
+                        , withCircle = withCircle
                         , alphabet =
                             if model.isGerman then
                                 Alphabet.german

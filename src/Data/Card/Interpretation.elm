@@ -93,7 +93,7 @@ fromCard isGerman card =
                                 "todo"
 
                             else
-                                "Follow your hearth, it will lead to towards happiness."
+                                "Follow your heart, it will lead to towards happiness."
                                     ++ "Close your eyes, stop thinking and contemplating."
                                     ++ "Let it happen and let it take you on a ride."
                       }
@@ -101,7 +101,9 @@ fromCard isGerman card =
                     )
 
                 5 ->
-                    ( { symbol = Circle
+                    ( { symbol =
+                            --hierophant
+                            Circle
                       , text =
                             if isGerman then
                                 "todo"
@@ -109,9 +111,9 @@ fromCard isGerman card =
                             else
                                 "Your soul and spirit drive your body. "
                                     ++ "They control it and guide it. "
-                                    ++ "Sometimes the pain you feel is overwhelming\u{00A0} your thoughts and hinders you to make the right decisions. "
+                                    ++ "Sometimes the pain you feel is overwhelming your thoughts and hindering you from making the right decisions. "
                                     ++ "Try to see the situation from outside your body. "
-                                    ++ "Ignore the pain for a moment on concentrate at what your soul wants to achieve."
+                                    ++ "Ignore the pain for a moment to concentrate on what your soul wants to achieve."
                       }
                     , Nothing
                     )
@@ -477,7 +479,7 @@ fromCard isGerman card =
 
                             else
                                 "A change in perspective can help you find solutions to your problems. "
-                                    ++ "Open your mind and you will find things that you did not know existed. "
+                                    ++ "Open your mind, and you will find what you thought not to exist. "
                                     ++ "Do not fear the unknown, embrace it."
                       }
                     , Nothing

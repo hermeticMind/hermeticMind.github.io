@@ -1,9 +1,43 @@
-module View.Color exposing (blackBackground, blue, gray, green, red, yellow)
+module View.Color exposing (black, blackBackground, blue, dark, gray, green, light, primary, red, yellow)
 
 
 blackBackground : String
 blackBackground =
-    "black"
+    black
+
+
+black : String
+black =
+    if brandedOnly then
+        light
+
+    else
+        "black"
+
+
+light : String
+light =
+    "#ffffff"
+
+
+dark : String
+dark =
+    "#3A3451"
+
+
+primary : String
+primary =
+    "#D4E09B"
+
+
+brandedOnly : Bool
+brandedOnly =
+    False
+
+
+branded : String
+branded =
+    primary
 
 
 
@@ -17,7 +51,11 @@ gray =
 
 green : String
 green =
-    "#12BE52"
+    if brandedOnly then
+        branded
+
+    else
+        "#12BE52"
 
 
 
@@ -26,7 +64,11 @@ green =
 
 blue : String
 blue =
-    "#1E88E5"
+    if brandedOnly then
+        branded
+
+    else
+        "#1E88E5"
 
 
 
@@ -35,9 +77,17 @@ blue =
 
 red : String
 red =
-    "#DB4646"
+    if brandedOnly then
+        branded
+
+    else
+        "#DB4646"
 
 
 yellow : String
 yellow =
-    "#D8D815"
+    if brandedOnly then
+        branded
+
+    else
+        "#D8D815"

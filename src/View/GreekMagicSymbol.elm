@@ -2,12 +2,13 @@ module View.GreekMagicSymbol exposing (fromChar)
 
 import Angle
 import Arc2d
-import Direction2d
-import Geometry.Svg as Svg
+import Color exposing (Color)
 import Data.Turtle as Turtle exposing (Turtle)
+import Direction2d exposing (Direction2d)
+import Geometry.Svg as Svg
 import Html exposing (Html)
 import LineSegment2d
-import Point2d
+import Point2d exposing (Point2d)
 import Quantity exposing (Quantity(..))
 import Svg exposing (Svg)
 import Svg.Attributes as Attributes
@@ -40,7 +41,7 @@ overshoot =
     0.05
 
 
-turtle strokeWidth position direction =
+turtle strokeWidth position direction color =
     { position = position
     , direction = direction
     , lineFun =
@@ -61,7 +62,7 @@ turtle strokeWidth position direction =
             in
             [ segment
                 |> Svg.lineSegment2d
-                    [ Attributes.stroke "black"
+                    [ Attributes.stroke color
                     , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
                     ]
             ]
@@ -86,7 +87,7 @@ turtle strokeWidth position direction =
             [ arc
                 |> Svg.arc2d
                     [ Attributes.fill <| "none"
-                    , Attributes.stroke <| "black"
+                    , Attributes.stroke <| color
                     , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
                     ]
             ]
@@ -116,15 +117,16 @@ end strokeWidth =
         >> Tuple.second
 
 
-letterA : Float -> Html msg
-letterA size =
+letterA : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterA size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 5 + strokeWidth / 2, y = strokeWidth + strokeWidth / 2 })
-        Direction2d.negativeX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 5 + strokeWidth / 2, y = strokeWidth + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.negativeX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy (unit * 1))
         |> Turtle.andThen
@@ -147,27 +149,18 @@ letterA size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterB : Float -> Html msg
-letterB size =
+letterB : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterB size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = size - unit - strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = size - unit - strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -198,27 +191,18 @@ letterB size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterC : Float -> Html msg
-letterC size =
+letterC : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterC size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -250,27 +234,18 @@ letterC size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterD : Float -> Html msg
-letterD size =
+letterD : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterD size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 5 + strokeWidth / 2, y = unit + strokeWidth / 2 })
-        Direction2d.negativeX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 5 + strokeWidth / 2, y = unit + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.negativeX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| unit)
         |> Turtle.andThen
@@ -288,27 +263,18 @@ letterD size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterE : Float -> Html msg
-letterE size =
+letterE : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterE size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 3 + strokeWidth / 2, y = unit + strokeWidth / 2 })
-        Direction2d.negativeX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 3 + strokeWidth / 2, y = unit + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.negativeX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -339,27 +305,18 @@ letterE size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterF : Float -> Html msg
-letterF size =
+letterF : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterF size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 3 * unit)
         |> Turtle.andThen
@@ -377,27 +334,18 @@ letterF size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterG : Float -> Html msg
-letterG size =
+letterG : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterG size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 5 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.negativeX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 5 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.negativeX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -428,27 +376,18 @@ letterG size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 5 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterH : Float -> Html msg
-letterH size =
+letterH : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterH size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 6 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 6 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -480,27 +419,18 @@ letterH size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 2 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterI : Float -> Html msg
-letterI size =
+letterI : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterI size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -526,27 +456,18 @@ letterI size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterJ : Float -> Html msg
-letterJ size =
+letterJ : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterJ size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -564,27 +485,18 @@ letterJ size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterK : Float -> Html msg
-letterK size =
+letterK : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterK size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -617,27 +529,18 @@ letterK size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterL : Float -> Html msg
-letterL size =
+letterL : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterL size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -666,27 +569,18 @@ letterL size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterM : Float -> Html msg
-letterM size =
+letterM : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterM size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 7 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 7 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -714,27 +608,18 @@ letterM size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterN : Float -> Html msg
-letterN size =
+letterN : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterN size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 1 + strokeWidth / 2, y = unit * 4 + strokeWidth / 2 })
-        Direction2d.positiveY
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 1 + strokeWidth / 2, y = unit * 4 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveY
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 2 * unit)
         |> Turtle.andThen
@@ -752,27 +637,18 @@ letterN size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 2 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterO : Float -> Html msg
-letterO size =
+letterO : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterO size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 4 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
-        Direction2d.positiveY
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 4 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveY
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 2 * unit)
         |> Turtle.andThen
@@ -802,27 +678,18 @@ letterO size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 3 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterP : Float -> Html msg
-letterP size =
+letterP : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterP size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
-        Direction2d.positiveY
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveY
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 5 * unit)
         |> Turtle.map (Turtle.rotateRightBy (Angle.radians <| pi))
@@ -841,27 +708,18 @@ letterP size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterQ : Float -> Html msg
-letterQ size =
+letterQ : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterQ size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 1 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
-        Direction2d.positiveY
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 1 + strokeWidth / 2, y = unit * 2 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveY
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> Turtle.andThen
@@ -884,27 +742,18 @@ letterQ size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 2 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterR : Float -> Html msg
-letterR size =
+letterR : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterR size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -928,27 +777,18 @@ letterR size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterS : Float -> Html msg
-letterS size =
+letterS : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterS size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 5 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.negativeX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 5 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.negativeX
         |> begin strokeWidth
         |> Turtle.andThen
             (Turtle.arcLeftBy
@@ -972,27 +812,18 @@ letterS size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 5 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterT : Float -> Html msg
-letterT size =
+letterT : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterT size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 3 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 3 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -1017,27 +848,18 @@ letterT size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterU : Float -> Html msg
-letterU size =
+letterU : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterU size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -1055,27 +877,18 @@ letterU size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 4 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterV : Float -> Html msg
-letterV size =
+letterV : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterV size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 4 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 4 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -1099,27 +912,18 @@ letterV size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterW : Float -> Html msg
-letterW size =
+letterW : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterW size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 4 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 4 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -1155,27 +959,18 @@ letterW size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterX : Float -> Html msg
-letterX size =
+letterX : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterX size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -1210,27 +1005,18 @@ letterX size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterY : Float -> Html msg
-letterY size =
+letterY : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterY size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 1 * unit)
         |> Turtle.andThen
@@ -1255,27 +1041,18 @@ letterY size =
                 }
             )
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-letterZ : Float -> Html msg
-letterZ size =
+letterZ : Float -> Turtle (List (Svg msg)) -> List (Svg msg)
+letterZ size t =
     let
         { eps, unit, strokeWidth } =
             config size
     in
-    turtle strokeWidth
-        (Point2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
-        Direction2d.positiveX
+    t
+        |> Turtle.jumpBy (Vector2d.unsafe { x = -size / 2, y = -size / 2 })
+        |> Turtle.jumpBy (Vector2d.unsafe { x = unit * 2 + strokeWidth / 2, y = unit * 1 + strokeWidth / 2 })
+        |> Turtle.rotateTo Direction2d.positiveX
         |> begin strokeWidth
         |> Turtle.andThen (Turtle.forwardBy <| 3 * unit)
         |> Turtle.map (Turtle.rotateRightBy (Angle.radians <| pi))
@@ -1301,98 +1078,99 @@ letterZ size =
             )
         |> Turtle.andThen (Turtle.forwardBy <| 3 * unit)
         |> end strokeWidth
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat size
-                    ++ " "
-                    ++ String.fromFloat size
-            ]
 
 
-fromChar : Float -> Char -> Maybe (Html msg)
-fromChar size char =
+fromChar : { size : Float, position : Point2d Float (), direction : Direction2d (), color : String } -> Char -> Maybe (List (Svg msg))
+fromChar { size, position, direction, color } char =
+    let
+        { eps, unit, strokeWidth } =
+            config size
+
+        t =
+            turtle strokeWidth position direction color
+
+        fun letter =
+            letter size t
+                |> Just
+    in
     case char |> Char.toLower of
         'a' ->
-            Just <| letterA size
+            fun letterA
 
         'b' ->
-            Just <| letterB size
+            fun letterB
 
         'c' ->
-            Just <| letterC size
+            fun letterC
 
         'd' ->
-            Just <| letterD size
+            fun letterD
 
         'e' ->
-            Just <| letterE size
+            fun letterE
 
         'f' ->
-            Just <| letterF size
+            fun letterF
 
         'g' ->
-            Just <| letterG size
+            fun letterG
 
         'h' ->
-            Just <| letterH size
+            fun letterH
 
         'i' ->
-            Just <| letterI size
+            fun letterI
 
         'j' ->
-            Just <| letterJ size
+            fun letterJ
 
         'k' ->
-            Just <| letterK size
+            fun letterK
 
         'l' ->
-            Just <| letterL size
+            fun letterL
 
         'm' ->
-            Just <| letterM size
+            fun letterM
 
         'n' ->
-            Just <| letterN size
+            fun letterN
 
         'o' ->
-            Just <| letterO size
+            fun letterO
 
         'p' ->
-            Just <| letterP size
+            fun letterP
 
         'q' ->
-            Just <| letterQ size
+            fun letterQ
 
         'r' ->
-            Just <| letterR size
+            fun letterR
 
         's' ->
-            Just <| letterS size
+            fun letterS
 
         't' ->
-            Just <| letterT size
+            fun letterT
 
         'u' ->
-            Just <| letterU size
+            fun letterU
 
         'v' ->
-            Just <| letterV size
+            fun letterV
 
         'w' ->
-            Just <| letterW size
+            fun letterW
 
         'x' ->
-            Just <| letterX size
+            fun letterX
 
         'y' ->
-            Just <| letterY size
+            fun letterY
 
         'z' ->
-            Just <| letterZ size
+            fun letterZ
 
         _ ->
             Nothing
