@@ -13,11 +13,11 @@ import Point2d
 import Svg
 import Svg.Attributes as SvgAttributes
 import View.BinarySigil as BinarySigil
-import View.BraidSigil as BraidSigil
 import View.GreekMagicSymbol as GreekMagicSymbol
-import View.MagicSquareSigil as MagicSquareSigil
 import View.Markdown.ElementRenderer as MarkdownRender
 import View.Page as Page
+import View.Sigil.BraidSigil as BraidSigil
+import View.Sigil.MagicSquareSigil as MagicSquareSigil
 
 
 type alias Model =

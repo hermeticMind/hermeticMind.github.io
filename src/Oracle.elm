@@ -21,9 +21,9 @@ import Svg.Attributes as SvgAttributes
 import Time
 import Vector2d
 import View.BinarySigil as BinarySigil
-import View.BraidSigil as BraidSigil
 import View.Card as Card
 import View.Page as Page
+import View.Sigil.BraidSigil as BraidSigil
 
 
 type alias Model =

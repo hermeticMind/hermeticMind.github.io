@@ -8,9 +8,8 @@ import Element.Background as Background
 import Element.Font as Font
 import Html exposing (Html)
 import List.Extra as List
-import View.BraidSigil as BraidSigil
 import View.Color as Color
-import View.MagicSquareSigil as MagicSquareSigil
+import View.Sigil as Sigil exposing (SigilSort(..))
 import Widget
 import Widget.Customize as Customize
 import Widget.Material as Material
@@ -23,14 +22,14 @@ import Widget.Material.Typography as Typography
 --------------------------------------------------------------------------------
 
 
-type SigilSort
-    = BraidSigil
-    | MagicSquareSigil
-
-
 sigilSort : SigilSort
 sigilSort =
     MagicSquareSigil
+
+
+
+--BraidSigil
+--
 
 
 zoom : number
@@ -49,7 +48,7 @@ radius =
 
 size : number
 size =
-    radius * 3
+    radius * 4
 
 
 width : number
@@ -59,7 +58,11 @@ width =
 
 height : Float
 height =
-    size * 1.25
+    size
+
+
+
+--size * 1.25
 
 
 withCircle : Bool
@@ -84,7 +87,7 @@ withRunes =
 
 withText : Bool
 withText =
-    False
+    True
 
 
 withBorder : Bool
@@ -94,12 +97,11 @@ withBorder =
 
 paths =
     --[ "Glueck", "Liebe", "Geld", "Erfolg" ]
-    --[ "Fortune", "Love", "Money", "Success", "Health", "Protection", "Energy", "Divination" ]
-    --[ "Gegenwart", "Ziel", "Kraft", "Bedeutung", "Dankbarkeit", "Werte", "Gedanken", "Zukunft" ]
-    [ "abcdefghijklmnopqrstuvwxyz" ]
+    [ "Fortune", "Love", "Money", "Success", "Health", "Protection", "Energy", "Divination", "Fortune", "Love", "Money", "Success", "Health", "Protection", "Energy", "Divination" ]
 
 
 
+--[ "Gegenwart", "Ziel", "Kraft", "Bedeutung", "Dankbarkeit", "Werte", "Gedanken", "Zukunft" ]
 {--[ "teat"
     , "aaaasssd"
     , "bede"
@@ -199,44 +201,28 @@ view : Model -> Html Msg
 view model =
     let
         viewFun =
-            case sigilSort of
-                BraidSigil ->
-                    BraidSigil.view
-                        { width = width
-                        , height = height
-                        , radius = radius
-                        , zoom = zoom
-                        , asAlphabet =
-                            if model.isGerman then
-                                Alphabet.german
+            Sigil.view
+                { width = width
+                , height = height
+                , radius = radius
+                , zoom = zoom
+                , asAlphabet =
+                    if model.isGerman then
+                        Alphabet.german
 
-                            else
-                                Alphabet.english
-                        , withCircle = withCircle
-                        , debugMode = debugMode
-                        , withRunes = withRunes
-                        , withText = withText
-                        , withBorder = withBorder
-                        , fillColor = Color.dark --"white"
-                        , strokeColor = Color.light --Color.primary --"black"
-                        }
-
-                MagicSquareSigil ->
-                    MagicSquareSigil.view
-                        { size = width
-                        , radius = radius
-                        , zoom = zoom
-                        , strokeWidth = 2
-                        , withCircle = withCircle
-                        , alphabet =
-                            if model.isGerman then
-                                Alphabet.german
-
-                            else
-                                Alphabet.english
-                        , withText = withText
-                        , withBorder = withBorder
-                        }
+                    else
+                        Alphabet.english
+                , withCircle = withCircle
+                , debugMode = debugMode
+                , withRunes = withRunes
+                , withText = withText
+                , withBorder = withBorder
+                , fillColor = "white" --Color.dark --
+                , strokeColor = "black" --Color.primary --Color.light --
+                , sort = sigilSort
+                , lineWidth = 4
+                , strokeWidth = 1
+                }
     in
     if interactive then
         [ "Sigil Generator"

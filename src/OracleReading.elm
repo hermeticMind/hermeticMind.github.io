@@ -81,7 +81,7 @@ view model =
     let
         isGerman : Bool
         isGerman =
-            True
+            False
     in
     case model.cards |> Oracle.reading isGerman model.summary |> Parser.parse of
         Ok list ->

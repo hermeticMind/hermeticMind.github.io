@@ -15,21 +15,42 @@ import Svg
 import Svg.Attributes as SvgAttributes
 import View.AttributeDiagram as AttributeDiagram
 import View.BinarySigil as BinarySigil
-import View.BraidSigil as BraidSigil
 import View.Card as Card
 import View.GreekMagicSymbol as GreekMagicSymbol
-import View.MagicSquareSigil as MagicSquareSigil
+import View.Sigil as Sigil exposing (SigilSort(..))
 
 
 view : Bool -> String -> Maybe String -> List (Html msg) -> Html msg
 view isGerman name maybeValue content =
     case name of
         "greekMagicSymbols" ->
+            let
+                size =
+                    16
+
+                zoom =
+                    1
+            in
             Alphabet.asList
                 |> List.filterMap
-                    (GreekMagicSymbol.fromChar 16
+                    (GreekMagicSymbol.fromChar
+                        { size = size
+                        , position = Point2d.unsafe { x = size / 2, y = size / 2 }
+                        , direction = Direction2d.positiveX
+                        , color = "black"
+                        }
                         >> Maybe.map
-                            (Html.fromUnstyled
+                            (Svg.svg
+                                [ SvgAttributes.width <| (String.fromFloat <| zoom * size) ++ "px"
+                                , SvgAttributes.height <| (String.fromFloat <| zoom * size) ++ "px"
+                                , SvgAttributes.version <| "1.1"
+                                , SvgAttributes.viewBox <|
+                                    "0 0 "
+                                        ++ String.fromFloat size
+                                        ++ " "
+                                        ++ String.fromFloat size
+                                ]
+                                >> Html.fromUnstyled
                                 >> List.singleton
                                 >> Html.span
                                     [ Attributes.css
@@ -93,13 +114,22 @@ view isGerman name maybeValue content =
         "MagicSquareSigil" ->
             maybeValue
                 |> Maybe.withDefault "Hermetic Mind"
-                |> MagicSquareSigil.view
-                    { size = 128
+                |> Sigil.view
+                    { width = 256
+                    , height = 256
+                    , radius = 100
                     , zoom = 1
-                    , strokeWidth = 2
+                    , lineWidth = 4
+                    , strokeWidth = 1
                     , withBorder = False
                     , withText = True
-                    , alphabet = Alphabet.english
+                    , withRunes = False
+                    , withCircle = True
+                    , asAlphabet = Alphabet.english
+                    , sort = MagicSquareSigil
+                    , debugMode = False
+                    , fillColor = "white"
+                    , strokeColor = "black"
                     }
                 |> Html.fromUnstyled
                 |> List.singleton
@@ -114,7 +144,7 @@ view isGerman name maybeValue content =
         "BraidSigil" ->
             maybeValue
                 |> Maybe.withDefault "Hermetic Mind"
-                |> BraidSigil.view
+                |> Sigil.view
                     { width = 256
                     , height = 256
                     , radius = 100
@@ -127,6 +157,9 @@ view isGerman name maybeValue content =
                     , withBorder = False
                     , fillColor = "white"
                     , strokeColor = "black"
+                    , sort = BraidSigil
+                    , lineWidth = 4
+                    , strokeWidth = 1
                     }
                 |> Html.fromUnstyled
                 |> List.singleton
@@ -150,22 +183,22 @@ view isGerman name maybeValue content =
                 |> Result.withDefault Back
                 |> Card.view isGerman
                 |> Svg.svg
-                    [ SvgAttributes.width <| (String.fromInt <| round <| cardZoom * Card.width) ++ "px"
-                    , SvgAttributes.height <| (String.fromInt <| round <| cardZoom * Card.height) ++ "px"
+                    [ SvgAttributes.width <| (String.fromInt <| round <| cardZoom * Card.defaultConfig.width) ++ "px"
+                    , SvgAttributes.height <| (String.fromInt <| round <| cardZoom * Card.defaultConfig.height) ++ "px"
                     , SvgAttributes.version <| "1.1"
                     , SvgAttributes.viewBox <|
                         "0 0 "
-                            ++ String.fromFloat Card.width
+                            ++ String.fromFloat Card.defaultConfig.width
                             ++ " "
-                            ++ String.fromFloat Card.height
+                            ++ String.fromFloat Card.defaultConfig.height
                     ]
                 |> Html.fromUnstyled
                 |> List.singleton
                 |> Html.div
                     [ Attributes.css
                         [ Css.border3 (Css.px 1) Css.solid (Css.rgb 0 0 0)
-                        , Css.width <| Css.px <| (toFloat <| round <| cardZoom * Card.width)
-                        , Css.height <| Css.px <| (toFloat <| round <| cardZoom * Card.height)
+                        , Css.width <| Css.px <| (toFloat <| round <| cardZoom * Card.defaultConfig.width)
+                        , Css.height <| Css.px <| (toFloat <| round <| cardZoom * Card.defaultConfig.height)
                         ]
                     ]
 

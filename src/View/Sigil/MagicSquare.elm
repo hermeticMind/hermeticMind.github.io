@@ -1,4 +1,4 @@
-module View.MagicSquareSigil exposing (view)
+module View.Sigil.MagicSquare exposing (view)
 
 import Angle
 import Arc2d
@@ -29,11 +29,6 @@ type alias N =
 n : Length N
 n =
     Alphabet.twentySix
-
-
-debugMode : Bool
-debugMode =
-    False
 
 
 circlePoints : Int -> Float -> Point2d Float () -> List (Point2d Float ())
@@ -98,9 +93,13 @@ points max radius center =
 
 
 turtle :
-    { strokeWidth : Float, position : Point2d Float (), direction : Direction2d () }
+    { strokeWidth : Float
+    , strokeColor : String
+    , position : Point2d Float ()
+    , direction : Direction2d ()
+    }
     -> Turtle (List (Svg msg))
-turtle { strokeWidth, position, direction } =
+turtle { strokeWidth, strokeColor, position, direction } =
     let
         overshoot =
             0.05
@@ -125,7 +124,7 @@ turtle { strokeWidth, position, direction } =
             in
             [ segment
                 |> Svg.lineSegment2d
-                    [ Attributes.stroke "black"
+                    [ Attributes.stroke strokeColor
                     , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
                     ]
             ]
@@ -150,7 +149,7 @@ turtle { strokeWidth, position, direction } =
             [ arc
                 |> Svg.arc2d
                     [ Attributes.fill <| "none"
-                    , Attributes.stroke <| "black"
+                    , Attributes.stroke <| strokeColor
                     , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
                     ]
             ]
@@ -167,7 +166,8 @@ start radius =
 
 end : Float -> ( Turtle (List (Svg msg)), List (Svg msg) ) -> List (Svg msg)
 end radius =
-    Turtle.map (Turtle.rotateRightBy (Angle.radians <| pi / 2))
+    Turtle.andThen (Turtle.forwardBy (radius * 2))
+        >> Turtle.map (Turtle.rotateRightBy (Angle.radians <| pi / 2))
         >> Turtle.andThen
             (Turtle.arcLeftBy
                 { angle = Angle.radians <| 0
@@ -180,10 +180,11 @@ end radius =
 
 viewWord :
     { strokeWidth : Float
+    , strokeColor : String
     }
     -> List (Point2d Float ())
     -> List (Svg msg)
-viewWord { strokeWidth } path =
+viewWord { strokeWidth, strokeColor } path =
     let
         radius =
             strokeWidth * 2
@@ -193,6 +194,7 @@ viewWord { strokeWidth } path =
             start radius
                 (turtle
                     { strokeWidth = strokeWidth
+                    , strokeColor = strokeColor
                     , position = a
                     , direction = Direction2d.from a b |> Maybe.withDefault Direction2d.positiveX
                     }
@@ -204,7 +206,7 @@ viewWord { strokeWidth } path =
     , path
         |> Polyline2d.fromVertices
         |> Svg.polyline2d
-            [ Attributes.stroke <| "black"
+            [ Attributes.stroke <| strokeColor
             , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
             , Attributes.fill <| "none"
             ]
@@ -213,6 +215,7 @@ viewWord { strokeWidth } path =
         a :: b :: _ ->
             turtle
                 { strokeWidth = strokeWidth
+                , strokeColor = strokeColor
                 , position = a
                 , direction = Direction2d.from b a |> Maybe.withDefault Direction2d.positiveX
                 }
@@ -226,21 +229,26 @@ viewWord { strokeWidth } path =
 
 
 view :
-    { size : Float
+    { width : Float
+    , height : Float
     , radius : Float
-    , zoom : Float
     , strokeWidth : Float
+    , strokeColor : String
     , alphabet : Char -> Index Alphabet.TwentySix
-    , withText : Bool
-    , withBorder : Bool
-    , withCircle : Bool
+    , debugMode : Bool
     }
     -> String
-    -> Html msg
+    -> List (Svg msg)
 view config inputText =
     let
         p =
-            points 6 (config.radius - config.strokeWidth * 2) (Point2d.unsafe { x = config.size / 2, y = config.size / 2 })
+            points 6
+                (config.radius - config.strokeWidth * 6)
+                (Point2d.unsafe
+                    { x = config.width / 2
+                    , y = config.height / 2
+                    }
+                )
     in
     inputText
         |> String.words
@@ -255,107 +263,20 @@ view config inputText =
                     )
                 >> viewWord
                     { strokeWidth = config.strokeWidth
+                    , strokeColor = config.strokeColor
                     }
             )
         |> List.append
-            (if config.withText then
-                [ Svg.text_
-                    [ Attributes.fontFamily "Dancing Script, serif"
-                    , config.size / 2 |> String.fromFloat |> Attributes.x
-                    , config.size
-                        - config.strokeWidth
-                        * 8
-                        |> String.fromFloat
-                        |> Attributes.y
-                    , Attributes.textAnchor "middle"
-                    , Attributes.alignmentBaseline "central"
-                    ]
-                    [ Svg.text inputText ]
-                ]
-
-             else
-                []
-            )
-        |> List.append
-            (if debugMode then
+            (if config.debugMode then
                 p
                     |> StaticArray.toList
                     |> List.map
                         (Circle2d.withRadius (Quantity 1)
                             >> Svg.circle2d
-                                [ Attributes.fill "black"
+                                [ Attributes.fill config.strokeColor
                                 ]
                         )
 
              else
                 []
             )
-        |> (if config.withCircle then
-                List.append
-                    (Circle2d.atPoint (Point2d.unsafe { x = config.size / 2, y = config.size / 2 })
-                        (Quantity <| config.radius)
-                        |> Svg.circle2d
-                            [ Attributes.fill <| "none"
-                            , Attributes.stroke <| "black"
-                            , Attributes.strokeWidth <| String.fromFloat <| config.strokeWidth
-                            ]
-                        |> List.singleton
-                    )
-
-            else
-                identity
-           )
-        |> List.append
-            (if config.withBorder then
-                { position = Point2d.unsafe { x = config.size / 2, y = config.strokeWidth * 3 }
-                , direction = Direction2d.positiveX
-                , lineFun =
-                    \{ from, to } ->
-                        let
-                            segment =
-                                LineSegment2d.from from to
-                        in
-                        [ segment
-                            |> Svg.lineSegment2d
-                                [ Attributes.stroke "black"
-                                , Attributes.strokeWidth <| String.fromFloat <| config.strokeWidth / 2
-                                ]
-                        ]
-                , arcFun =
-                    \{ around, by, from } ->
-                        let
-                            arc =
-                                Arc2d.sweptAround around by from
-                        in
-                        [ arc
-                            |> Svg.arc2d
-                                [ Attributes.fill <| "none"
-                                , Attributes.stroke <| "black"
-                                , Attributes.strokeWidth <| String.fromFloat <| config.strokeWidth / 2
-                                ]
-                        ]
-                }
-                    |> Turtle.forwardBy (config.size / 2 - config.strokeWidth * 3 + config.strokeWidth / 2)
-                    |> Turtle.andThen (Turtle.arcLeftTo { direction = Direction2d.positiveY, radius = config.strokeWidth })
-                    |> Turtle.andThen (Turtle.forwardBy (config.size - config.strokeWidth * 6 + config.strokeWidth))
-                    |> Turtle.andThen (Turtle.arcLeftTo { direction = Direction2d.negativeX, radius = config.strokeWidth })
-                    |> Turtle.andThen (Turtle.forwardBy (config.size - config.strokeWidth * 6 + config.strokeWidth))
-                    |> Turtle.andThen (Turtle.arcLeftTo { direction = Direction2d.negativeY, radius = config.strokeWidth })
-                    |> Turtle.andThen (Turtle.forwardBy (config.size - config.strokeWidth * 6 + config.strokeWidth))
-                    |> Turtle.andThen (Turtle.arcLeftTo { direction = Direction2d.positiveX, radius = config.strokeWidth })
-                    |> Turtle.andThen (Turtle.forwardBy (config.size / 2 - config.strokeWidth * 3 + config.strokeWidth / 2))
-                    |> Tuple.second
-
-             else
-                []
-            )
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| config.zoom * config.size) ++ "px"
-            , Attributes.height <| (String.fromFloat <| config.zoom * config.size) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat config.size
-                    ++ " "
-                    ++ String.fromFloat config.size
-            ]

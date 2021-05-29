@@ -15,9 +15,9 @@ import Point2d
 import String.Extra as String
 import Svg
 import Svg.Attributes as Attributes
-import View.BraidSigil as BraidSigil
 import View.GreekMagicSymbol as GreekMagicSymbols
-import View.MagicSquareSigil as MagicSquareSigil
+import View.Sigil.BraidSigil as BraidSigil
+import View.Sigil.MagicSquareSigil as MagicSquareSigil
 
 
 

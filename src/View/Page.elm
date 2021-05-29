@@ -19,10 +19,10 @@ import Quantity
 import Svg
 import Svg.Attributes as SvgAttributes
 import View.BinarySigil as BinarySigil
-import View.BraidSigil as BraidSigil
 import View.GreekMagicSymbol as GreekMagicSymbol
-import View.MagicSquareSigil as MagicSquareSigil
 import View.Markdown.ElementRenderer as MarkdownRender
+import View.Sigil.BraidSigil as BraidSigil
+import View.Sigil.MagicSquareSigil as MagicSquareSigil
 
 
 view : List (Attribute msg) -> Element msg -> Document msg

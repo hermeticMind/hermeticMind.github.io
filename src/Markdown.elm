@@ -16,11 +16,10 @@ import Quantity
 import Svg
 import Svg.Attributes as SvgAttributes
 import View.BinarySigil as BinarySigil
-import View.BraidSigil as BraidSigil
 import View.GreekMagicSymbol as GreekMagicSymbol
 import View.Interactive as Interactive
-import View.MagicSquareSigil as MagicSquareSigil
 import View.Markdown.HtmlRenderer as MarkdownRender
+import View.Sigil as Sigil
 
 
 type alias Model =

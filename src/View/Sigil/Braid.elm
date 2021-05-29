@@ -1,4 +1,4 @@
-module View.BraidSigil exposing (drawPoints, init, initCircle, line, pointSize, points, strokeWidth, view)
+module View.Sigil.Braid exposing (drawPoints, init, initCircle, line, pointSize, points, strokeWidth, view)
 
 import Angle
 import Arc2d
@@ -570,19 +570,14 @@ view :
     { width : Float
     , height : Float
     , radius : Float
-    , zoom : Float
     , asAlphabet : Char -> Index TwentySix
     , fillColor : String
     , strokeColor : String
-    , withCircle : Bool
     , debugMode : Bool
-    , withRunes : Bool
-    , withText : Bool
-    , withBorder : Bool
     }
     -> String
-    -> Html msg
-view { width, height, radius, fillColor, strokeColor, withText, asAlphabet, withCircle, debugMode, withBorder, zoom, withRunes } string =
+    -> List (Svg msg)
+view { width, height, radius, fillColor, strokeColor, asAlphabet, debugMode } string =
     let
         options =
             { width = width
@@ -619,68 +614,6 @@ view { width, height, radius, fillColor, strokeColor, withText, asAlphabet, with
                 >> Turtle.andThen (Turtle.arcLeftBy { angle = Angle.radians <| pi * 3 / 2, radius = pointSize })
                 >> Turtle.andThen (Turtle.forwardBy (pointSize * 4))
                 >> Turtle.andThen (Turtle.arcRightBy { angle = Angle.radians <| pi, radius = pointSize })
-
-        border =
-            if withRunes then
-                [ Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
-                    (Pixels.pixels <| outerRadius)
-                    |> Svg.circle2d
-                        [ Attributes.fill <| "none"
-                        , Attributes.stroke <| strokeColor
-                        , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
-                        ]
-                , Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
-                    (Pixels.pixels <|
-                        outerRadius
-                            + runeSize
-                            + (toFloat 2 * lineWidth)
-                    )
-                    |> Svg.circle2d
-                        [ Attributes.fill <| "none"
-                        , Attributes.stroke <| strokeColor
-                        , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
-                        ]
-                ]
-
-            else
-                { position = Point2d.unsafe { x = width / 2, y = lineWidth * 2 }
-                , direction = Direction2d.positiveX
-                , lineFun =
-                    \{ from, to } ->
-                        let
-                            segment =
-                                LineSegment2d.from from to
-                        in
-                        [ segment
-                            |> Svg.lineSegment2d
-                                [ Attributes.stroke "black"
-                                , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
-                                ]
-                        ]
-                , arcFun =
-                    \{ around, by, from } ->
-                        let
-                            arc =
-                                Arc2d.sweptAround around by from
-                        in
-                        [ arc
-                            |> Svg.arc2d
-                                [ Attributes.fill <| "none"
-                                , Attributes.stroke <| "black"
-                                , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
-                                ]
-                        ]
-                }
-                    |> Turtle.forwardBy (width / 2 - lineWidth * 2 + pointSize / 2)
-                    |> fnBorder
-                    |> Turtle.andThen (Turtle.forwardBy (height - lineWidth * 4 + pointSize))
-                    |> fnBorder
-                    |> Turtle.andThen (Turtle.forwardBy (width - lineWidth * 4 + pointSize))
-                    |> fnBorder
-                    |> Turtle.andThen (Turtle.forwardBy (height - lineWidth * 4 + pointSize))
-                    |> fnBorder
-                    |> Turtle.andThen (Turtle.forwardBy (width / 2 - lineWidth * 2 + pointSize / 2))
-                    |> Tuple.second
     in
     [ case ( list, uniqueList ) of
         ( head :: second :: thrid :: tail, _ :: distinctSecond :: distinctThird :: _ ) ->
@@ -761,21 +694,6 @@ view { width, height, radius, fillColor, strokeColor, withText, asAlphabet, with
                                 }
                                 head
                    )
-                |> (if withCircle then
-                        List.append
-                            (Circle2d.atPoint (Point2d.pixels (width / 2) (height / 2))
-                                (Pixels.pixels <| radius)
-                                |> Svg.circle2d
-                                    [ Attributes.fill <| "none"
-                                    , Attributes.stroke <| strokeColor
-                                    , Attributes.strokeWidth <| String.fromFloat <| strokeWidth
-                                    ]
-                                |> List.singleton
-                            )
-
-                    else
-                        identity
-                   )
 
         _ ->
             []
@@ -788,94 +706,3 @@ view { width, height, radius, fillColor, strokeColor, withText, asAlphabet, with
              else
                 []
             )
-        |> List.append
-            (if withRunes then
-                (string |> String.toList |> List.unique)
-                    |> List.map
-                        (\char ->
-                            let
-                                symbolLength =
-                                    5
-
-                                r =
-                                    asAlphabet <| char
-
-                                distance =
-                                    outerRadius
-                                        + (runeSize / 2)
-                                        + (toFloat 1 * lineWidth)
-
-                                point =
-                                    Point2d.pixels (width / 2) (height / 2)
-                                        |> Point2d.translateBy (Vector2d.pixels distance 0)
-                                        |> Point2d.rotateAround (Point2d.pixels (width / 2) (height / 2))
-                                            (Angle.radians <| (2 * pi / toFloat (Length.toInt n)) * (0.5 + toFloat (-7 + Index.toInt r)))
-
-                                direction =
-                                    (Angle.radians <| (2 * pi / toFloat (Length.toInt n)) * (0.5 + toFloat (Index.toInt r)))
-                                        |> Direction2d.fromAngle
-                                        |> Direction2d.rotateClockwise
-                            in
-                            GreekMagicSymbol.fromChar
-                                { size = runeSize
-                                , position = point |> Point2d.unwrap |> Point2d.unsafe
-                                , direction = direction
-                                , color = strokeColor
-                                }
-                                char
-                                |> Maybe.withDefault []
-                         {--{ value = Index.toInt <| r
-                                , size = symbolLength
-                                , color = "black"
-                                , radius = 2
-                                , strokeWidth = 1 / 2
-                                , point = point
-                                    
-                                , direction = direction
-                                }
-                                |> BinarySigil.view--}
-                        )
-                    |> List.concat
-
-             else
-                []
-            )
-        |> List.append
-            (if withText then
-                [ Svg.text_
-                    [ Attributes.fontFamily "Kaushan Script, serif"
-                    , width / 2 |> String.fromFloat |> Attributes.x
-                    , (if withRunes then
-                        height - lineWidth * 3
-
-                       else
-                        height - lineWidth * 8
-                      )
-                        |> String.fromFloat
-                        |> Attributes.y
-                    , Attributes.textAnchor "middle"
-                    , Attributes.alignmentBaseline "central"
-                    ]
-                    [ Svg.text string ]
-                ]
-
-             else
-                []
-            )
-        |> List.append
-            (if withBorder then
-                border
-
-             else
-                []
-            )
-        |> Svg.svg
-            [ Attributes.width <| (String.fromFloat <| zoom * width) ++ "px"
-            , Attributes.height <| (String.fromFloat <| zoom * height) ++ "px"
-            , Attributes.version <| "1.1"
-            , Attributes.viewBox <|
-                "0 0 "
-                    ++ String.fromFloat width
-                    ++ " "
-                    ++ String.fromFloat height
-            ]
