@@ -1,4 +1,4 @@
-module Data.Card exposing (Card(..), asList, back, color, decode, description, encode, parser, title, value)
+module Data.Card exposing (Card(..), asList, back, color, decode, description, encode, fromSigil, parser, title, value)
 
 import Parser exposing ((|.), (|=), Parser)
 import View.Color as Color
@@ -12,6 +12,35 @@ type Card
     | Virtue Int
     | Joker
     | Back
+
+
+fromSigil :
+    { value : Int
+    , size : Int
+    }
+    -> Card
+fromSigil config =
+    config.value
+        + 1
+        |> (case config.size of
+                0 ->
+                    always Joker
+
+                1 ->
+                    Binary
+
+                2 ->
+                    Element
+
+                3 ->
+                    Planet
+
+                4 ->
+                    Virtue
+
+                _ ->
+                    always Back
+           )
 
 
 encode : Card -> String
@@ -152,7 +181,7 @@ title isGerman card =
                     ( "Nacht", "Night" )
 
                 2 ->
-                    ( "Day", "Tag" )
+                    ( "Tag", "Day" )
 
                 _ ->
                     default
